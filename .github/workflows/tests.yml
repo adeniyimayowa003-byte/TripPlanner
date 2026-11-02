@@ -44,7 +44,6 @@ jobs:
       PYTHONUTF8: "1"
       TRIPPLANNER_TEST_POSTGRES_DSN: postgresql://tripplanner_test:isolated-ci-password@127.0.0.1:5432/tripplanner_test_admin
       TRIPPLANNER_TEST_PG_BIN: ${{ github.workspace }}/.tmp/ci-pg-bin
-      POSTGRES_CONTAINER_ID: ${{ job.services.postgres.id }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -54,4 +53,8 @@ jobs:
           python-version: "3.14"
       - run: python -m pip install -r requirements-dev.txt
       - run: python tests/ci_postgres_tools.py .tmp/ci-pg-bin
+        env:
+          POSTGRES_CONTAINER_ID: ${{ job.services.postgres.id }}
       - run: python -m pytest tests/test_hosted_postgres.py -q
+        env:
+          POSTGRES_CONTAINER_ID: ${{ job.services.postgres.id }}
