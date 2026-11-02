@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "destinations": [
+    {
+      "id": "paris-fr",
+      "name": "Paris, France",
+      "country": "France",
+      "currency": "EUR"
+    },
+    {
+      "id": "lagos-ng",
+      "name": "Lagos, Nigeria",
+      "country": "Nigeria",
+      "currency": "NGN"
+    },
+    {
+      "id": "london-gb",
+      "name": "London, United Kingdom",
+      "country": "United Kingdom",
+      "currency": "GBP"
+    },
+    {
+      "id": "new-york-us",
+      "name": "New York City, United States",
+      "country": "United States",
+      "currency": "USD"
+    },
+    {
+      "id": "tokyo-jp",
+      "name": "Tokyo, Japan",
+      "country": "Japan",
+      "currency": "JPY"
+    },
+    {
+      "id": "cape-town-za",
+      "name": "Cape Town, South Africa",
+      "country": "South Africa",
+      "currency": "ZAR"
+    }
+  ]
+}

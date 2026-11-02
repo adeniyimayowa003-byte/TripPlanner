@@ -1,0 +1,24 @@
+# INERT Free-demo example. No disk or paid service is provisioned by this file.
+# Keep both the Render workspace and Neon project on Free, without payment.
+services:
+  - type: web
+    name: tripplanner-demo
+    runtime: python
+    region: frankfurt
+    plan: free
+    numInstances: 1
+    autoDeployTrigger: "off"
+    buildCommand: pip install -r requirements-hosted.lock.txt
+    startCommand: python serve_hosted.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.7
+      - key: TRIPPLANNER_STORAGE_BACKEND
+        value: postgres
+      - key: TRIPPLANNER_DATABASE_URL
+        sync: false
+      - key: TRIPPLANNER_SECRET_KEY
+        sync: false
+      - key: TRIPPLANNER_PUBLIC_HOST
+        sync: false

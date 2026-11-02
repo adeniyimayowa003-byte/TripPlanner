@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}Your suggested daily itinerary — TripPlanner{% endblock %}
+{% block content %}
+{% set currency = preferences.get('currency', 'EUR') %}
+<div class="workspace-main results-main itinerary-main">
+  <div class="page-width">
+    <a class="back-link" href="{{ url_for('recommendations') }}">
+      <span aria-hidden="true">←</span> Back to trip ideas
+    </a>
+
+    <div class="results-heading">
+      <div class="page-heading">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Your suggested daily itinerary</p>
+        <h1>Your days,<br><em>taking shape.</em></h1>
+        <p>A little structure for your kind of exploring. These are suggestions, not a confirmed schedule.</p>
+      </div>
+      <div class="itinerary-count">
+        <span aria-hidden="true">✳</span>
+        <strong>{{ itinerary.filled_slots }} of {{ itinerary.total_slots }}</strong>
+        <span>slots with suggestions</span>
+        {% if itinerary.filled_slots < itinerary.total_slots %}
+          <small>A partial itinerary, with room left open.</small>
+        {% else %}
+          <small>Opening hours and journeys still need checking.</small>
+        {% endif %}
+      </div>
+    </div>
+
+    <section class="trip-summary" aria-label="Your trip preferences">
+      <dl class="summary-stats">
+        <div>
+          <dt>Destination</dt>
+          <dd>{{ preferences.destination }}</dd>
+        </div>
+        <div>
+          <dt>Time to explore</dt>
+          <dd>{{ preferences.days }} {{ 'day' if preferences.days == 1 else 'days' }}</dd>
+        </div>
+        <div>
+          <dt>Total allowance</dt>
+          <dd>{{ currency }} {{ preferences.budget|money(currency) }} <small>per person</small></dd>
+        </div>
+        <div>
+          <dt>Approximately per day</dt>
+          <dd>{{ currency }} {{ daily_budget|money(currency) }} <small>per person</small></dd>
+        </div>
+      </dl>
+      <div class="summary-bottom">
+        <div class="summary-tags">
+          <span class="summary-label">Your interests</span>
+          {% for interest in preferences.interests %}
+            <span class="tag">{{ interest|label }}</span>
+          {% endfor %}
+          <span class="tag tag-outline">{{ preferences.pace|label ~ ' pace' if preferences.pace else 'Pace: no preference' }}</span>
+          <span class="tag tag-outline">{{ 'Family-friendly preference' if preferences.family_friendly else 'Family-friendly: no preference' }}</span>
+        </div>
+        <a class="text-link" href="{{ url_for('plan') }}">Edit preferences <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="save-itinerary" aria-labelledby="save-itinerary-title">
+      <div class="save-introduction">
+        <p class="eyebrow">Keep this version</p>
+        <h2 id="save-itinerary-title">A plan worth keeping.</h2>
+        <p>Save the ideas, daily suggestions, and estimates you have reviewed. Your saved snapshot stays unchanged when you edit your draft.</p>
+        <a class="text-link" href="{{ url_for('saved_trips') }}">Browse saved trips <span aria-hidden="true">↗</span></a>
+      </div>
+      <form class="save-form" action="{{ url_for('save_itinerary') }}" method="post" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="snapshot_fingerprint" value="{{ snapshot_fingerprint }}">
+        {% if save_error %}
+          <div class="save-error" role="alert">
+            <p>{{ save_error }}</p>
+            <a class="text-link" href="{{ url_for('itinerary') }}">Review your itinerary <span aria-hidden="true">→</span></a>
+            <a class="text-link" href="{{ url_for('plan') }}">Back to preferences <span aria-hidden="true">↗</span></a>
+          </div>
+        {% endif %}
+        <div class="form-field">
+          <label for="trip-name">Trip name <span class="optional-label">Optional</span></label>
+          <input id="trip-name" name="trip_name" type="text" value="{{ trip_name|default('') }}" placeholder="e.g. Paris weekend" aria-describedby="trip-name-help{% if errors and errors.trip_name %} trip-name-error{% endif %}"{% if errors and errors.trip_name %} aria-invalid="true"{% endif %}>
+          <p class="field-help" id="trip-name-help">Up to 80 characters. Leave blank for a destination-and-days name.</p>
+          {% if errors and errors.trip_name %}<p class="field-error" id="trip-name-error">{{ errors.trip_name }}</p>{% endif %}
+        </div>
+        {% if hosted_mode %}
+        <p class="shared-local-note"><span aria-hidden="true">ⓘ</span><span>Saved online for this browser using a protected cookie. Clearing cookies, changing devices, or 365 days without a visit loses access. There is no account recovery. Avoid sensitive information in the name.</span></p>
+        {% else %}
+        <p class="shared-local-note"><span aria-hidden="true">ⓘ</span><span>A shared local collection, not a private account. Other browsers using this app can see saved trips. Avoid personal information in the name.</span></p>
+        {% endif %}
+        <button class="button button-primary" type="submit">Save this itinerary <span aria-hidden="true">↓</span></button>
+      </form>
+    </section>
+
+    <div class="itinerary-caution">
+      <span aria-hidden="true">ⓘ</span>
+      <p><strong>A starting point, not an appointment book.</strong> Time slots and costs are illustrative. Check opening hours, suitability, and travel time before using this plan; none has been verified by the scheduler.</p>
+    </div>
+
+    {% if itinerary.notices %}
+      <section class="itinerary-notices" aria-labelledby="itinerary-notices-title">
+        <h2 id="itinerary-notices-title">A few things to keep in mind.</h2>
+        <ul>
+          {% for notice in itinerary.notices %}
+            <li>{{ notice }}</li>
+          {% endfor %}
+        </ul>
+        {% if itinerary.filled_slots == 0 %}
+          <a class="text-link" href="{{ url_for('plan') }}">Edit interests or allowance <span aria-hidden="true">→</span></a>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    <div class="itinerary-layout">
+      {% include "_itinerary_days.html" %}
+
+      <aside class="itinerary-aside" aria-label="Scheduled estimates and draft controls">
+        <section class="itinerary-cost-card" aria-labelledby="itinerary-cost-title">
+          <p class="eyebrow">Activities &amp; food · {{ currency }} per person</p>
+          <h2 id="itinerary-cost-title">Your scheduled <br>trip estimate.</h2>
+          <p class="itinerary-trip-total">{{ currency }} {{ itinerary.estimated_cost|money(currency) }}</p>
+          <p class="itinerary-total-caption">Illustrative estimate, not live prices.</p>
+          <dl class="itinerary-cost-breakdown">
+            <div><dt>Total allowance</dt><dd>{{ currency }} {{ preferences.budget|money(currency) }}</dd></div>
+            <div><dt>Allowance not allocated</dt><dd>{{ currency }} {{ itinerary.unallocated_allowance|money(currency) }}</dd></div>
+          </dl>
+          <p>Not allocated does not mean savings. Unscheduled meals and extras are not costed. Flights, accommodation, and transport are excluded.</p>
+          <p>Every day has the same exact share of your allowance. Unspent amounts do not move to other days. The daily figure above is only a rounded preview.</p>
+        </section>
+
+        <div class="itinerary-alternatives">
+          <h3>Keep your options open.</h3>
+          <p>{{ itinerary.unused_items|length }} matching {{ 'alternative remains' if itinerary.unused_items|length == 1 else 'alternatives remain' }} outside these slots. Category rules, space, or daily limits can leave ideas unused.</p>
+          <a class="text-link" href="{{ url_for('recommendations') }}">Back to trip ideas <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <div class="draft-note">
+          <h3>A browser-session draft.</h3>
+          <p>This itinerary is rebuilt from your current preferences when you open it. It is not a permanently saved trip.</p>
+          <form action="{{ url_for('clear_draft') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="clear-button" type="submit">Clear this draft <span aria-hidden="true">↗</span></button>
+          </form>
+        </div>
+      </aside>
+    </div>
+
+    <section class="itinerary-method" aria-labelledby="itinerary-method-title">
+      <div>
+        <p class="eyebrow">Small rules. A clearer plan.</p>
+        <h2 id="itinerary-method-title">How this itinerary was built</h2>
+      </div>
+      <ol>
+        <li><strong>Start with your ranked matches.</strong> The existing interest scores, matching preference tags, and cost tie-breaks decide which eligible ideas come first.</li>
+        <li><strong>Follow your pace and simple categories.</strong> Relaxed means Morning and Evening; other supported paces have Afternoon too. Fill mornings across all days, then afternoons if included, then evenings. Attractions and activities go in daytime; evenings prefer restaurants, then use a fitting attraction or activity as a fallback, not a meal.</li>
+        <li><strong>Keep ideas unique and costs together.</strong> Never repeat a place. Choose the first unused matching idea that fits the day's exact equal share; skip one that is too costly and consider it on later days.</li>
+        <li><strong>Leave honest gaps.</strong> This greedy approach does not optimize a route or budget. Daytime choices can use allowance a restaurant would need. No opening-hours, duration, or travel-time check is performed, and meals are not fully covered, even when every slot has a suggestion.</li>
+      </ol>
+    </section>
+
+    <div class="itinerary-bottom-actions">
+      <a class="button button-primary" href="{{ url_for('plan') }}">Edit preferences <span aria-hidden="true">→</span></a>
+      <a class="text-link" href="{{ url_for('recommendations') }}">Back to trip ideas <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

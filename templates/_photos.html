@@ -1,0 +1,28 @@
+{# Display metadata only; never copied into saved trip content. #}
+{% macro photo_figure(photo, kind='card', eager=false) -%}
+<figure class="travel-figure photo-{{ kind }}{{ ' idea-photo-panel' if kind == 'card' else '' }}">
+  <div class="photo-frame">
+    {% if photo %}
+    <img class="travel-photo" data-travel-image src="{{ url_for('static', filename=photo.filename) }}"
+         width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt }}"
+         loading="{{ 'eager' if eager else 'lazy' }}" decoding="async"{% if eager %} fetchpriority="high"{% endif %}>
+    {% endif %}
+    <span class="photo-fallback">Photo unavailable</span>
+  </div>
+  {% if photo %}
+  <figcaption>
+    <strong>{{ photo.caption }}</strong>
+    {% if photo.representative and kind in ['card', 'thumbnail'] %}<span class="representative-note">Destination view; a photo of this venue is not available.</span>{% endif %}
+    <span class="photo-credit">Photo: {{ photo.creator }} · <a href="{{ url_for('image_credits') }}#{{ photo.id }}">Credits &amp; license</a></span>
+  </figcaption>
+  {% endif %}
+</figure>
+{%- endmacro %}
+
+{% macro place_photo(place_id, destination, kind='card') -%}
+{% set photo = photo_for_place(place_id, destination) %}
+{# Daily slots stay compact and never introduce another landmark's name. #}
+{% if kind != 'thumbnail' or (photo and not photo.representative) %}
+{{ photo_figure(photo, kind) }}
+{% endif %}
+{%- endmacro %}

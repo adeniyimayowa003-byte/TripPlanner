@@ -1,0 +1,11 @@
+{% set location = item.place.get('location') %}
+{% set map_link = maps_url(item.place.name, item.place.destination, location) %}
+<div class="place-location">
+  {% if map_link %}
+    <p>{{ location.address }}</p>
+    <a class="text-link" href="{{ map_link }}" target="_blank" rel="noopener noreferrer">View on Google Maps<span class="visually-hidden"> for {{ item.place.name }} (opens separately)</span> <span aria-hidden="true">↗</span></a>
+    <small>Opens Google Maps separately; internet required. Check the place before traveling.</small>
+  {% else %}
+    <p>Location unavailable for this saved place.</p>
+  {% endif %}
+</div>

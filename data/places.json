@@ -1,0 +1,1120 @@
+{
+  "version": 2,
+  "estimated_cost_note": "Illustrative per-person estimates for a class project; these are not live prices.",
+  "places": [
+    {
+      "id": "paris-eiffel-tower",
+      "name": "Eiffel Tower",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": [
+        "culture",
+        "history",
+        "architecture",
+        "views"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "32.00",
+      "currency": "EUR",
+      "description": "A Paris landmark built for the 1889 exhibition, with elevated views across the city.",
+      "source_url": "https://parisjetaime.com/eng/culture/la-tour-eiffel-p3486",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "5 avenue Anatole France, Champ de Mars, 75007 Paris, France",
+        "source_url": "https://parisjetaime.com/eng/culture/la-tour-eiffel-p3486",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-louvre-museum",
+      "name": "Louvre Museum",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "culture",
+        "history"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "25.00",
+      "currency": "EUR",
+      "description": "Explore art and objects from different periods in the Louvre's museum collections.",
+      "source_url": "https://parisjetaime.com/eng/culture/musee-du-louvre-p3489",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "Carrousel entrance, 99 rue de Rivoli, 75001 Paris, France",
+        "source_url": "https://www.louvre.fr/visiter/plan-acces-transports",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-notre-dame",
+      "name": "Notre-Dame Cathedral",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": [
+        "architecture",
+        "culture",
+        "history"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "currency": "EUR",
+      "description": "Visit the Gothic cathedral on the Ile de la Cite; optional tower and treasury visits have separate conditions.",
+      "source_url": "https://parisjetaime.com/culture/cathedrale-notre-dame-de-paris-et-son-tresor-p3576",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "6 parvis Notre-Dame, Place Jean-Paul II, 75004 Paris, France",
+        "source_url": "https://parisjetaime.com/culture/cathedrale-notre-dame-de-paris-et-son-tresor-p3576",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-luxembourg-gardens",
+      "name": "Luxembourg Gardens",
+      "destination": "Paris, France",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history"
+      ],
+      "preference_tags": [
+        "relaxed",
+        "family-friendly"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "EUR",
+      "description": "Walk through the public gardens, with a pond, garden paths and published children's activities.",
+      "source_url": "https://parisjetaime.com/eng/culture/jardin-du-luxembourg-p1063",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Rue de Medicis and rue de Vaugirard, 75006 Paris, France",
+        "source_url": "https://parisjetaime.com/eng/culture/jardin-du-luxembourg-p1063",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-seine-riverside-walk",
+      "name": "Seine Riverside Walk",
+      "destination": "Paris, France",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history",
+        "architecture"
+      ],
+      "preference_tags": [
+        "relaxed"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "EUR",
+      "description": "Start near Pont Neuf for a self-guided look at the Seine and its historic bridges.",
+      "source_url": "https://parisjetaime.com/eng/transport/pont-neuf-p1877",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Pont Neuf, Quai de la Megisserie, 75001 Paris, France",
+        "source_url": "https://parisjetaime.com/eng/transport/pont-neuf-p1877",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-cafe-de-flore",
+      "name": "Café de Flore",
+      "destination": "Paris, France",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "28.00",
+      "currency": "EUR",
+      "description": "A Saint-Germain cafe with indoor and terrace seating for coffee or a meal.",
+      "source_url": "https://parisjetaime.com/restaurant/cafe-de-flore-p674",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "172 boulevard Saint-Germain, 75006 Paris, France",
+        "source_url": "https://parisjetaime.com/restaurant/cafe-de-flore-p674",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-le-procope",
+      "name": "Le Procope",
+      "destination": "Paris, France",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture",
+        "history"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "50.00",
+      "currency": "EUR",
+      "description": "A historic restaurant in Saint-Germain serving traditional French cuisine.",
+      "source_url": "https://parisjetaime.com/restaurant/le-procope-p3345",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "13 rue de l'Ancienne Comedie, 75006 Paris, France",
+        "source_url": "https://parisjetaime.com/restaurant/le-procope-p3345",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "paris-musee-orsay",
+      "name": "Musée d'Orsay",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "18.00",
+      "currency": "EUR",
+      "description": "Browse an art museum's permanent collections and temporary exhibitions beside the Seine.",
+      "source_url": "https://www.musee-orsay.fr/en/visit",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "Esplanade Valery Giscard d'Estaing, 75007 Paris, France",
+        "source_url": "https://www.musee-orsay.fr/en/visit",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-nike-art-gallery",
+      "name": "Nike Art Gallery",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "5000.00",
+      "description": "A Lagos gallery presenting Nigerian art and craft traditions; confirm current visit and tour arrangements with the foundation.",
+      "source_url": "https://nikeartfoundation.com/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity allowance, not live prices or an admission quote; confirm gallery and tour charges.",
+      "location": {
+        "address": "2 Nike Art Gallery Road, Ikate by Legacy Place, Lekki Epe Expressway, Lagos, Nigeria",
+        "source_url": "https://nikeartfoundation.com/contact-ekaabo/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-lekki-conservation-centre",
+      "name": "Lekki Conservation Centre",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "adventure"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "10000.00",
+      "description": "Explore a conservation site managed by the Nigerian Conservation Foundation, preserving native Lekki biodiversity.",
+      "source_url": "https://ncfnigeria.org/our-centers/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity estimate, not live prices; verify admission and any separately charged activities.",
+      "location": {
+        "address": "KM 19, Lekki-Epe Expressway, Lekki, Lagos, Nigeria",
+        "source_url": "https://ncfnigeria.org/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-john-randle-centre",
+      "name": "John Randle Centre for Yoruba Culture and History",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "attraction",
+      "interest_tags": [
+        "culture",
+        "history",
+        "art"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "5000.00",
+      "description": "A cultural centre in Onikan exploring Yoruba heritage and the community legacy of Dr. John Randle.",
+      "source_url": "https://www.jrandlecentre.com/about-johnrandle/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person admission estimate, not live prices; check the centre's current visiting information.",
+      "location": {
+        "address": "Onikan Round About, Lagos Island, Lagos 102273, Nigeria",
+        "source_url": "https://www.jrandlecentre.com/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-yemisi-shyllon-museum",
+      "name": "Yemisi Shyllon Museum of Art",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "description": "View modern and contemporary African art at Pan-Atlantic University. The museum advertises free general admission; check tour booking requirements.",
+      "source_url": "https://ysma.pau.edu.ng/visit/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for free general admission, not live prices; transport and purchases are excluded.",
+      "location": {
+        "address": "Main Campus KM 52, Lekki Expressway, near Eleko Beach Junction, Ibeju-Lekki, Lagos, Nigeria",
+        "source_url": "https://ysma.pau.edu.ng/visit/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-freedom-park",
+      "name": "Freedom Park Lagos",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "nature",
+        "art"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "2500.00",
+      "description": "A former colonial prison site reused as a cultural park with heritage displays, gardens and performance spaces. Check event access before visiting.",
+      "source_url": "https://www.freedomparklagos.com/index.php",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person visit estimate, not live prices; events and special programmes may have separate charges.",
+      "location": {
+        "address": "1 Hospital Road, Lagos Island, Lagos, Nigeria",
+        "source_url": "https://www.freedomparklagos.com/index.php",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-muri-okunola-park",
+      "name": "Muri Okunola Park",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history"
+      ],
+      "preference_tags": [
+        "relaxed"
+      ],
+      "estimated_cost": "1000.00",
+      "description": "A green park on Victoria Island with lawns and flowers, named in memory of Justice Muri Okunola.",
+      "source_url": "https://lasparkportal.lagosstate.gov.ng/parks/muri-okunola-park/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person lawn-visit estimate, not live prices; event bookings and photography services cost separately.",
+      "location": {
+        "address": "Adeyemo Alakija Street, Victoria Island, Lagos, Nigeria",
+        "source_url": "https://lasparkportal.lagosstate.gov.ng/parks/muri-okunola-park/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-terra-kulture-restaurant",
+      "name": "Terra Kulture Restaurant",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture",
+        "art"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "25000.00",
+      "description": "Nigerian food in a cultural venue that brings dining together with art and theatre.",
+      "source_url": "https://restaurant.terrakulture.com/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person food allowance, not live prices; menu selections, drinks and theatre tickets vary.",
+      "location": {
+        "address": "Plot 1376, Tiamiyu Savage Street, Victoria Island, Lagos, Nigeria",
+        "source_url": "https://restaurant.terrakulture.com/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "lagos-yellow-chilli",
+      "name": "Yellow Chilli Victoria Island",
+      "destination": "Lagos, Nigeria",
+      "currency": "NGN",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "20000.00",
+      "description": "An African-cuisine restaurant with a Victoria Island branch on Oju-olobun Close.",
+      "source_url": "https://yellowchilling.com/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person food allowance, not live prices; check current menu and branch details.",
+      "location": {
+        "address": "27 Oju-olobun Close, off Bishop Oluwole Street, Victoria Island, Lagos, Nigeria",
+        "source_url": "https://yellowchilling.com/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-british-museum",
+      "name": "British Museum",
+      "destination": "London, United Kingdom",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "art"
+      ],
+      "preference_tags": [
+        "family-friendly"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "GBP",
+      "description": "Explore collections covering human history and cultures; special exhibitions may require separate tickets.",
+      "source_url": "https://www.visitlondon.com/things-to-do/place/285709-british-museum",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Great Russell Street, London WC1B 3DG, United Kingdom",
+        "source_url": "https://www.britishmuseum.org/visit",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-national-gallery",
+      "name": "National Gallery",
+      "destination": "London, United Kingdom",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "culture",
+        "history"
+      ],
+      "preference_tags": [
+        "family-friendly"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "GBP",
+      "description": "View the painting collection at Trafalgar Square; some temporary exhibitions charge separately.",
+      "source_url": "https://www.nationalgallery.org.uk/visiting/plan-your-visit",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Trafalgar Square, London WC2N 5DN, United Kingdom",
+        "source_url": "https://www.nationalgallery.org.uk/visiting/plan-your-visit",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-tower-of-london",
+      "name": "Tower of London",
+      "destination": "London, United Kingdom",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "architecture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "37.00",
+      "currency": "GBP",
+      "description": "Explore a historic royal fortress and the displays associated with the Crown Jewels.",
+      "source_url": "https://www.hrp.org.uk/tower-of-london/visit/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "Tower of London, London EC3N 4AB, United Kingdom",
+        "source_url": "https://www.hrp.org.uk/tower-of-london/visit/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-hyde-park",
+      "name": "Hyde Park",
+      "destination": "London, United Kingdom",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "views",
+        "history"
+      ],
+      "preference_tags": [
+        "relaxed",
+        "active"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "GBP",
+      "description": "Follow paths through a central Royal Park; sporting facilities and optional activities have separate charges.",
+      "source_url": "https://www.royalparks.org.uk/visit/parks/hyde-park/sport-leisure",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Hyde Park, London W2 2UH, United Kingdom",
+        "source_url": "https://www.visitlondon.com/things-to-do/place/610718-hyde-park",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-covent-garden",
+      "name": "Covent Garden",
+      "destination": "London, United Kingdom",
+      "category": "activity",
+      "interest_tags": [
+        "shopping",
+        "culture",
+        "architecture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "currency": "GBP",
+      "description": "Browse the historic market area and public piazza; purchases, performances and attractions may cost extra.",
+      "source_url": "https://www.visitlondon.com/things-to-do/place/4358212-covent-garden",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "The Market Building, Covent Garden, London WC2E 8RF, United Kingdom",
+        "source_url": "https://www.visitlondon.com/things-to-do/place/4358212-covent-garden",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-borough-market",
+      "name": "Borough Market",
+      "destination": "London, United Kingdom",
+      "category": "activity",
+      "interest_tags": [
+        "food",
+        "shopping",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "currency": "GBP",
+      "description": "Browse food traders and produce stalls around Borough Market; any food purchases are additional.",
+      "source_url": "https://boroughmarket.org.uk/visit-us/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "8 Southwark Street, London SE1 1TL, United Kingdom",
+        "source_url": "https://boroughmarket.org.uk/visit-us/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-dishoom-covent-garden",
+      "name": "Dishoom Covent Garden",
+      "destination": "London, United Kingdom",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "30.00",
+      "currency": "GBP",
+      "description": "An all-day restaurant serving Bombay-inspired comfort food in Covent Garden.",
+      "source_url": "https://www.dishoom.com/covent-garden/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "12 Upper St Martin's Lane, London WC2H 9FB, United Kingdom",
+        "source_url": "https://www.dishoom.com/covent-garden/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "london-padella-borough",
+      "name": "Padella Borough Market",
+      "destination": "London, United Kingdom",
+      "category": "restaurant",
+      "interest_tags": [
+        "food"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "25.00",
+      "currency": "GBP",
+      "description": "A pasta restaurant by Borough Market where pasta is made on site.",
+      "source_url": "https://www.padella.co/borough-market/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "6 Southwark Street, London SE1 1TQ, United Kingdom",
+        "source_url": "https://www.padella.co/borough-market/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-central-park",
+      "name": "Central Park Walk",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history",
+        "views"
+      ],
+      "preference_tags": [
+        "relaxed"
+      ],
+      "estimated_cost": "0.00",
+      "description": "Enter Central Park at Merchants' Gate Plaza for a self-guided walk. Paid tours, food and facilities are separate.",
+      "source_url": "https://www.centralparknyc.org/activities",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for a free self-guided walk, not live prices; check closures and exclude paid extras.",
+      "location": {
+        "address": "Merchants' Gate Plaza, Central Park West and West 59th Street, New York, NY, United States",
+        "source_url": "https://www.centralparknyc.org/locations/merchants-gate-plaza",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-brooklyn-bridge",
+      "name": "Brooklyn Bridge Walk",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "activity",
+      "interest_tags": [
+        "architecture",
+        "history",
+        "views"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "description": "Walk on the bridge's pedestrian promenade between Lower Manhattan and Brooklyn. Follow current access signs and construction notices.",
+      "source_url": "https://www.nyc.gov/html/dot/html/infrastructure/brooklyn-bridge.shtml",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public pedestrian walk, not live prices; food, transport and optional tours are excluded.",
+      "location": {
+        "address": "Manhattan pedestrian entrance, Park Row and Centre Street, New York, NY, United States",
+        "source_url": "https://www.nyc.gov/html/dot/html/pedestrians/pedestrian-projects.shtml",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-met-fifth-avenue",
+      "name": "The Met Fifth Avenue",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "history",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "30.00",
+      "description": "Explore art from different places and periods at the Metropolitan Museum of Art's Fifth Avenue location.",
+      "source_url": "https://www.metmuseum.org/plan-your-visit",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person general-admission allowance, not live prices; residency, age and other eligibility rules vary.",
+      "location": {
+        "address": "1000 Fifth Avenue, New York, NY 10028, United States",
+        "source_url": "https://www.metmuseum.org/plan-your-visit",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-statue-of-liberty",
+      "name": "Statue of Liberty and Museum",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "views"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "description": "See the monument and museum on Liberty Island. Island access requires a paid ferry, which is outside this activities-and-food estimate.",
+      "source_url": "https://home.nps.gov/stli/planyourvisit/basicinfo.htm",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for fee-free park/museum entry, not live prices; required ferry transport and reserved options are excluded.",
+      "location": {
+        "address": "Liberty Island, New York, NY 10004, United States",
+        "source_url": "https://home.nps.gov/stli/planyourvisit/basicinfo.htm",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-bryant-park",
+      "name": "Bryant Park",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "culture",
+        "architecture"
+      ],
+      "preference_tags": [
+        "relaxed",
+        "family-friendly"
+      ],
+      "estimated_cost": "0.00",
+      "description": "Enjoy gardens, seating and public activities in the Midtown park behind the New York Public Library. Some activities and purchases cost extra.",
+      "source_url": "https://bryantpark.org/the-park",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for free park access, not live prices; rentals, paid activities and purchases are excluded.",
+      "location": {
+        "address": "Between West 40th and West 42nd Streets, Fifth and Sixth Avenues, New York, NY, United States",
+        "source_url": "https://bryantpark.org/the-park/hours-and-directions",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-centre-360",
+      "name": "Centre 360",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "attraction",
+      "interest_tags": [
+        "views",
+        "architecture",
+        "history"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0.00",
+      "description": "A city-operated viewing experience in the David N. Dinkins Municipal Building cupola. Advance reservation is required and availability is not guaranteed.",
+      "source_url": "https://www.nyc.gov/site/dcas/about/centre-360.page",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the advertised free reservation, not live prices; confirm current booking availability.",
+      "location": {
+        "address": "1 Centre Street, New York, NY 10007, United States",
+        "source_url": "https://www.nyc.gov/site/dcas/about/centre-360.page",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-katzs-delicatessen",
+      "name": "Katz's Delicatessen",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "history",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "35.00",
+      "description": "A long-established Lower East Side deli on the corner of Houston and Ludlow Streets, known for its deli sandwiches.",
+      "source_url": "https://katzsdelicatessen.com/address",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person meal allowance, not live prices; portions, drinks, tax and gratuity may differ.",
+      "location": {
+        "address": "205 East Houston Street, New York, NY 10002, United States",
+        "source_url": "https://katzsdelicatessen.com/address",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "new-york-los-tacos-chelsea",
+      "name": "Los Tacos No. 1 Chelsea Market",
+      "destination": "New York City, United States",
+      "currency": "USD",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "20.00",
+      "description": "A taqueria inside Chelsea Market, with a menu centered on tacos and related Mexican dishes.",
+      "source_url": "https://www.lostacos1.com/location/los-tacos-chelsea-market/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person meal allowance, not live prices; menu selections, drinks and applicable charges vary.",
+      "location": {
+        "address": "75 9th Avenue, New York, NY 10011, United States",
+        "source_url": "https://www.lostacos1.com/location/los-tacos-chelsea-market/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-sensoji",
+      "name": "Sensoji Temple",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "architecture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0",
+      "description": "Visit the Buddhist temple in Asakusa and its historic precinct. General temple access is free; nearby shopping and special events are separate.",
+      "source_url": "https://www.gotokyo.org/en/spot/15/index.html",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for free general access, not live prices; purchases and special events are excluded.",
+      "location": {
+        "address": "2-3-1 Asakusa, Taito City, Tokyo, Japan",
+        "source_url": "https://www.gotokyo.org/en/spot/15/index.html",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-ueno-park",
+      "name": "Ueno Park",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history",
+        "culture"
+      ],
+      "preference_tags": [
+        "relaxed"
+      ],
+      "estimated_cost": "0",
+      "description": "Walk through a historic public park with trees and ponds near Ueno's cultural institutions. Museums and other facilities may charge separately.",
+      "source_url": "https://www.gotokyo.org/en/spot/482/index.html",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for free park access, not live prices; paid facilities and purchases are excluded.",
+      "location": {
+        "address": "5-20 Ueno-koen, Taito City, Tokyo, Japan",
+        "source_url": "https://www.gotokyo.org/en/spot/482/index.html",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-national-museum",
+      "name": "Tokyo National Museum",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "attraction",
+      "interest_tags": [
+        "art",
+        "history",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "1000",
+      "description": "Explore Japanese art and historical collections in the museum buildings at Ueno Park.",
+      "source_url": "https://www.gotokyo.org/en/spot/123/index.html",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person museum allowance, not live prices; special exhibitions may require different tickets.",
+      "location": {
+        "address": "13-9 Ueno Park, Taito City, Tokyo, Japan",
+        "source_url": "https://www.gotokyo.org/en/spot/123/index.html",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-meiji-jingu",
+      "name": "Meiji Jingu",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "nature"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "0",
+      "description": "A Shinto shrine surrounded by woodland in Shibuya. General shrine access is free; the museum and some facilities charge separately.",
+      "source_url": "https://www.meijijingu.or.jp/en/qa/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for free shrine access, not live prices; paid gardens, museum visits and purchases are excluded.",
+      "location": {
+        "address": "1-1 Yoyogi Kamizono-cho, Shibuya-ku, Tokyo 151-8557, Japan",
+        "source_url": "https://www.meijijingu.or.jp/en/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-shinjuku-gyoen",
+      "name": "Shinjuku Gyoen National Garden",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history",
+        "views"
+      ],
+      "preference_tags": [
+        "relaxed"
+      ],
+      "estimated_cost": "500",
+      "description": "Explore several garden styles and green spaces in a national garden in Shinjuku. Confirm closure and seasonal reservation rules.",
+      "source_url": "https://www.gotokyo.org/en/spot/75/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person garden allowance, not live prices; check current admission and reservation requirements.",
+      "location": {
+        "address": "11 Naitomachi, Shinjuku City, Tokyo 160-0014, Japan",
+        "source_url": "https://policies.env.go.jp/national-garden/shinjukugyoen/english/guide/information/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-skytree",
+      "name": "Tokyo Skytree",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "attraction",
+      "interest_tags": [
+        "views",
+        "architecture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "3500",
+      "description": "See the city from observation facilities in the broadcasting tower at Oshiage. Ticket choices and availability vary.",
+      "source_url": "https://www.tobu.co.jp/en/cp/tokyoskytreetown/skytree/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person observation allowance, not live prices; select and confirm the appropriate ticket directly.",
+      "location": {
+        "address": "1-1-2 Oshiage, Sumida-ku, Tokyo 131-0045, Japan",
+        "source_url": "https://www.tobu.co.jp/en/cp/tokyoskytreetown/skytree/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-ippudo-ginza",
+      "name": "Ippudo Ginza",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "1800",
+      "description": "A Ginza branch of Ippudo serving ramen. Check the current menu and dietary details directly with the restaurant.",
+      "source_url": "https://stores.ippudo.com/en/1123",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person meal allowance, not live prices; portion choices and drinks vary.",
+      "location": {
+        "address": "1F Central Building, 4-10-3 Ginza, Chuo-ku, Tokyo 104-0061, Japan",
+        "source_url": "https://stores.ippudo.com/en/1123",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "tokyo-gonpachi-nishi-azabu",
+      "name": "Gonpachi Nishi-Azabu",
+      "destination": "Tokyo, Japan",
+      "currency": "JPY",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "4000",
+      "description": "A Japanese restaurant serving soba, grilled skewers and tempura in Nishi-Azabu.",
+      "source_url": "https://gonpachi.jp/nishi-azabu/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person meal allowance, not live prices; check minimum charges and the current menu.",
+      "location": {
+        "address": "1F/2F, 1-13-11 Nishi-Azabu, Minato-ku, Tokyo, Japan",
+        "source_url": "https://gonpachi.jp/nishi-azabu/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-companys-garden",
+      "name": "The Company's Garden",
+      "destination": "Cape Town, South Africa",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "history"
+      ],
+      "preference_tags": [
+        "relaxed",
+        "family-friendly"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "ZAR",
+      "description": "A public garden in the city centre with walking paths and a long connection to Cape Town's history.",
+      "source_url": "https://www.capetown.gov.za/explore-and-enjoy/see-all-city-facilities/our-recreational-facilities/district-parks/the-companys-garden/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "19 Queen Victoria Street, Cape Town, South Africa",
+        "source_url": "https://www.capetown.gov.za/explore-and-enjoy/see-all-city-facilities/our-recreational-facilities/district-parks/the-companys-garden/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-kirstenbosch",
+      "name": "Kirstenbosch National Botanical Garden",
+      "destination": "Cape Town, South Africa",
+      "category": "attraction",
+      "interest_tags": [
+        "nature",
+        "views"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "270.00",
+      "currency": "ZAR",
+      "description": "Explore botanical garden landscapes on the slopes of Table Mountain; entrance charges vary by visitor category.",
+      "source_url": "https://www.sanbi.org/gardens/kirstenboch/visitor-information/information/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "Rhodes Drive, Newlands, Cape Town, South Africa",
+        "source_url": "https://www.sanbi.org/contact/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-table-mountain-cableway",
+      "name": "Table Mountain Aerial Cableway",
+      "destination": "Cape Town, South Africa",
+      "category": "attraction",
+      "interest_tags": [
+        "nature",
+        "views"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "500.00",
+      "currency": "ZAR",
+      "description": "Take the cableway from Tafelberg Road toward the mountain plateau; check operating and weather conditions before going.",
+      "source_url": "https://www.tablemountain.net/plan-your-visit/getting-here",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "Lower Cable Station, Tafelberg Road, Cape Town, South Africa",
+        "source_url": "https://www.tablemountain.net/plan-your-visit/getting-here",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-bo-kaap-museum",
+      "name": "Bo-Kaap Museum",
+      "destination": "Cape Town, South Africa",
+      "category": "attraction",
+      "interest_tags": [
+        "history",
+        "culture",
+        "architecture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "100.00",
+      "currency": "ZAR",
+      "description": "Learn about the Bo-Kaap community in a historic house museum on Wale Street.",
+      "source_url": "https://www.iziko.org.za/museums/bo-kaap-museum/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "71 Wale Street, Bo-Kaap, Cape Town, South Africa",
+        "source_url": "https://www.iziko.org.za/museums/bo-kaap-museum/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-sea-point-promenade",
+      "name": "Sea Point Promenade",
+      "destination": "Cape Town, South Africa",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "views"
+      ],
+      "preference_tags": [
+        "relaxed",
+        "active"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "ZAR",
+      "description": "Walk or jog beside the Atlantic on the public promenade; pool entry and purchases are separate.",
+      "source_url": "https://www.capetown.travel/sea-point/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Beach Road, Sea Point Promenade, Cape Town, South Africa",
+        "source_url": "https://www.capetown.travel/pocket-friendly-sea-point/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-battery-park",
+      "name": "Battery Park at the V&A Waterfront",
+      "destination": "Cape Town, South Africa",
+      "category": "activity",
+      "interest_tags": [
+        "nature",
+        "views"
+      ],
+      "preference_tags": [
+        "active"
+      ],
+      "estimated_cost": "0.00",
+      "currency": "ZAR",
+      "description": "Explore the public Canal District park, with walking paths, benches and outdoor sporting spaces.",
+      "source_url": "https://www.capetown.travel/free-things-to-do-in-cape-town/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person estimate for the public walk or general entry only; not live prices. Optional activities, food and purchases are extra.",
+      "location": {
+        "address": "Battery Park, 19 Dock Road, V&A Waterfront, Cape Town, South Africa",
+        "source_url": "https://www.capetown.travel/free-things-to-do-in-cape-town/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-gold-restaurant",
+      "name": "GOLD Restaurant",
+      "destination": "Cape Town, South Africa",
+      "category": "restaurant",
+      "interest_tags": [
+        "food",
+        "culture"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "600.00",
+      "currency": "ZAR",
+      "description": "A restaurant combining a tasting menu of African dishes with evening cultural performances.",
+      "source_url": "https://goldrestaurant.co.za/",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "15 Bennett Street, Green Point, Cape Town, South Africa",
+        "source_url": "https://goldrestaurant.co.za/",
+        "reviewed_on": "2026-11-01"
+      }
+    },
+    {
+      "id": "cape-town-truth-coffee",
+      "name": "Truth Coffee HQ",
+      "destination": "Cape Town, South Africa",
+      "category": "restaurant",
+      "interest_tags": [
+        "food"
+      ],
+      "preference_tags": [],
+      "estimated_cost": "150.00",
+      "currency": "ZAR",
+      "description": "A cafe and coffee roastery housed in a Victorian warehouse on Buitenkant Street.",
+      "source_url": "https://truth.coffee/pages/contact-us",
+      "reviewed_on": "2026-11-01",
+      "cost_note": "Illustrative per-person activity or food estimate for a class project; not live prices. Check the venue before visiting.",
+      "location": {
+        "address": "36 Buitenkant Street, Cape Town, South Africa",
+        "source_url": "https://truth.coffee/pages/contact-us",
+        "reviewed_on": "2026-11-01"
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{% set currency = preferences.get('currency', 'EUR') %}
+{% from "_photos.html" import place_photo with context %}
+{# Display only: both current and saved itineraries use the same day markup. #}
+<div class="itinerary-days">
+  {% for day in itinerary.days %}
+    <section class="itinerary-day" aria-labelledby="day-{{ day.number }}-title">
+      <header class="itinerary-day-heading">
+        <div>
+          <p class="eyebrow">Your suggested rhythm</p>
+          <h2 id="day-{{ day.number }}-title">Day {{ day.number }}</h2>
+        </div>
+        <dl class="itinerary-day-total">
+          <dt>Scheduled estimate</dt>
+          <dd>{{ currency }} {{ day.estimated_cost|money(currency) }} <small>per person</small></dd>
+        </dl>
+      </header>
+
+      <div class="itinerary-slots">
+        {% for slot in day.slots %}
+          <article class="itinerary-slot{{ ' is-empty' if not slot.item else '' }}" aria-labelledby="day-{{ day.number }}-{{ slot.name|lower }}">
+            <div class="itinerary-slot-label">
+              <span class="itinerary-slot-mark" aria-hidden="true">{{ '☼' if slot.name == 'Morning' else ('◐' if slot.name == 'Afternoon' else '☾') }}</span>
+              <h3 id="day-{{ day.number }}-{{ slot.name|lower }}">{{ slot.name }}</h3>
+            </div>
+
+            <div class="itinerary-slot-content">
+              {% if slot.item %}
+                {% set item = slot.item %}
+                {{ place_photo(item.place.id, item.place.destination, 'thumbnail') }}
+                <span class="category-label">{{ item.place.category|label }}</span>
+                <h4>{{ item.place.name }}</h4>
+                <p class="itinerary-description">{{ item.place.description }}</p>
+                {% include "_place_location.html" %}
+                <div class="match-reason">
+                  <span aria-hidden="true">✧</span>
+                  <p>{{ item.reason }}</p>
+                </div>
+                <div class="itinerary-slot-bottom">
+                  <p class="idea-cost">
+                    {% if item.estimated_cost == 0 %}
+                      <strong>Free</strong><span> — illustrative estimate</span>
+                    {% else %}
+                      <strong>{{ currency }} {{ item.estimated_cost|money(currency) }}</strong><span> · illustrative estimate</span>
+                    {% endif %}
+                  </p>
+                  <a class="source-link" href="{{ item.place.source_url }}" target="_blank" rel="noopener noreferrer">
+                    View source
+                    <span class="visually-hidden">for {{ item.place.name }} (opens in a new tab)</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              {% else %}
+                <h4>Time left open.</h4>
+                <p class="itinerary-description">{{ slot.empty_reason }}</p>
+                <p class="itinerary-gap-note">No activity or meal has been priced for this slot.</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      {% if preferences.pace == 'relaxed' %}
+        <p class="itinerary-day-note">Afternoon is intentionally left open for your relaxed pace; it is not counted as a missing slot.</p>
+      {% endif %}
+    </section>
+  {% endfor %}
+</div>

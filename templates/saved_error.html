@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Saved trip unavailable — TripPlanner{% endblock %}
+{% block content %}
+<section class="error-page saved-error-page page-width">
+  <span class="empty-symbol" aria-hidden="true">↻</span>
+  <p class="eyebrow">Your saved collection</p>
+  <h1>Let’s find<br><em>a way back.</em></h1>
+  <p role="alert">{{ message }}</p>
+  <div class="saved-error-actions">
+    {% if recovery_url %}
+      <a class="button button-primary" href="{{ recovery_url }}">{{ recovery_label|default('Review your itinerary', true) }} <span aria-hidden="true">→</span></a>
+    {% elif request.endpoint == 'save_itinerary' %}
+      <a class="button button-primary" href="{{ url_for('itinerary') }}">Review your itinerary <span aria-hidden="true">→</span></a>
+    {% endif %}
+    <a class="text-link" href="{{ url_for('saved_trips') }}">Back to saved trips <span aria-hidden="true">↗</span></a>
+    <a class="text-link" href="{{ url_for('plan') }}">Plan another trip <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+{% endblock %}

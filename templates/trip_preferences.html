@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Choose your trip — TripPlanner{% endblock %}
+{% block content %}
+<div class="workspace-main">
+  <div class="page-width">
+    <a class="back-link" href="{{ url_for('home') }}"><span aria-hidden="true">←</span> Back to home</a>
+    <div class="page-heading"><p class="eyebrow">Let's find your kind of trip</p><h1>A few details.<br><em>A world of possibilities.</em></h1><p>Tell us what you love. We’ll find ideas that fit.</p></div>
+    {% if errors %}
+    <section class="form-errors" role="alert" aria-labelledby="error-title" tabindex="-1">
+      <h2 id="error-title">A few details need another look</h2>
+      <ul>{% for field, message in errors.items() %}<li><a href="#{{ 'family-friendly' if field == 'family_friendly' else ('confirm-currency-change' if field == 'confirm_currency_change' else field) }}">{{ field|replace('_', ' ')|title }}: {{ message }}</a></li>{% endfor %}</ul>
+    </section>
+    {% endif %}
+    <div class="planner-layout">
+      <form id="trip-form" class="plan-form" action="{{ url_for('plan') }}" method="post" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" id="currency_context" name="currency_context" value="{{ currency_context }}">
+        <section class="form-section" aria-labelledby="trip-basics-title">
+          <div class="form-section-heading"><span class="section-index" aria-hidden="true">01</span><div><h2 id="trip-basics-title">The little details</h2><p>Every good trip starts somewhere.</p></div></div>
+          <div class="form-grid">
+            <div class="form-field form-field-wide">
+              <label for="destination">Destination</label>
+              <select id="destination" name="destination" required aria-describedby="destination-help{% if 'destination' in errors %} destination-error{% endif %}"{% if 'destination' in errors %} aria-invalid="true"{% endif %}>
+                <option value=""{% if not values.destination %} selected{% endif %}>Choose a destination</option>
+                {% set supported_keys = destinations|map('lower')|list %}
+                {% if values.destination and values.destination|lower|trim not in supported_keys %}<option value="{{ values.destination }}" selected>{{ values.destination }} (not available)</option>{% endif %}
+                {% for destination in destinations %}<option value="{{ destination }}"{% if values.destination|lower|trim == destination|lower %} selected{% endif %}>{{ destination }}</option>{% endfor %}
+              </select>
+              <p class="field-help" id="destination-help">Choose from our sourced destination collection. Each city uses its own local currency.</p>
+              {% if 'destination' in errors %}<p class="field-error" id="destination-error">{{ errors.destination }}</p>{% endif %}
+            </div>
+            <div class="form-field">
+              <label for="days">Number of days</label>
+              <input id="days" name="days" type="text" inputmode="numeric" min="1" max="14" step="1" pattern="[0-9]+" required placeholder="e.g. 3" value="{{ values.days }}" aria-describedby="days-help{% if 'days' in errors %} days-error{% endif %}"{% if 'days' in errors %} aria-invalid="true"{% endif %}>
+              <p class="field-help" id="days-help">A whole number from 1 to 14.</p>
+              {% if 'days' in errors %}<p class="field-error" id="days-error">{{ errors.days }}</p>{% endif %}
+            </div>
+            <div class="form-field">
+              <label for="budget">Activities &amp; food allowance</label>
+              <div class="currency-input"><span id="budget-currency" aria-hidden="true">{{ currency or '—' }}</span><input id="budget" name="budget" type="text" inputmode="{{ 'numeric' if currency_spec.precision == 0 else 'decimal' }}" min="{{ currency_spec.minimum }}" max="{{ currency_spec.maximum }}" step="{{ currency_spec.quantum }}" required placeholder="{{ 'e.g. 300' if currency_spec.precision == 0 else 'e.g. 300.00' }}" value="{{ values.budget }}" aria-describedby="budget-help{% if 'budget' in errors %} budget-error{% endif %}"{% if 'budget' in errors %} aria-invalid="true"{% endif %}></div>
+              <p class="field-help" id="budget-help">{% if currency %}Total {{ currency }} per person for all days. Range {{ currency_spec.minimum }}–{{ currency_spec.maximum }}.{% else %}Choose a destination to set your allowance currency.{% endif %}</p>
+              {% if 'budget' in errors %}<p class="field-error" id="budget-error">{{ errors.budget }}</p>{% endif %}
+              <p class="field-help" id="currency-change-help" role="status">{% if confirmation_required %}Review your amount in {{ currency }}. This is a currency change, not a conversion.{% endif %}</p>
+              {% if confirmation_required %}
+              <label class="family-option" for="confirm-currency-change"><input id="confirm-currency-change" name="confirm_currency_change" type="checkbox" value="on" aria-describedby="currency-change-help"{% if 'confirm_currency_change' in errors %} aria-invalid="true"{% endif %}><span>Use this amount in {{ currency }}. I have reviewed the new currency.</span></label>
+              {% endif %}
+            </div>
+          </div>
+          <p class="inline-note"><span aria-hidden="true">ⓘ</span> This allowance is for example activities and food ideas. Flights, accommodation, and transport are excluded.</p>
+        </section>
+        <section class="form-section" aria-labelledby="interests-title">
+          <div class="form-section-heading"><span class="section-index" aria-hidden="true">02</span><div><h2 id="interests-title">What draws you in?</h2><p>A favorite interest can lead to a favorite place.</p></div></div>
+          <fieldset id="interests" class="interest-fieldset" aria-describedby="interests-help{% if 'interests' in errors %} interests-error{% endif %}"{% if 'interests' in errors %} aria-invalid="true"{% endif %}>
+            <legend>Your interests</legend>
+            <p class="field-help" id="interests-help">Choose at least one. Pick as many as you like.</p>
+            <div class="interest-options" id="interest-options">
+              {% for interest in interests %}<label class="interest-option" for="interest-{{ loop.index }}"><input id="interest-{{ loop.index }}" name="interests" type="checkbox" value="{{ interest }}"{% if interest in values.interests %} checked{% endif %}><span>{{ interest|label }}</span></label>{% endfor %}
+              {% for interest in values.interests %}{% if interest not in interests %}<label class="interest-option unsupported"><input name="interests" type="checkbox" value="{{ interest }}" checked><span>{{ interest }} (not available)</span></label>{% endif %}{% endfor %}
+            </div>
+            {% if 'interests' in errors %}<p class="field-error" id="interests-error">{{ errors.interests }}</p>{% endif %}
+          </fieldset>
+        </section>
+        <section class="form-section" aria-labelledby="preferences-title">
+          <div class="form-section-heading"><span class="section-index" aria-hidden="true">03</span><div><h2 id="preferences-title">A little more you</h2><p>Optional touches to help us rank your ideas.</p></div></div>
+          <div class="form-field">
+            <label for="pace">Preferred pace <span class="optional-label">Optional</span></label>
+            <select id="pace" name="pace" aria-describedby="pace-help{% if 'pace' in errors %} pace-error{% endif %}"{% if 'pace' in errors %} aria-invalid="true"{% endif %}>
+              <option value=""{% if not values.pace %} selected{% endif %}>No preference</option>
+              {% if values.pace and values.pace|lower|trim not in paces %}<option value="{{ values.pace }}" selected>{{ values.pace }} (not available)</option>{% endif %}
+              {% for pace in paces %}<option value="{{ pace }}"{% if values.pace|lower|trim == pace %} selected{% endif %}>{{ pace|label }}</option>{% endfor %}
+            </select>
+            <p class="field-help" id="pace-help">We offer pace choices supported by this destination’s tags.</p>
+            {% if 'pace' in errors %}<p class="field-error" id="pace-error">{{ errors.pace }}</p>{% endif %}
+          </div>
+          <label class="family-option" for="family-friendly"><input id="family-friendly" name="family_friendly" type="checkbox" value="on"{% if values.family_friendly %} checked{% endif %} aria-describedby="family-help"><span><strong>Prefer family-friendly ideas</strong><span id="family-help">Boosts explicitly tagged ideas. It doesn’t guarantee every result is suitable for children.</span></span></label>
+        </section>
+        <div class="form-bottom"><button class="button button-primary" type="submit">Find my trip ideas <span aria-hidden="true">→</span></button><p>You can come back and change these details.</p></div>
+      </form>
+      <aside class="planner-aside" aria-label="Your allowance preview">
+        <div class="allowance-card"><div class="aside-symbol" aria-hidden="true">✳</div><p class="eyebrow">A little room to explore</p><h2>Your daily<br>possibilities.</h2><p class="aside-copy">Split your activities and food allowance across your days away.</p><div class="daily-preview"><span>Approximate daily allowance</span><output id="daily-allowance" for="budget days" aria-live="polite" aria-atomic="true" data-preview-value>—</output><small><span id="preview-currency">{{ currency or 'Choose a destination' }}</span> per person, per day</small></div><p id="preview-help" class="preview-help">Enter valid days and an allowance to see your daily estimate.</p><noscript><p class="preview-help">The daily allowance preview needs JavaScript. Submit your preferences to see the server-calculated daily allowance with your ideas.</p></noscript><div class="aside-divider"></div><p class="aside-footnote">Your details become a current draft after a valid submission. You can edit or clear it at any time in this browser session.</p></div>
+      </aside>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}<script id="destination-data" type="application/json">{{ destination_options|tojson }}</script><script src="{{ url_for('static', filename='js/plan.js') }}" defer></script>{% endblock %}

@@ -1,0 +1,13 @@
+# Production dependency versions exercised on Python 3.14.7, 2 November 2026.
+Flask==3.1.3
+Werkzeug==3.1.9
+Jinja2==3.1.6
+MarkupSafe==3.0.4
+itsdangerous==2.2.0
+blinker==1.9.0
+click==8.5.0
+waitress==3.0.2
+psycopg==3.3.6
+psycopg-binary==3.3.6
+certifi==2026.10.23
+tzdata==2026.6; sys_platform == "win32"

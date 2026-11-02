@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "_photos.html" import photo_figure with context %}
+{% block title %}TripPlanner — a little more you in every trip{% endblock %}
+{% block content %}
+<section class="hero page-width" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Big city. Your kind of adventure.</p>
+    <h1 id="hero-title">Less searching.<br>More <em>you.</em></h1>
+    <p class="hero-description">A café worth lingering in. A walk that becomes a favorite memory. Find places shaped around your interests, your pace, and your budget.</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ url_for('plan') }}">Start planning <span aria-hidden="true">↗</span></a>
+      {% if current_draft %}<a class="text-link" href="{{ url_for('recommendations') }}">Resume my trip ideas <span aria-hidden="true">→</span></a>{% endif %}
+    </div>
+    <p class="hero-note"><span aria-hidden="true">✧</span> A few details. Ideas that feel like you.</p>
+    <div class="coverage-note"><span class="location-icon" aria-hidden="true">⌖</span><div><strong>{{ destinations|length }} destinations · {{ catalog_count }} sourced ideas</strong><span>{{ destinations|join(' · ') }}</span></div></div>
+  </div>
+  <div class="hero-photo" aria-label="Example Paris inspiration">
+    <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Destination example · Paris, France</p>
+    {{ photo_figure(photo_for_place(None, 'Paris, France'), 'hero', true) }}
+    <div class="hero-photo-note"><span aria-hidden="true">✧</span><p>A new view.<br><strong>Your own way to explore.</strong></p></div>
+  </div>
+</section>
+<section class="destination-section page-width" id="destinations" aria-labelledby="destinations-title">
+  <div class="section-heading"><div><p class="eyebrow">Six cities. So many ways to wander.</p><h2 id="destinations-title">Where will you find your kind of day?</h2></div><p>Nature, history, food, and a little curiosity.<br>Start with a place that speaks to you.</p></div>
+  <div class="destination-grid">
+    {% for destination in destinations %}
+    <article class="destination-card">
+      {{ photo_figure(photo_for_place(None, destination), 'destination') }}
+      <h3>{{ destination }}</h3>
+    </article>
+    {% endfor %}
+  </div>
+  <div class="destination-action"><p>Choose your city, then make the details your own.</p><a class="button button-primary" href="{{ url_for('plan') }}">Find my trip ideas <span aria-hidden="true">↗</span></a></div>
+</section>
+<section class="how-section" id="how-it-works" aria-labelledby="how-title">
+  <div class="page-width">
+    <div class="section-heading"><div><p class="eyebrow">A simple way to begin</p><h2 id="how-title">Your trip, taking shape.</h2></div><p>Less guesswork.<br>A little more room to explore.</p></div>
+    <ol class="steps">
+      <li class="step-card"><div class="step-top"><span class="step-icon" aria-hidden="true">☼</span><span class="step-number">01</span></div><h3>Tell us your kind of trip</h3><p>Choose your interests, days, and allowance. A relaxed pace? Traveling with family? Add that too.</p><a class="text-link" href="{{ url_for('plan') }}">Choose your preferences <span aria-hidden="true">→</span></a></li>
+      <li class="step-card"><div class="step-top"><span class="step-icon" aria-hidden="true">⌖</span><span class="step-number">02</span></div><h3>Meet your next good idea</h3><p>Discover matching places, activities, and food ideas, with example costs and a reason for every match.</p></li>
+      <li class="step-card"><div class="step-top"><span class="step-icon" aria-hidden="true">↗</span><span class="step-number">03</span></div><h3>Make it feel more like you</h3><p>Change your budget or interests and explore again. Your current draft makes it easy to pick up here.</p></li>
+    </ol>
+    <p class="section-note">Thoughtful sample recommendations. Clear, explainable matches. No account needed.</p>
+  </div>
+</section>
+{% endblock %}

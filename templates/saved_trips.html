@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Saved trips — TripPlanner{% endblock %}
+{% block content %}
+<div class="workspace-main saved-main">
+  <div class="page-width">
+    <a class="back-link" href="{{ url_for('home') }}"><span aria-hidden="true">←</span> Back to home</a>
+    <div class="saved-collection-heading">
+      <div class="page-heading">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> {{ 'Your browser collection' if hosted_mode else 'Your local collection' }}</p>
+        <h1>Good plans.<br><em>Kept for later.</em></h1>
+        <p>Saved trips keep the ideas and estimates you reviewed, even after the app restarts.</p>
+      </div>
+      <a class="button button-primary" href="{{ url_for('plan') }}">Start planning <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="saved-local-disclosure">
+      <span aria-hidden="true">ⓘ</span>
+      {% if hosted_mode %}
+      <div><strong>Your online collection, linked to this browser.</strong><p>Saved on the server and separated from other visitors by a protected cookie. It expires after 365 days without a visit. Clearing cookies or changing browser/device loses access. There is no account recovery or cross-device sync. People sharing this browser profile share access.</p></div>
+      {% else %}
+      <div><strong>A shared local collection.</strong><p>Other browsers using this app and database can see these trips. There are no private accounts. Unsaved drafts stay separate in each browser session.</p></div>
+      {% endif %}
+    </div>
+
+    <section aria-labelledby="saved-trips-title">
+      <div class="ideas-section-heading">
+        <h2 id="saved-trips-title">Saved trips</h2>
+        {% if trips %}<span>{{ trips|length }} {{ 'snapshot' if trips|length == 1 else 'snapshots' }} · newest first</span>{% endif %}
+      </div>
+      {% if trips %}
+        <p class="saved-estimate-note">These are saved illustrative estimates, not live prices or confirmed bookings. Allowances cover activities and food per person; flights, accommodation, and transport are excluded.</p>
+        <div class="saved-trip-list">
+          {% for trip in trips %}
+            <article class="saved-trip-card{% if not trip.available %} saved-trip-unavailable{% endif %}" aria-labelledby="saved-trip-{{ trip.id }}-title">
+              <div class="saved-card-heading">
+                <span class="snapshot-label">{{ 'Saved snapshot' if trip.available else 'Snapshot unavailable' }}</span>
+                {% if trip.created_at %}<p class="saved-time">Saved <time datetime="{{ trip.created_at }}">{{ trip.created_at }}</time> UTC</p>{% endif %}
+              </div>
+              <h3 id="saved-trip-{{ trip.id }}-title">{{ trip.title }}</h3>
+              {% if trip.available %}
+                {% set snapshot = trip.snapshot %}{% set currency = snapshot.currency %}
+                <p class="saved-destination">{{ snapshot.preferences.destination }} <span aria-hidden="true">·</span> {{ snapshot.preferences.days }} {{ 'day' if snapshot.preferences.days == 1 else 'days' }}</p>
+                <dl class="saved-card-costs">
+                  <div><dt>Total allowance</dt><dd>{{ currency }} {{ snapshot.preferences.budget|money(currency) }} <small>per person</small></dd></div>
+                  <div><dt>Scheduled trip estimate</dt><dd>{{ currency }} {{ snapshot.itinerary.estimated_cost|money(currency) }} <small>per person</small></dd></div>
+                </dl>
+                <a class="text-link" href="{{ url_for('saved_trip', trip_id=trip.id) }}">View saved trip <span class="visually-hidden">{{ trip.title }}</span><span aria-hidden="true">→</span></a>
+              {% else %}
+                <p class="saved-unavailable-note">This stored snapshot cannot be read. Its details and costs are unavailable. The record has not been changed or removed.</p>
+                <a class="text-link" href="{{ url_for('saved_trip', trip_id=trip.id) }}">View unavailable trip <span class="visually-hidden">{{ trip.title }}</span><span aria-hidden="true">→</span></a>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state saved-empty-state">
+          <span class="empty-symbol" aria-hidden="true">⌑</span>
+          <h2>No saved trips yet</h2>
+          <p>Create an itinerary, then choose “Save this itinerary” to keep a snapshot here. Nothing is saved until you choose to save it.</p>
+          <a class="button button-primary" href="{{ url_for('plan') }}">Start planning <span aria-hidden="true">→</span></a>
+        </div>
+      {% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}

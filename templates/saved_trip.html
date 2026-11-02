@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% from "_photos.html" import place_photo with context %}
+{% block title %}{{ trip.title }} — Saved trip — TripPlanner{% endblock %}
+{% block content %}
+{% set currency = preferences.get('currency', 'EUR') %}
+<div class="workspace-main results-main itinerary-main saved-main saved-detail-main">
+  <div class="page-width">
+    <a class="back-link" href="{{ url_for('saved_trips') }}"><span aria-hidden="true">←</span> Back to saved trips</a>
+
+    <div class="results-heading">
+      <div class="page-heading saved-detail-heading">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Saved snapshot</p>
+        <h1>{{ trip.title }}</h1>
+        <p class="saved-time">Saved <time datetime="{{ trip.created_at }}">{{ trip.created_at }}</time> UTC</p>
+      </div>
+      <div class="itinerary-count">
+        <span aria-hidden="true">✳</span>
+        <strong>{{ itinerary.filled_slots }} of {{ itinerary.total_slots }}</strong>
+        <span>slots with suggestions</span>
+        <small>{{ 'A partial itinerary, with room left open.' if itinerary.filled_slots < itinerary.total_slots else 'Opening hours and journeys still need checking.' }}</small>
+      </div>
+    </div>
+
+    <div class="saved-local-disclosure saved-snapshot-disclosure">
+      <span aria-hidden="true">ⓘ</span>
+      <div><strong>A snapshot, not a live plan.</strong><p>These ideas, preferences, and illustrative estimates reflect the version you saved. Viewing this trip does not change your current draft. {% if hosted_mode %}Your collection is saved online and linked to this browser's protected cookie. Clearing cookies or changing devices loses access; there is no account recovery.{% else %}This is a shared local collection, not a private account.{% endif %}</p></div>
+    </div>
+
+    <section class="trip-summary" aria-label="Saved trip preferences">
+      <dl class="summary-stats">
+        <div><dt>Destination</dt><dd>{{ preferences.destination }}</dd></div>
+        <div><dt>Time to explore</dt><dd>{{ preferences.days }} {{ 'day' if preferences.days == 1 else 'days' }}</dd></div>
+        <div><dt>Total allowance</dt><dd>{{ currency }} {{ preferences.budget|money(currency) }} <small>per person</small></dd></div>
+        <div><dt>Approximately per day</dt><dd>{{ currency }} {{ daily_budget|money(currency) }} <small>per person</small></dd></div>
+      </dl>
+      <div class="summary-bottom">
+        <div class="summary-tags">
+          <span class="summary-label">Saved interests</span>
+          {% for interest in preferences.interests %}<span class="tag">{{ interest|label }}</span>{% endfor %}
+          <span class="tag tag-outline">{{ preferences.pace|label ~ ' pace' if preferences.pace else 'Pace: no preference' }}</span>
+          <span class="tag tag-outline">{{ 'Family-friendly preference' if preferences.family_friendly else 'Family-friendly: no preference' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="itinerary-caution">
+      <span aria-hidden="true">ⓘ</span>
+      <p><strong>A starting point, not an appointment book.</strong> Time slots and costs are illustrative. Check opening hours, suitability, and travel time before using this plan; none has been verified by the scheduler. Even filled slots do not guarantee meal coverage or a feasible journey.</p>
+    </div>
+
+    {% if itinerary.notices %}
+      <section class="itinerary-notices" aria-labelledby="saved-itinerary-notices-title">
+        <h2 id="saved-itinerary-notices-title">The original planning notes.</h2>
+        <ul>{% for notice in itinerary.notices %}<li>{{ notice }}</li>{% endfor %}</ul>
+      </section>
+    {% endif %}
+
+    <div class="itinerary-layout">
+      {% include "_itinerary_days.html" %}
+      <aside class="itinerary-aside" aria-label="Saved illustrative estimates">
+        <section class="itinerary-cost-card" aria-labelledby="saved-itinerary-cost-title">
+          <p class="eyebrow">Activities &amp; food · {{ currency }} per person</p>
+          <h2 id="saved-itinerary-cost-title">Your saved <br>trip estimate.</h2>
+          <p class="itinerary-trip-total">{{ currency }} {{ itinerary.estimated_cost|money(currency) }}</p>
+          <p class="itinerary-total-caption">{{ snapshot.cost_note }}</p>
+          <dl class="itinerary-cost-breakdown">
+            <div><dt>Total allowance</dt><dd>{{ currency }} {{ preferences.budget|money(currency) }}</dd></div>
+            <div><dt>Allowance not allocated</dt><dd>{{ currency }} {{ itinerary.unallocated_allowance|money(currency) }}</dd></div>
+          </dl>
+          <p>{{ snapshot.budget_note }}</p>
+          <p>Not allocated does not mean savings. Unscheduled meals and extras are not costed. Flights, accommodation, and transport are excluded.</p>
+          <p>Each day uses an exact equal share of the saved allowance. Unspent amounts do not move between days. The daily figure above is only a rounded preview.</p>
+        </section>
+        <div class="itinerary-alternatives">
+          <h3>Every original match, kept.</h3>
+          <p>{{ itinerary.unused_items|length }} matching {{ 'alternative remains' if itinerary.unused_items|length == 1 else 'alternatives remain' }} outside these slots. All {{ snapshot.recommendations|length }} original recommendations appear below, including unused ideas.</p>
+          <a class="text-link" href="#saved-ideas-title">Explore saved ideas <span aria-hidden="true">↓</span></a>
+        </div>
+      </aside>
+    </div>
+
+    <section class="saved-ideas" aria-labelledby="saved-ideas-title">
+      <div class="ideas-section-heading">
+        <h2 id="saved-ideas-title">Your original trip ideas.</h2>
+        <span>{{ snapshot.recommendations|length }} saved {{ 'match' if snapshot.recommendations|length == 1 else 'matches' }}</span>
+      </div>
+      <p class="saved-estimate-note">These are alternatives in their saved rank order, not extra items added to the itinerary total. Their combined costs can exceed your allowance. Matching tags describe preferences, not a guarantee of suitability.</p>
+      {% if snapshot.recommendation_notices %}
+        <div class="saved-recommendation-notices">
+          <h3>Original recommendation notes</h3>
+          <ul>{% for notice in snapshot.recommendation_notices %}<li>{{ notice }}</li>{% endfor %}</ul>
+        </div>
+      {% endif %}
+      {% if snapshot.recommendations %}
+        <div class="idea-list saved-idea-list">
+          {% for item in snapshot.recommendations %}
+            <article class="idea-card has-photo">
+              {{ place_photo(item.place.id, item.place.destination) }}
+              <div class="idea-card-content">
+                <div class="idea-topline"><span class="category-label">{{ item.place.category|label }}</span><span class="match-score">{{ item.score }} match points</span></div>
+                <h3>{{ item.place.name }}</h3>
+                <p class="idea-description">{{ item.place.description }}</p>
+                {% include "_place_location.html" %}
+                <div class="match-reason"><span aria-hidden="true">✧</span><p>{{ item.reason }}</p></div>
+                <div class="matched-tags">
+                  {% for interest in item.matched_interests %}<span>{{ interest|label }}</span>{% endfor %}
+                  {% for preference in item.preference_matches %}<span class="preference-tag">{{ preference|label }}</span>{% endfor %}
+                </div>
+                <div class="idea-bottom">
+                  <p class="idea-cost">
+                    {% if item.estimated_cost == 0 %}<strong>Free</strong><span> — saved illustrative estimate</span>{% else %}<strong>{{ currency }} {{ item.estimated_cost|money(currency) }}</strong><span> · saved illustrative estimate</span>{% endif %}
+                  </p>
+                  <a class="source-link" href="{{ item.place.source_url }}" target="_blank" rel="noopener noreferrer">View source <span class="visually-hidden">for {{ item.place.name }} (opens in a new tab)</span><span aria-hidden="true">↗</span></a>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state"><h3>No matching ideas in this snapshot.</h3><p>The original result had no eligible ideas for these preferences and allowance. Empty slots have no priced activity or meal; a zero scheduled estimate does not mean a free holiday.</p></div>
+      {% endif %}
+    </section>
+
+    <div class="itinerary-bottom-actions">
+      <a class="button button-primary" href="{{ url_for('plan') }}">Plan another trip <span aria-hidden="true">→</span></a>
+      <a class="text-link" href="{{ url_for('saved_trips') }}">Back to saved trips <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="saved-plan-another-note">Planning another trip opens your preferences form. If you have a current browser draft, its answers remain ready to edit; this snapshot is not loaded into it.</p>
+  </div>
+</div>
+{% endblock %}

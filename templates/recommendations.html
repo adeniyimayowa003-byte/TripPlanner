@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% from "_photos.html" import place_photo with context %}
+{% block title %}Your {{ preferences.destination }} trip ideas — TripPlanner{% endblock %}
+{% block content %}
+{% set currency = preferences.get('currency', 'EUR') %}
+<div class="workspace-main results-main">
+  <div class="page-width">
+    <a class="back-link" href="{{ url_for('plan') }}">
+      <span aria-hidden="true">←</span> Edit preferences
+    </a>
+
+    <div class="results-heading">
+      <div class="page-heading">
+        <p class="eyebrow">
+          <span class="status-dot" aria-hidden="true"></span> Your current draft
+        </p>
+        <h1>A little {{ preferences.destination.split(',')[0] }}.<br><em>A lot like you.</em></h1>
+        <p>{{ items|length }} matching {{ 'idea' if items|length == 1 else 'ideas' }} for your kind of exploring.</p>
+      </div>
+      <span class="results-stamp" aria-hidden="true">{{ preferences.destination.split(',')[0]|upper }}<br><span>✳</span><br>MADE FOR YOU</span>
+    </div>
+
+    <section class="trip-summary" aria-label="Your trip preferences">
+      <dl class="summary-stats">
+        <div>
+          <dt>Destination</dt>
+          <dd>{{ preferences.destination }}</dd>
+        </div>
+        <div>
+          <dt>Time to explore</dt>
+          <dd>{{ preferences.days }} {{ 'day' if preferences.days == 1 else 'days' }}</dd>
+        </div>
+        <div>
+          <dt>Total allowance</dt>
+          <dd>{{ currency }} {{ preferences.budget|money(currency) }} <small>per person</small></dd>
+        </div>
+        <div>
+          <dt>Approximately per day</dt>
+          <dd>{{ currency }} {{ daily_budget|money(currency) }} <small>per person</small></dd>
+        </div>
+      </dl>
+
+      <div class="summary-bottom">
+        <div class="summary-tags">
+          <span class="summary-label">Your interests</span>
+          {% for interest in preferences.interests %}
+            <span class="tag">{{ interest|label }}</span>
+          {% endfor %}
+          {% if preferences.pace %}
+            <span class="tag tag-outline">{{ preferences.pace|label }} pace</span>
+          {% endif %}
+          {% if preferences.family_friendly %}
+            <span class="tag tag-outline">Family-friendly preference</span>
+          {% endif %}
+        </div>
+        <a class="text-link" href="{{ url_for('plan') }}">
+          Edit preferences <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    {% if notices %}
+      <div class="result-notices">
+        {% for notice in notices %}
+          <p class="flash-message" role="status"><span aria-hidden="true">ⓘ</span> {{ notice }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <section class="itinerary-entry" aria-labelledby="itinerary-entry-title">
+      <div>
+        <p class="eyebrow">Your next step</p>
+        <h2 id="itinerary-entry-title">Give your ideas a little rhythm.</h2>
+        <p>Spread matching ideas across your days, with no repeated places and combined daily cost checks. Limited matches may leave some slots open.</p>
+      </div>
+      <a class="button button-primary" href="{{ url_for('itinerary') }}">
+        Build my daily itinerary <span aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <div class="results-layout">
+      <section class="ideas-section" aria-labelledby="ideas-title">
+        <div class="ideas-section-heading">
+          <h2 id="ideas-title">Good places to start.</h2>
+          <span>{{ items|length }} {{ 'match' if items|length == 1 else 'matches' }}</span>
+        </div>
+
+        {% if items %}
+          <div class="idea-list">
+            {% for item in items %}
+              <article class="idea-card has-photo">
+                {{ place_photo(item.place.id, item.place.destination) }}
+
+                <div class="idea-card-content">
+                  <div class="idea-topline">
+                    <span class="category-label">{{ item.place.category|label }}</span>
+                    <span class="match-score">{{ item.score }} match points</span>
+                  </div>
+                  <h3>{{ item.place.name }}</h3>
+                  <p class="idea-description">{{ item.place.description }}</p>
+                  {% include "_place_location.html" %}
+
+                  <div class="match-reason">
+                    <span aria-hidden="true">✧</span>
+                    <p>{{ item.reason }}</p>
+                  </div>
+                  <div class="matched-tags">
+                    {% for interest in item.matched_interests %}
+                      <span>{{ interest|label }}</span>
+                    {% endfor %}
+                    {% for preference in item.preference_matches %}
+                      <span class="preference-tag">{{ preference|label }}</span>
+                    {% endfor %}
+                  </div>
+
+                  <div class="idea-bottom">
+                    <p class="idea-cost">
+                      {% if item.estimated_cost == 0 %}
+                        <strong>Free</strong><span> — illustrative estimate</span>
+                      {% else %}
+                        <strong>{{ currency }} {{ item.estimated_cost|money(currency) }}</strong><span> · illustrative estimate</span>
+                      {% endif %}
+                    </p>
+                    <a class="source-link" href="{{ item.place.source_url }}" target="_blank" rel="noopener noreferrer">
+                      View source
+                      <span class="visually-hidden">for {{ item.place.name }} (opens in a new tab)</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="empty-state">
+            <span class="empty-symbol" aria-hidden="true">⌖</span>
+            <h3>No ideas fit this combination yet.</h3>
+            <p>Try increasing your activities and food allowance or choosing another interest. We’ll keep your preferences ready to edit.</p>
+            <a class="button button-primary" href="{{ url_for('plan') }}">
+              Edit preferences <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        {% endif %}
+      </section>
+
+      <aside class="results-aside" aria-label="About your recommendations">
+        <section class="chosen-card" aria-labelledby="chosen-title">
+          <span class="aside-symbol" aria-hidden="true">✧</span>
+          <h2 id="chosen-title">How these ideas <br>were chosen</h2>
+          <p>Small rules. Thoughtful matches.</p>
+          <ol class="scoring-list">
+            <li><strong>+3</strong><span>For each matching interest.</span></li>
+            <li><strong>+1</strong><span>For a matching pace tag.</span></li>
+            <li><strong>+1</strong><span>For a family-friendly tag, when requested.</span></li>
+          </ol>
+          <p>Only ideas matching your interests and fitting your per-item daily allowance qualify. Higher scores come first, then lower costs and alphabetical order.</p>
+        </section>
+
+        <div class="estimate-note">
+          <span aria-hidden="true">ⓘ</span>
+          <p>These are alternative ideas, not an itinerary total. Their combined costs may exceed your allowance. All costs are illustrative estimates, not live prices.</p>
+        </div>
+
+        <div class="draft-note">
+          <h3>A draft to come back to.</h3>
+          <p>Your current draft stays available in this browser session. It isn’t a permanently saved trip.</p>
+          <form action="{{ url_for('clear_draft') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="clear-button" type="submit">
+              Clear this draft <span aria-hidden="true">↗</span>
+            </button>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+{% endblock %}

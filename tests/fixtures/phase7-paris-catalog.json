@@ -1,0 +1,83 @@
+{
+  "currency": "EUR",
+  "estimated_cost_note": "Illustrative per-person estimates for a class project; these are not live prices.",
+  "places": [
+    {
+      "id": "paris-eiffel-tower",
+      "name": "Eiffel Tower",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": ["culture", "history", "architecture", "views"],
+      "preference_tags": [],
+      "estimated_cost": 32.0,
+      "description": "A landmark built for the 1889 Universal Exhibition, with views across the city.",
+      "source_url": "https://parisjetaime.com/eng/culture/la-tour-eiffel-p3486"
+    },
+    {
+      "id": "paris-louvre-museum",
+      "name": "Louvre Museum",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": ["art", "culture", "history"],
+      "preference_tags": [],
+      "estimated_cost": 25.0,
+      "description": "A major museum with collections spanning many eras and regions of the world.",
+      "source_url": "https://parisjetaime.com/eng/culture/musee-du-louvre-p3489"
+    },
+    {
+      "id": "paris-notre-dame",
+      "name": "Notre-Dame Cathedral",
+      "destination": "Paris, France",
+      "category": "attraction",
+      "interest_tags": ["architecture", "culture", "history"],
+      "preference_tags": [],
+      "estimated_cost": 0.0,
+      "description": "A Gothic cathedral on Île de la Cité in the historic center of Paris.",
+      "source_url": "https://parisjetaime.com/eng/article/discovery-tour-around-the-cathedrale-notre-dame-de-paris-a1798"
+    },
+    {
+      "id": "paris-luxembourg-gardens",
+      "name": "Luxembourg Gardens",
+      "destination": "Paris, France",
+      "category": "activity",
+      "interest_tags": ["nature", "history"],
+      "preference_tags": ["relaxed", "family-friendly"],
+      "estimated_cost": 0.0,
+      "description": "Historic gardens with walking paths, French and English sections, and a pond.",
+      "source_url": "https://parisjetaime.com/eng/culture/jardin-du-luxembourg-p1063"
+    },
+    {
+      "id": "paris-seine-riverside-walk",
+      "name": "Seine Riverside Walk",
+      "destination": "Paris, France",
+      "category": "activity",
+      "interest_tags": ["nature", "history", "architecture"],
+      "preference_tags": ["relaxed"],
+      "estimated_cost": 0.0,
+      "description": "A self-guided stroll beside the river, bridges, and historic Paris landmarks.",
+      "source_url": "https://parisjetaime.com/eng/article/paris-river-seine-a921"
+    },
+    {
+      "id": "paris-cafe-de-flore",
+      "name": "Café de Flore",
+      "destination": "Paris, France",
+      "category": "restaurant",
+      "interest_tags": ["food", "culture"],
+      "preference_tags": [],
+      "estimated_cost": 28.0,
+      "description": "A well-known Saint-Germain café and brasserie for coffee or a meal.",
+      "source_url": "https://parisjetaime.com/restaurant/cafe-de-flore-p674"
+    },
+    {
+      "id": "paris-le-procope",
+      "name": "Le Procope",
+      "destination": "Paris, France",
+      "category": "restaurant",
+      "interest_tags": ["food", "culture", "history"],
+      "preference_tags": [],
+      "estimated_cost": 50.0,
+      "description": "A historic restaurant in Paris's 6th arrondissement serving traditional French cuisine.",
+      "source_url": "https://parisjetaime.com/restaurant/le-procope-p3345"
+    }
+  ]
+}

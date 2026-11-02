@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_photos.html" import photo_figure with context %}
+{% block title %}Photo credits — TripPlanner{% endblock %}
+{% block content %}
+<section class="page-width credits-page" aria-labelledby="credits-title">
+  <p class="eyebrow">The people behind the pictures</p>
+  <h1 id="credits-title">A window into each city.</h1>
+  <p class="credits-intro">These real photographs are bundled with TripPlanner. Each keeps its own license, including in downloadable editions. Follow a source for the original file and full attribution history, or a license link for its reuse terms.</p>
+  <p class="credits-intro">Images are shown in cropped frames to fit the layout; the bundled JPEGs have no local edits. Destination views are labeled when a venue-specific photo is unavailable. Photographs illustrate places, not current opening hours, conditions, accessibility, or availability.</p>
+  <div class="credits-grid">
+    {% for photo in photos %}
+    <article class="credit-card" id="{{ photo.id }}">
+      {{ photo_figure(photo, 'credit') }}
+      <div class="credit-details">
+        <h2>{{ photo.caption }}</h2>
+        <p>{{ photo.destination }}</p>
+        <p>Photographer: {% if photo.creator_url %}<a href="{{ photo.creator_url }}" target="_blank" rel="noopener noreferrer">{{ photo.creator }}</a>{% else %}{{ photo.creator }}{% endif %}</p>
+        <p><a href="{{ photo.source_url }}" target="_blank" rel="noopener noreferrer">Original source on Wikimedia Commons</a> · <a href="{{ photo.license_url }}" target="_blank" rel="noopener noreferrer">{{ photo.license }}</a></p>
+        <p>{{ photo.changes }} Reviewed {{ photo.reviewed_on }}.</p>
+        <p>Bundled dimensions: {{ photo.width }} × {{ photo.height }}. <a href="{{ url_for('static', filename=photo.filename) }}">Open the bundled JPEG</a></p>
+      </div>
+    </article>
+    {% else %}<p>Photo credits are temporarily unavailable. You can still plan and open saved trips.</p>{% endfor %}
+  </div>
+  <p><a class="text-link" href="{{ url_for('home') }}">Back to TripPlanner <span aria-hidden="true">↗</span></a></p>
+</section>
+{% endblock %}

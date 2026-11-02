@@ -1,0 +1,26 @@
+# INERT EXAMPLE. Copy to render.yaml only after account/cost approval.
+# The name/region are proposals. A new paid service + disk incurs charges.
+services:
+  - type: web
+    name: tripplanner-classroom
+    runtime: python
+    region: frankfurt
+    plan: starter
+    numInstances: 1
+    autoDeployTrigger: "off"
+    buildCommand: pip install -r requirements-hosted.lock.txt
+    startCommand: python serve_hosted.py
+    healthCheckPath: /healthz
+    disk:
+      name: tripplanner-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.7
+      - key: TRIPPLANNER_STORAGE_DIR
+        value: /var/data
+      - key: TRIPPLANNER_SECRET_KEY
+        sync: false
+      - key: TRIPPLANNER_PUBLIC_HOST
+        sync: false

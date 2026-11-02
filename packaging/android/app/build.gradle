@@ -1,0 +1,32 @@
+plugins {
+    id 'com.android.application'
+    id 'com.chaquo.python'
+}
+android {
+    namespace 'org.tripplanner.demo'
+    compileSdk 36
+    buildToolsVersion '35.0.0'
+    defaultConfig {
+        applicationId 'org.tripplanner.demo'
+        minSdk 29
+        targetSdk 36
+        versionCode 802
+        versionName '0.8.0-demo.2'
+        testInstrumentationRunner 'org.tripplanner.demo.QaInstrumentation'
+        ndk { abiFilters 'arm64-v8a', 'x86_64' }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+chaquopy {
+    defaultConfig {
+        version '3.14'
+        if (project.hasProperty('tripplannerBuildPython')) {
+            buildPython project.property('tripplannerBuildPython')
+        }
+        pip { install '-r', 'requirements.txt' }
+        pyc { src = false }
+    }
+}
