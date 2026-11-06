@@ -1,5 +1,7 @@
 # Free-demo implementation and deployment evidence
 
+**6 November submission review:** Public deployment and source publication are complete. Actual public saving/reopening, photos, Light/Dark and separate-visitor denial were checked today; hosted restart/redeploy persistence remains pending. See the [current review](submission-status-2026-11-06.md) for the distinction between verified behavior and remaining acceptance.
+
 **2 November 2026:** User selected Free with sleep/usage limits, created their own Render/Neon accounts, accepted their terms and authorized Chrome use for setup. Paid plans/disks/upgrades remain unauthorized. The [approved amendment](../specs/phase-09-free-demo.md), [plan](../plans/phase-09-free-demo-plan.md) and [red checkpoint](phase-09-free-testing.md) record SDD in order.
 
 ## Verified code
@@ -16,15 +18,15 @@ Logical backup uses compatible `pg_dump`, credentials only in a private child en
 - PostgreSQL + retained hosting subset: **92 passed in 16.85 seconds** (`.tmp/phase09-free-first-green.xml`).
 - Complete suite with real PostgreSQL/client tools enabled: **1,688 passed in 48.95 seconds**, zero failures/errors/skips (`.tmp/phase09-free-full-tests.xml`).
 - Real database: official portable PostgreSQL **18.6**, allocated loopback port, newly created random per-test databases. No system service, production credentials or actual visitor/local/native collections used. PostgreSQL 18 client tools performed the backup/restore.
-- A new Linux CI job is prepared with a real PostgreSQL 18 service and matching client-tool wrappers; CI execution requires actual source publication and is not claimed by local test results.
+- Actual [GitHub Actions run](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/41381620794) passed on Windows, Linux and the real PostgreSQL 18 job. This followed a correction to service-container context placement in the workflow.
 
 Local Flask HTTPS simulations and actual Waitress loopback HTTP do not prove live Neon TLS, public HTTPS, provider sleep/wake or cloud restart persistence. Those remain deployment acceptance items below.
 
 ## Deployment state
 
-A new PostgreSQL-only `tripplanner-demo` Neon project has been created in **Frankfurt** from the user's free account. No additional Auth/Functions/AI Gateway services were selected. The current Render dashboard is active and initially has no services. A stale older Render tab shows email verification; the active dashboard was checked before requesting a redundant verification step.
+A PostgreSQL-only `tripplanner-demo` Neon project and the `tripplanner-mayowa` Render Free service were created in **Frankfurt** from the user's accounts. No additional Auth/Functions/AI Gateway services or paid resources were selected. [The public website](https://tripplanner-mayowa.onrender.com/) passed HTTPS readiness and serves the planning flow. The configured WSGI entry point, private stable signing secret, PostgreSQL backend, hostname and `/healthz` were checked before deployment. Live client-to-Neon TLS used `verify-full`; server version reported PostgreSQL 18.6. A browser reload is not evidence of a provider restart.
 
-The user's existing GitHub credential helper identifies `adeniyimayowa003-byte` and no existing TripPlanner repository. No token values were printed or written into source. Source publication and the Render web service are being prepared; **no public app URL is recorded yet**.
+Reviewed code/public assets were published to [adeniyimayowa003-byte/TripPlanner](https://github.com/adeniyimayowa003-byte/TripPlanner). The deployed application source commit is `b969af3b575b3827ec08b51976e812044f38e100`; documentation updates may follow without changing application behavior. No existing local/native databases, private configuration or credentials were included in the source upload.
 
 The older [SQLite preparation report](phase-09-implementation.md) and paid [proposal](public-hosting.md) are historical and superseded by the free choice. Delivered local ZIP/APK/PPTX/DOCX binaries remain unchanged. Use the [current free guide](free-demo-hosting.md).
 

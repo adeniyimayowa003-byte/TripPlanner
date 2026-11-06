@@ -4,7 +4,9 @@ A local-first travel planner built for an AI Programming class. Choose a city, a
 
 **Version:** 0.8.0-demo.2 · **Original code:** [MIT](LICENSE) · **Coverage:** six curated cities · **AI:** explainable rules and scheduling
 
-**Current source checks:** **1,688 pytest cases pass**, including 92 hosting checks with real PostgreSQL transactions and a disposable backup/restore. The user selected a **free public demo** with sleep/usage limits; Render/Neon accounts are ready and deployment/HTTPS acceptance is pending. See [the free hosting guide](docs/free-demo-hosting.md). The packaged demo.2 verification below records the earlier local release, whose binaries remain unchanged.
+**Live classroom demo:** [tripplanner-mayowa.onrender.com](https://tripplanner-mayowa.onrender.com/) · [GitHub source](https://github.com/adeniyimayowa003-byte/TripPlanner). Free hosting can sleep between visits; allow about a minute for waking.
+
+**Verification:** **1,688 pytest cases passed**, including 92 hosting checks with real PostgreSQL and disposable backup/restore. [GitHub CI](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/41381620794) passed on Windows, Linux and PostgreSQL. On 6 November 2026 the live browser journey verified preferences, recommendations, itinerary, saving/reopening, photographs and Light/Dark. A separate visitor received the same 404 for the saved trip and a missing trip. An actual hosted restart/redeploy persistence check remains pending. See [submission status](docs/submission-status-2026-11-06.md) and [hosting instructions](docs/free-demo-hosting.md). Native demo.2 binaries below retain their earlier recorded verification.
 
 **Local verification:** all 1,596 pytest cases pass. The extracted Windows demo passes planning/save/theme/restart/Maps checks on the recorded Windows 11 host. The Android debug APK passes the recorded offline/native-tap, restart, and appearance checks on an Android 15 x86_64 emulator. A physical phone remains untested. See the [final release report](docs/final-release-checks.md).
 
@@ -27,7 +29,7 @@ The classroom handoff includes Windows and Android demos, a 17-slide PowerPoint 
 
 ## Run the website
 
-This section runs the **local preview**, which depends on the computer staying on. The approved public-hosting increment adds a separate production mode with protected anonymous collections and durable storage. Its deployment/account decision and public HTTPS verification are still pending. Follow the [hosting guide](docs/public-hosting.md) and [approved plan](plans/phase-09-public-availability-plan.md); no public URL exists yet. Do not expose this development preview or upload its database.
+For the public classroom demo, open [TripPlanner online](https://tripplanner-mayowa.onrender.com/). The instructions below run the **local preview**, which needs the computer and Python process to stay on. The hosted website runs separately with protected anonymous collections and PostgreSQL storage. Follow the [free hosting guide](docs/free-demo-hosting.md) for its configuration and remaining verification limits. Do not expose the development preview or upload its database.
 
 Use Python 3.14. Node 24 is needed for development JavaScript tests, not to run the website.
 

@@ -1,6 +1,6 @@
 # TripPlanner free public demo
 
-**Selected by the user, 2 November 2026:** Render **Free** website and Neon **Free** PostgreSQL storage, Frankfurt region, US$0 target. The user created both accounts and accepted their terms personally. A new `tripplanner-demo` Neon project has been created in Frankfurt with PostgreSQL only; no extra Auth/Functions/AI Gateway services were selected. Public website deployment and external acceptance remain pending. **No public URL exists yet.**
+**Current review, 6 November 2026:** [TripPlanner is live over HTTPS](https://tripplanner-mayowa.onrender.com/) using Render **Free** and Neon **Free** PostgreSQL in Frankfurt, selected by the user on 2 November. Source is on [GitHub](https://github.com/adeniyimayowa003-byte/TripPlanner). Public planning, saving/reopening, photos, Light/Dark and a separate visitor's 404 were verified. Hosted restart/redeploy persistence remains pending; see [submission status](submission-status-2026-11-06.md). No paid plan/disk or extra Auth/Functions/AI Gateway service was selected.
 
 ## Why two services
 
@@ -35,7 +35,7 @@ The DB creates a fresh version-marked `tripplanner_hosted_v1` namespace atomical
 
 Publish reviewed code and licensed public assets only. Run the tests and `python release_checks.py`, inspect the staged file list, and exclude `.tmp`, environments, downloaded SDK/database tools, build/release bundles, secret configuration, databases/journals and private profiles/backups. GitHub holds source; it does not run this Python backend. The existing source checkout has no Git repository initialized at its root; publication should use an isolated reviewed staging repository to preserve the local workspace.
 
-Source checks currently pass **1,688 tests**, including all 32 PostgreSQL/free-demo cases, with a real PostgreSQL 18.6 cluster and actual `pg_dump`/`pg_restore` against disposable loopback databases. A dedicated Linux CI job is prepared to run real PostgreSQL 18; the ordinary Windows/Linux jobs can skip DB-dependent cases when no test DSN is provided. CI has not run on GitHub until the source is actually uploaded.
+The recorded source suite passed **1,688 tests**, including all 32 PostgreSQL/free-demo cases, with real PostgreSQL 18.6 and actual `pg_dump`/`pg_restore` against disposable databases. [Actual GitHub CI](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/41381620794) passed for Windows, Linux and a dedicated PostgreSQL 18 job. The ordinary Windows/Linux jobs skip DB-dependent cases without a test DSN; the dedicated PostgreSQL job supplies the real DB and matching client tools. The initial CI configuration error was corrected by moving the service-container context to step-level environment settings before the successful run.
 
 ## Private backup and recovery
 

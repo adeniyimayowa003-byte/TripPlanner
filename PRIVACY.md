@@ -1,10 +1,10 @@
 # TripPlanner privacy and offline behavior
 
-TripPlanner is a class-project planner with independent local/native applications and an explicitly configured hosted website mode. Public deployment is pending; see the [hosting guide](docs/public-hosting.md) for its current status. It has no accounts, advertising, analytics, GPS collection, booking, payment, or automatic upload from the downloadable apps. It uses your chosen city, allowance, interests, pace, and optional family-friendly preference to rank bundled ideas.
+TripPlanner is a class-project planner with independent local/native applications and a [public classroom demo](https://tripplanner-mayowa.onrender.com/). See the [free hosting guide](docs/free-demo-hosting.md) for configuration and limits. It has no accounts, advertising, analytics, GPS collection, booking, payment, or automatic upload from the downloadable apps. It uses your chosen city, allowance, interests, pace, and optional family-friendly preference to rank bundled ideas.
 
 ## Hosted website mode
 
-The selected public-demo design uses Render Free for the website and Neon Free for its database. Both have sleep/usage limits and do not promise continuous availability. Saved trips go to Neon rather than a temporary file on the sleeping web service. Public deployment acceptance remains pending; see the [free-demo guide](docs/free-demo-hosting.md).
+The public demo uses Render Free for the website and Neon Free for its database. Both have sleep/usage limits and do not promise continuous availability. Saved trips go to Neon rather than a temporary file on the sleeping web service. Public saving/reopening was verified on 6 November 2026; an actual hosted restart/redeploy check remains pending. See the [free-demo guide](docs/free-demo-hosting.md).
 
 When using a deployed public website, requests and submitted preferences go to that server over HTTPS. Saved snapshots, names, creation times and a digest of an anonymous collection identifier are stored on its durable database. Server operators can access data for maintenance and backups. The host receives ordinary connection information, including IP addresses, and may maintain its own operational logs under its policies. Application logging deliberately excludes submitted trip contents, query strings, cookies and secrets; this does not promise control over the host's separate logs.
 

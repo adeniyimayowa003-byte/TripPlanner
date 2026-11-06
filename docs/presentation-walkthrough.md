@@ -1,6 +1,6 @@
 # Presentation handoff
 
-**Public website follow-up:** Phase 9 is an approved extension, separate from the packaged classroom checkpoint described below. Production code and operator instructions are being checked; no public URL has been deployed. Read the [hosting guide](public-hosting.md). Until actual deployment acceptance is recorded, demonstrate the verified local apps and describe online hosting as pending. The existing PowerPoint/Word binaries retain their original release evidence and have not been regenerated to claim a public deployment.
+**Public website update, 6 November 2026:** [TripPlanner is live](https://tripplanner-mayowa.onrender.com/) and [source is on GitHub](https://github.com/adeniyimayowa003-byte/TripPlanner). Public planning, saving/reopening, photos and both themes were checked. An actual hosted restart/redeploy check remains pending. Read [submission status](submission-status-2026-11-06.md) and the [hosting guide](free-demo-hosting.md). The PowerPoint/Word binaries retain the verified local-release content; use this update alongside them rather than claiming those files were regenerated with hosting evidence.
 
 The classroom materials are local editable files under `dist/presentation/`:
 
@@ -21,4 +21,4 @@ Keep these files locally available for the presentation. They are release artifa
 
 No fixed weekly timeline applies. Describe the four SDD steps separately from the functional product increments. The AI is explainable rule-based matching and greedy scheduling. The release contains no trained model or autonomous agent. Be precise about the six-city dataset, illustrative costs, missing meals, and platform/device verification limits.
 
-Read [final release checks](final-release-checks.md), the [Windows guide](windows-download.md), and the [Android guide](android-download.md) before presenting. A physical Android phone has not been tested, and the current packages are classroom demos rather than app-store releases. The source and CI setup are ready for local review; no GitHub repository was uploaded by this task.
+Read [final release checks](final-release-checks.md), the [Windows guide](windows-download.md), and the [Android guide](android-download.md) before presenting. A physical Android phone has not been tested, and the packages are classroom demos rather than app-store releases. The [published source](https://github.com/adeniyimayowa003-byte/TripPlanner) has passing GitHub CI. Open the public site before presenting so its free server has time to wake, and keep the local demo available.
