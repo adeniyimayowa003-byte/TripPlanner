@@ -4,7 +4,7 @@ TripPlanner is a class-project planner with independent local/native application
 
 ## Hosted website mode
 
-The public demo uses Render Free for the website and Neon Free for its database. Both have sleep/usage limits and do not promise continuous availability. Saved trips go to Neon rather than a temporary file on the sleeping web service. Public saving/reopening was verified on 6 November 2026; an actual hosted restart/redeploy check remains pending. See the [free-demo guide](docs/free-demo-hosting.md).
+The public demo uses Render Free for the website and Neon Free for its database. Both have sleep/usage limits and do not promise continuous availability. Saved trips go to Neon rather than a temporary file on the sleeping web service. Public saving/reopening and an actual Render service restart were verified on 6 November 2026: the rehearsal snapshot stayed unchanged, its browser retained access and a separate visitor was denied. See [restart evidence](docs/hosted-restart-check-2026-11-06.md) and the [free-demo guide](docs/free-demo-hosting.md).
 
 When using a deployed public website, requests and submitted preferences go to that server over HTTPS. Saved snapshots, names, creation times and a digest of an anonymous collection identifier are stored on its durable database. Server operators can access data for maintenance and backups. The host receives ordinary connection information, including IP addresses, and may maintain its own operational logs under its policies. Application logging deliberately excludes submitted trip contents, query strings, cookies and secrets; this does not promise control over the host's separate logs.
 

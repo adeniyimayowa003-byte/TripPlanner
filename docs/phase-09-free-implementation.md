@@ -1,6 +1,6 @@
 # Free-demo implementation and deployment evidence
 
-**6 November submission review:** Public deployment and source publication are complete. Actual public saving/reopening, photos, Light/Dark and separate-visitor denial were checked today; hosted restart/redeploy persistence remains pending. See the [current review](submission-status-2026-11-06.md) for the distinction between verified behavior and remaining acceptance.
+**6 November submission review:** Public deployment and source publication are complete. Actual public saving/reopening, photos, Light/Dark and separate-visitor denial were checked today. The final actual Render service restart check also passed: identical saved-row digest, original-browser access and matching foreign/missing 404 responses. See [restart evidence](hosted-restart-check-2026-11-06.md) and the [current review](submission-status-2026-11-06.md) for recorded behavior and platform limits.
 
 **2 November 2026:** User selected Free with sleep/usage limits, created their own Render/Neon accounts, accepted their terms and authorized Chrome use for setup. Paid plans/disks/upgrades remain unauthorized. The [approved amendment](../specs/phase-09-free-demo.md), [plan](../plans/phase-09-free-demo-plan.md) and [red checkpoint](phase-09-free-testing.md) record SDD in order.
 
@@ -20,7 +20,7 @@ Logical backup uses compatible `pg_dump`, credentials only in a private child en
 - Real database: official portable PostgreSQL **18.6**, allocated loopback port, newly created random per-test databases. No system service, production credentials or actual visitor/local/native collections used. PostgreSQL 18 client tools performed the backup/restore.
 - Actual [GitHub Actions run](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/41381620794) passed on Windows, Linux and the real PostgreSQL 18 job. This followed a correction to service-container context placement in the workflow.
 
-Local Flask HTTPS simulations and actual Waitress loopback HTTP do not prove live Neon TLS, public HTTPS, provider sleep/wake or cloud restart persistence. Those remain deployment acceptance items below.
+Local Flask HTTPS simulations and actual Waitress loopback HTTP alone do not prove live Neon TLS, public HTTPS, provider sleep/wake or cloud restart persistence. The separate live browser, database-client and Render-event checks below provide evidence for the recorded deployed journey.
 
 ## Deployment state
 
@@ -30,6 +30,8 @@ Reviewed code/public assets were published to [adeniyimayowa003-byte/TripPlanner
 
 The older [SQLite preparation report](phase-09-implementation.md) and paid [proposal](public-hosting.md) are historical and superseded by the free choice. Delivered local ZIP/APK/PPTX/DOCX binaries remain unchanged. Use the [current free guide](free-demo-hosting.md).
 
-## External acceptance still required
+## Recorded external acceptance and limits
 
-Record the actual GitHub source URL/commit and CI result, actual Free Render URL/configuration, Neon plan/region/version, live TLS and readiness, full flow and two-browser privacy, cloud restart/redeploy with stable secret/rows, themes/photos/Maps, and independence from the laptop preview. Do not mark completion or revise presentation claims until these checks actually pass. Any billing, OAuth/security permission or authentication action requiring the user is reported at that step without exposing credentials.
+The public URL, source commit, Free plan/region, live verified database TLS, HTTPS health, actual planning/save/reopen journey, themes/photos/Maps markup and separate visitor denial are recorded above and in the [submission review](submission-status-2026-11-06.md). The [6 November restart report](hosted-restart-check-2026-11-06.md) closes the final provider-restart check using Render's own event plus exact before/after owned-row comparison and the original browser's access. [A subsequent verified CI run](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/42194166693) also passed all three jobs after the submission documentation update.
+
+This evidence covers the recorded rehearsal and tested source contracts, not every possible device or production workload. Physical Android, arbitrary Office versions and a literal laptop-powered-off observation remain unverified. The public URL is served by Render rather than the laptop preview. Free sleep/quotas still apply, and future deployments must be reviewed and checked. No new paid resources, permissions or secret rotations were needed for this verification.

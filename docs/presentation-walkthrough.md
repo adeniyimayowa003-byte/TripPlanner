@@ -1,6 +1,6 @@
 # Presentation handoff
 
-**Public website update, 6 November 2026:** [TripPlanner is live](https://tripplanner-mayowa.onrender.com/) and [source is on GitHub](https://github.com/adeniyimayowa003-byte/TripPlanner). Public planning, saving/reopening, photos and both themes were checked. An actual hosted restart/redeploy check remains pending. Read [submission status](submission-status-2026-11-06.md) and the [hosting guide](free-demo-hosting.md). The PowerPoint/Word binaries retain the verified local-release content; use this update alongside them rather than claiming those files were regenerated with hosting evidence.
+**Public website update, 6 November 2026:** [TripPlanner is live](https://tripplanner-mayowa.onrender.com/) and [source is on GitHub](https://github.com/adeniyimayowa003-byte/TripPlanner). Public planning, saving/reopening, photos and both themes were checked. An actual Render service restart preserved the saved rehearsal snapshot exactly, kept its browser access working and continued to deny another visitor. Read [restart evidence](hosted-restart-check-2026-11-06.md), [submission status](submission-status-2026-11-06.md) and the [hosting guide](free-demo-hosting.md). The PowerPoint/Word binaries retain the verified local-release content; use this update alongside them rather than claiming those files were regenerated with hosting evidence.
 
 The classroom materials are local editable files under `dist/presentation/`:
 

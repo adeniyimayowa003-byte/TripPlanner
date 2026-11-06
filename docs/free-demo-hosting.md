@@ -1,6 +1,6 @@
 # TripPlanner free public demo
 
-**Current review, 6 November 2026:** [TripPlanner is live over HTTPS](https://tripplanner-mayowa.onrender.com/) using Render **Free** and Neon **Free** PostgreSQL in Frankfurt, selected by the user on 2 November. Source is on [GitHub](https://github.com/adeniyimayowa003-byte/TripPlanner). Public planning, saving/reopening, photos, Light/Dark and a separate visitor's 404 were verified. Hosted restart/redeploy persistence remains pending; see [submission status](submission-status-2026-11-06.md). No paid plan/disk or extra Auth/Functions/AI Gateway service was selected.
+**Current review, 6 November 2026:** [TripPlanner is live over HTTPS](https://tripplanner-mayowa.onrender.com/) using Render **Free** and Neon **Free** PostgreSQL in Frankfurt, selected by the user on 2 November. Source is on [GitHub](https://github.com/adeniyimayowa003-byte/TripPlanner). Public planning, saving/reopening, photos, Light/Dark and a separate visitor's 404 were verified. An actual Render service restart preserved the owned rehearsal snapshot exactly and retained browser access controls; see [restart evidence](hosted-restart-check-2026-11-06.md) and [submission status](submission-status-2026-11-06.md). No paid plan/disk or extra Auth/Functions/AI Gateway service was selected.
 
 ## Why two services
 
@@ -19,7 +19,7 @@ Use [the free example](../hosting/render-free.yaml.example), not the optional hi
 | Build | `pip install -r requirements-hosted.lock.txt` |
 | Start | `python serve_hosted.py` |
 | Health | `/healthz` |
-| Deploys | Manual until external acceptance |
+| Deploys | Manual; review and test source before each deployment |
 | Disk | None |
 | `TRIPPLANNER_STORAGE_BACKEND` | `postgres` |
 | `TRIPPLANNER_DATABASE_URL` | Private Neon connection URL, **`sslmode=verify-full`**, optional `channel_binding=require` |
@@ -35,7 +35,7 @@ The DB creates a fresh version-marked `tripplanner_hosted_v1` namespace atomical
 
 Publish reviewed code and licensed public assets only. Run the tests and `python release_checks.py`, inspect the staged file list, and exclude `.tmp`, environments, downloaded SDK/database tools, build/release bundles, secret configuration, databases/journals and private profiles/backups. GitHub holds source; it does not run this Python backend. The existing source checkout has no Git repository initialized at its root; publication should use an isolated reviewed staging repository to preserve the local workspace.
 
-The recorded source suite passed **1,688 tests**, including all 32 PostgreSQL/free-demo cases, with real PostgreSQL 18.6 and actual `pg_dump`/`pg_restore` against disposable databases. [Actual GitHub CI](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/41381620794) passed for Windows, Linux and a dedicated PostgreSQL 18 job. The ordinary Windows/Linux jobs skip DB-dependent cases without a test DSN; the dedicated PostgreSQL job supplies the real DB and matching client tools. The initial CI configuration error was corrected by moving the service-container context to step-level environment settings before the successful run.
+The recorded source suite passed **1,688 tests**, including all 32 PostgreSQL/free-demo cases, with real PostgreSQL 18.6 and actual `pg_dump`/`pg_restore` against disposable databases. [Verified GitHub CI](https://github.com/adeniyimayowa003-byte/TripPlanner/actions/runs/42194166693) passed for Windows, Linux and a dedicated PostgreSQL 18 job. The ordinary Windows/Linux jobs skip DB-dependent cases without a test DSN; the dedicated PostgreSQL job supplies the real DB and matching client tools. The initial CI configuration error was corrected by moving the service-container context to step-level environment settings before the successful run.
 
 ## Private backup and recovery
 
