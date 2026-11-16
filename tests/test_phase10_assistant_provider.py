@@ -61,7 +61,8 @@ def test_preflight_rejects_before_transport(case):
     json.dumps({'choices':[{'finish_reason':'stop','message':{'tool_calls':[{'function':'book'}],'content':'{}'}}]}).encode(),
     json.dumps({'choices':[{'finish_reason':'stop','message':{'content':'{}'}}],'usage':{'completion_tokens':601}}).encode(),
     envelope('x'*4097),
-])
+], ids=['invalid-json', 'oversize-response', 'truncated-completion',
+        'tool-call', 'excess-token-usage', 'oversize-content'])
 def test_bad_truncated_tool_or_oversize_response_is_redacted(response):
     module=api();config=module.EndpointConfig('https://model.example/v1/chat/completions','model.example','m','FAKE-KEY')
     provider=module.ChatSourceAdapter(config,token_counter=lambda text:10,transport=lambda *a,**k:response)

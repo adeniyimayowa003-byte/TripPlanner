@@ -1,5 +1,6 @@
 """Store/identity contracts, separate from authentication or production DBs."""
 import importlib
+import os
 from pathlib import Path
 import sqlite3
 
@@ -40,7 +41,10 @@ def test_create_only_separate_store_with_private_permissions(tmp_path):
     path = tmp_path / 'accounts.sqlite3'
     module.create_store(path)
     assert path.is_file()
-    assert path.stat().st_mode & 0o077 == 0
+    # POSIX mode bits do not describe NTFS ACLs. Keep all create-only/schema
+    # checks on Windows; Windows ACL verification remains a release prerequisite.
+    if os.name == 'posix':
+        assert path.stat().st_mode & 0o077 == 0
     with sqlite3.connect(path) as db:
         assert db.execute('PRAGMA application_id').fetchone()[0] != 0
         assert db.execute('PRAGMA user_version').fetchone()[0] > 0

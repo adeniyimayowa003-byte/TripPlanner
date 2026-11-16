@@ -186,11 +186,18 @@ def test_input_budget_rejects_before_call_and_quota_stays_usable(state,parse_pag
 
 def test_request_timeout_and_no_retry(state,parse_page):
     _,runtime,provider,_,_,_,browser,_=state
-    runtime.timeout=0.02
+    # Allow real session/SQLite preflight on Windows before testing an in-flight
+    # timeout. A 20ms budget can expire before the provider is ever entered.
+    runtime.timeout=1.0
     release=threading.Event()
-    provider.hook=lambda:release.wait(1)
+    entered=threading.Event()
+    def blocked_provider():
+        entered.set()
+        release.wait(5)
+    provider.hook=blocked_provider
     try:
         response=send(browser,parse_page)
+        assert entered.is_set()
         assert 'FAQ fallback' in response.text and len(provider.calls)==1
     finally:release.set()
 
