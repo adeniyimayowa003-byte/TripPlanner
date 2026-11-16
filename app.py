@@ -5,7 +5,9 @@ from pathlib import Path
 import re
 import secrets
 
-from flask import Flask, flash, g, redirect, render_template, request, session, url_for
+from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
+
+from help_content import FAQ_VERSION, search_faq
 
 from catalog import (
     get_supported_destinations,
@@ -55,6 +57,8 @@ def create_app(test_config=None):
         DATABASE=os.environ.get("TRIPPLANNER_DATABASE")
         or str(Path(app.instance_path) / "tripplanner.sqlite3"),
         DATABASE_TIMEOUT=5.0,
+        PHASE10_HELP_ENABLED=True,
+        PHASE10_ASSISTANT_ENABLED=True,
     )
     if test_config is not None:
         app.config.update(test_config)
@@ -102,7 +106,9 @@ def create_app(test_config=None):
         # In particular, rendering a saved 404 must not validate/pop a draft.
         saved_page = request.path == "/trips" or request.path.startswith("/trips/")
         return {
-            "current_draft": None if saved_page or request.endpoint in {"image_credits", "about"} else current_draft(),
+            "current_draft": None if saved_page or request.blueprint == 'assistant' or request.endpoint in {"image_credits", "about", "help_page"} else current_draft(),
+            "help_enabled": bool(app.config.get("PHASE10_HELP_ENABLED")),
+            "assistant_enabled": bool(app.config.get("PHASE10_ASSISTANT_ENABLED") and app.config.get("PHASE10_HELP_ENABLED")),
             "csrf_token": get_csrf_token,
             "maps_url": build_maps_url,
             "photo_for_place": photo_for_place,
@@ -127,6 +133,13 @@ def create_app(test_config=None):
                 except ValueError:
                     g.current_draft = None
                     return render_template("error.html", message="This form's currency could not be verified. Open the planner and try again."), 400
+
+    @app.get("/help")
+    def help_page():
+        if not app.config.get("PHASE10_HELP_ENABLED"):
+            abort(404)
+        query = request.args.get("q", "")[:200]
+        return render_template("help.html", query=query, faqs=search_faq(query), faq_version=FAQ_VERSION)
 
     @app.get("/")
     def home():
@@ -382,6 +395,8 @@ def create_app(test_config=None):
         # from request query/form fields or a URL's guessed trip number.
         return {"owner": g.hosted_owner} if app.config.get("HOSTED_MODE") else {}
 
+    from assistant_web import blueprint as assistant_blueprint
+    app.register_blueprint(assistant_blueprint)
     return app
 
 

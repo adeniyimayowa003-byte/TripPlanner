@@ -1,0 +1,104 @@
+FFFFFFFFFFF                                                              [100%]
+=================================== FAILURES ===================================
+________ test_issue_persists_only_digest_and_reuses_immutable_identity _________
+tests/test_phase10_account_issue.py:27: in test_issue_persists_only_digest_and_reuses_immutable_identity
+    one = store.issue(identity())
+          ^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+___ test_provider_subject_namespace_is_exact[user-B-https://issuer.example] ____
+tests/test_phase10_account_issue.py:46: in test_provider_subject_namespace_is_exact
+    one = store.issue(identity())
+          ^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+___ test_provider_subject_namespace_is_exact[user-A-https://another.example] ___
+tests/test_phase10_account_issue.py:46: in test_provider_subject_namespace_is_exact
+    one = store.issue(identity())
+          ^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+___ test_provider_subject_namespace_is_exact[USER-A-https://issuer.example] ____
+tests/test_phase10_account_issue.py:46: in test_provider_subject_namespace_is_exact
+    one = store.issue(identity())
+          ^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+_ test_provider_subject_namespace_is_exact[user-A-https://issuer.example/Tenant] _
+tests/test_phase10_account_issue.py:46: in test_provider_subject_namespace_is_exact
+    one = store.issue(identity())
+          ^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+______ test_stale_or_future_authentication_cannot_create_account[100001] _______
+tests/test_phase10_account_issue.py:54: in test_stale_or_future_authentication_cannot_create_account
+    store.issue(identity(authenticated_at=when))
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+_______ test_stale_or_future_authentication_cannot_create_account[99700] _______
+tests/test_phase10_account_issue.py:54: in test_stale_or_future_authentication_cannot_create_account
+    store.issue(identity(authenticated_at=when))
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+_________ test_stale_or_future_authentication_cannot_create_account[0] _________
+tests/test_phase10_account_issue.py:54: in test_stale_or_future_authentication_cannot_create_account
+    store.issue(identity(authenticated_at=when))
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+_____________ test_plain_dict_cannot_be_used_as_verified_identity ______________
+tests/test_phase10_account_issue.py:61: in test_plain_dict_cannot_be_used_as_verified_identity
+    store.issue({'issuer': 'https://issuer.example', 'subject': 'user-A', 'email_verified': True})
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+_________________ test_concurrent_registration_has_one_account _________________
+tests/test_phase10_account_issue.py:71: in test_concurrent_registration_has_one_account
+    results = list(workers.map(issue, range(2)))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:619: in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:317: in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_account_issue.py:69: in issue
+    return module.SessionStore(path, clock=lambda:100000).issue(identity())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+_________________ test_no_secrets_in_unavailable_store_errors __________________
+tests/test_phase10_account_issue.py:82: in test_no_secrets_in_unavailable_store_errors
+    store.issue(identity())
+account_sessions.py:119: in issue
+    raise NotImplementedError('Session issuance is not implemented.')
+E   NotImplementedError: Session issuance is not implemented.
+=========================== short test summary info ============================
+FAILED tests/test_phase10_account_issue.py::test_issue_persists_only_digest_and_reuses_immutable_identity
+FAILED tests/test_phase10_account_issue.py::test_provider_subject_namespace_is_exact[user-B-https://issuer.example]
+FAILED tests/test_phase10_account_issue.py::test_provider_subject_namespace_is_exact[user-A-https://another.example]
+FAILED tests/test_phase10_account_issue.py::test_provider_subject_namespace_is_exact[USER-A-https://issuer.example]
+FAILED tests/test_phase10_account_issue.py::test_provider_subject_namespace_is_exact[user-A-https://issuer.example/Tenant]
+FAILED tests/test_phase10_account_issue.py::test_stale_or_future_authentication_cannot_create_account[100001]
+FAILED tests/test_phase10_account_issue.py::test_stale_or_future_authentication_cannot_create_account[99700]
+FAILED tests/test_phase10_account_issue.py::test_stale_or_future_authentication_cannot_create_account[0]
+FAILED tests/test_phase10_account_issue.py::test_plain_dict_cannot_be_used_as_verified_identity
+FAILED tests/test_phase10_account_issue.py::test_concurrent_registration_has_one_account
+FAILED tests/test_phase10_account_issue.py::test_no_secrets_in_unavailable_store_errors
+11 failed in 0.12s

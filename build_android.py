@@ -13,7 +13,7 @@ def application_files(root):
     modules = [name for name in MODULES if name != 'windows_app'] + ['android_runtime']
     paths = [*(f'{name}.py' for name in modules), *(f'templates/{name}.html' for name in TEMPLATES),
              'data/places.json', 'data/destinations.json', 'data/images.json',
-             'static/css/style.css', 'static/js/appearance.js', 'static/js/images.js', 'static/js/plan.js',
+             'static/css/style.css', 'static/js/appearance.js', 'static/js/images.js', 'static/js/plan.js', 'static/js/assistant_privacy.js',
              'static/images/tripplanner.svg', 'LICENSE', 'PHOTO_CREDITS.md', 'PRIVACY.md',
              'CODE_LICENSE.md', 'THIRD_PARTY_NOTICES.md',
              *('static/'+asset['filename'] for asset in manifest['images'].values())]

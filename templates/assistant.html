@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}AI travel/help assistant — TripPlanner{% endblock %}
+{% block content %}
+<div class="page-width assistant-page">
+  <p class="eyebrow">TripPlanner guide</p><h1>AI travel/help assistant</h1>
+  <p class="assistant-mode" role="status">{% if model_ready %}Optional AI source selection is configured. Consent is required before sending a question.{% else %}FAQ fallback · not a live model{% endif %}</p>
+  {% if disclosure %}<section aria-label="AI provider privacy"><h2>Before using AI</h2><p>Provider: {{ disclosure.provider_name }}. Processing region: {{ disclosure.region }}. Retention: {{ disclosure.retention }}.</p><p>The approved configuration excludes training on your inputs and outputs. Your question, selected approved sources and only an explicitly chosen trip context will be sent. <a href="{{ disclosure.terms_url }}" target="_blank" rel="noopener noreferrer">Review the configured provider terms</a>.</p></section>{% endif %}
+  <p>Ask about planning, saving or our six-city catalog. Estimates are illustrative; verify prices and opening hours with venue sources. AI can make mistakes and cannot book trips or change accounts.</p>
+  <p>Fallback answers are approved project excerpts, not generated prose. No account or model provider is needed for FAQ mode. <a href="{{ url_for('help_page') }}">Open Help &amp; FAQs</a>.</p>
+  <section aria-label="Conversation" class="assistant-conversation" data-assistant-private>
+    {% if question %}<article class="assistant-turn"><h2>Your question</h2><p>{{ question }}</p></article>{% endif %}
+    {% if answer %}<article class="assistant-turn assistant-answer"><h2>{% if answer.mode == 'model' %}AI-selected sources{% else %}FAQ fallback{% endif %}</h2>
+      <p role="status">{{ answer.notice }}</p>
+      {% for source in answer.sources %}<section><h3>{{ source.label }}</h3><p>{{ source.text }}</p><p><a href="{{ source.url }}">Source: {{ source.label }}</a> · version {{ source.version }}</p></section>{% endfor %}
+    </article>{% else %}<p>Start with a question below. No message is sent automatically.</p>{% endif %}
+  </section>
+  {% if error %}<p id="assistant-error" class="field-error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="{{ url_for('assistant.conversation') }}" class="assistant-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="assistant-question">Your travel or project question</label>
+    <textarea id="assistant-question" name="question" rows="3" maxlength="1000" required aria-describedby="assistant-privacy{% if error %} assistant-error{% endif %}"></textarea>
+    <p id="assistant-privacy">No conversation history is stored. Each question starts a fresh turn; avoid sensitive information. FAQ mode sends nothing to a model provider.</p>
+    <fieldset data-assistant-private><legend>Optional model and trip context</legend>
+      <label><input type="checkbox" name="use_model"{% if not model_ready %} disabled{% endif %}> Use the configured AI model for this question</label>
+      <label><input type="checkbox" name="consent"{% if not model_ready %} disabled{% endif %}> I agree to send this question and approved source excerpts to the configured provider</label>
+      <p>Provider identity, processing region and retention terms must be disclosed before activation. Consent is never preselected.</p>
+      <label for="assistant-trip">Select exactly one account trip (optional)</label>
+      <select id="assistant-trip" name="trip_id"{% if not trip_options %} disabled{% endif %}><option value="">No trip context</option>{% for trip in trip_options %}<option value="{{ trip.id }}">{{ trip.label }}</option>{% endfor %}</select>
+      <label><input type="checkbox" name="use_trip"{% if not trip_options %} disabled{% endif %}> Send only this selected trip's destination, necessary preferences, itinerary entries and illustrative estimates</label>
+      {% if not trip_options %}<p>Account trip context is unavailable. Anonymous and offline collections are never uploaded or claimed here.</p>{% endif %}
+    </fieldset>
+    <button type="submit">Ask the assistant</button> <a href="{{ url_for('assistant.conversation') }}">Clear conversation</a>
+  </form>
+  <section aria-label="Sample questions"><h2>Try a question</h2><form action="{{ url_for('assistant.conversation') }}" method="post" class="assistant-samples">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% for sample in samples %}<button type="submit" name="question" value="{{ sample }}">{{ sample }}</button>{% endfor %}
+  </form></section>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/assistant_privacy.js') }}" defer></script>{% endblock %}

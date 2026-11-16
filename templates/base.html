@@ -17,6 +17,8 @@
   <header class="site-header page-width">
     <a class="brand" href="{{ url_for('home') }}" aria-label="TripPlanner home"><span class="brand-mark" aria-hidden="true">T<span>↗</span></span><span>tripplanner<span class="brand-period">.</span></span></a>
     <nav aria-label="Main navigation">
+      {% if assistant_enabled %}<a href="{{ url_for('assistant.conversation') }}"{% if request.blueprint == 'assistant' %} aria-current="page"{% endif %}>Assistant</a>{% endif %}
+      {% if help_enabled %}<a href="{{ url_for('help_page') }}"{% if request.endpoint == 'help_page' %} aria-current="page"{% endif %}>Help &amp; FAQs</a>{% endif %}
       {% if request.endpoint == 'home' %}
       <a class="nav-explain" href="#how-it-works">How it works</a>
       <a href="{{ url_for('saved_trips') }}">Saved trips</a>

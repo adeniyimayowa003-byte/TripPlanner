@@ -1,0 +1,798 @@
+--- /dev/null
++++ b/account_sessions.py
+@@ -0,0 +1,287 @@
++"""Dormant development adapter; NEVER the hosted PostgreSQL account store.
++
++Only a future cryptographically verifying OIDC adapter may supply identities.
++This module neither authenticates OIDC tokens nor exposes an HTTP login path.
++No app factory imports it, no environment variable activates it, and existing
++guest/snapshot databases must never be passed to this separate store.
++"""
++from contextlib import contextmanager
++from dataclasses import dataclass, field
++import hashlib
++import math
++import os
++from pathlib import Path
++import re
++import secrets
++import sqlite3
++import time
++from urllib.parse import urlsplit
++
++_APPLICATION_ID = 0x54504131
++_VERSION = 1
++_ERROR = 'Account sessions are temporarily unavailable.'
++_IDLE_SECONDS = 30 * 60
++_ABSOLUTE_SECONDS = 12 * 60 * 60
++_RECENT_SECONDS = 5 * 60
++_DDL = (
++    ('accounts', 'CREATE TABLE accounts (id TEXT PRIMARY KEY NOT NULL, issuer TEXT NOT NULL, subject TEXT NOT NULL, generation INTEGER NOT NULL CHECK(generation >= 0), active INTEGER NOT NULL CHECK(active IN (0,1)), created_at INTEGER NOT NULL, UNIQUE(issuer, subject))'),
++    ('account_sessions', 'CREATE TABLE account_sessions (token_hash TEXT PRIMARY KEY NOT NULL, account_id TEXT NOT NULL REFERENCES accounts(id), generation INTEGER NOT NULL, authenticated_at INTEGER NOT NULL, created_at INTEGER NOT NULL, last_seen INTEGER NOT NULL, idle_expires_at INTEGER NOT NULL, absolute_expires_at INTEGER NOT NULL)'),
++    ('account_sessions_expiry', 'CREATE INDEX account_sessions_expiry ON account_sessions(idle_expires_at, absolute_expires_at)'),
++)
++
++
++class AccountStoreUnavailable(RuntimeError):
++    pass
++
++
++@dataclass(frozen=True)
++class VerifiedIdentity:
++    issuer: str
++    subject: str
++    email_verified: bool
++    authenticated_at: int
++
++    def __post_init__(self):
++        try:
++            parts = urlsplit(self.issuer)
++            valid_issuer = (isinstance(self.issuer, str) and 0 < len(self.issuer) <= 2048
++                            and all(ord(c) > 32 and ord(c) != 127 for c in self.issuer)
++                            and parts.scheme == 'https' and parts.hostname
++                            and parts.username is None and parts.password is None
++                            and '@' not in parts.netloc
++                            and (parts.port is None or 1 <= parts.port <= 65535)
++                            and '?' not in self.issuer and '#' not in self.issuer)
++        except (ValueError, TypeError, AttributeError):
++            valid_issuer = False
++        if (not valid_issuer or not isinstance(self.subject, str)
++                or not 0 < len(self.subject) <= 255
++                or any(not 32 <= ord(c) < 127 for c in self.subject)
++                or self.email_verified is not True
++                or type(self.authenticated_at) is not int or self.authenticated_at < 0):
++            raise ValueError('A verified provider identity is required.')
++
++
++def _path(database):
++    path = Path(database)
++    if not path.is_absolute():
++        raise ValueError('Choose an absolute, separate account database path.')
++    if path.is_symlink() or not path.parent.is_dir():
++        raise AccountStoreUnavailable(_ERROR)
++    return path
++
++
++def _validate(connection):
++    if (connection.execute('PRAGMA application_id').fetchone()[0] != _APPLICATION_ID
++            or connection.execute('PRAGMA user_version').fetchone()[0] != _VERSION
++            or set(connection.execute("SELECT name, sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").fetchall()) != set(_DDL)):
++        raise AccountStoreUnavailable(_ERROR)
++
++
++@contextmanager
++def _connection(database, *, validate=True, transaction=False):
++    connection = None
++    try:
++        path = _path(database)
++        connection = sqlite3.connect(path.as_uri() + '?mode=rw', uri=True,
++                                     timeout=2.0, isolation_level=None)
++        connection.execute('PRAGMA foreign_keys=ON')
++        if transaction:
++            connection.execute('BEGIN IMMEDIATE')
++        if validate:
++            _validate(connection)
++        yield connection
++    except (sqlite3.Error, OSError):
++        raise AccountStoreUnavailable(_ERROR) from None
++    finally:
++        if connection is not None:
++            try:
++                connection.rollback()
++                connection.close()
++            except sqlite3.Error:
++                raise AccountStoreUnavailable(_ERROR) from None
++
++
++def create_store(database):
++    """Explicit create-only development setup; never migrate/repair/reset data."""
++    path = _path(database)
++    try:
++        descriptor = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
++        os.close(descriptor)
++    except OSError:
++        raise AccountStoreUnavailable(_ERROR) from None
++    with _connection(path, validate=False, transaction=True) as connection:
++        for _, sql in _DDL:
++            connection.execute(sql)
++        connection.execute(f'PRAGMA application_id={_APPLICATION_ID}')
++        connection.execute(f'PRAGMA user_version={_VERSION}')
++        connection.commit()
++
++
++@dataclass(frozen=True)
++class Principal:
++    account_id: str
++    authenticated_at: int
++    created_at: int
++    idle_expires_at: int
++    absolute_expires_at: int
++
++
++@dataclass(frozen=True)
++class IssuedSession:
++    token: str = field(repr=False)
++    principal: Principal
++
++
++def _token_hash(token):
++    if not isinstance(token, str) or re.fullmatch(r'[A-Za-z0-9_-]{43}', token) is None:
++        return None
++    return hashlib.sha256(b'tripplanner-account-session-v1:' + token.encode('ascii')).hexdigest()
++
++
++def _lookup(connection, token_hash, now, *, touch=False):
++    row = connection.execute(
++        'SELECT s.account_id,s.authenticated_at,s.created_at,s.last_seen,'
++        's.idle_expires_at,s.absolute_expires_at,s.generation,a.generation,a.active '
++        'FROM account_sessions s JOIN accounts a ON a.id=s.account_id WHERE s.token_hash=?',
++        (token_hash,)).fetchone()
++    if row is None:
++        return None
++    account_id, authenticated, created, seen, idle, absolute, generation, current_generation, active = row
++    if (not isinstance(account_id, str) or re.fullmatch(r'[0-9a-f]{64}', account_id) is None
++            or any(type(value) is not int for value in row[1:])
++            or active != 1 or generation != current_generation or generation < 0
++            or not 0 <= created - authenticated < _RECENT_SECONDS
++            or not 0 <= created <= seen <= now
++            or absolute != created + _ABSOLUTE_SECONDS
++            or idle != min(seen + _IDLE_SECONDS, absolute)
++            or now >= idle or now >= absolute):
++        return None
++    if touch:
++        idle = min(now + _IDLE_SECONDS, absolute)
++        connection.execute('UPDATE account_sessions SET last_seen=?,idle_expires_at=? WHERE token_hash=?',
++                           (now, idle, token_hash))
++    return Principal(account_id, authenticated, created, idle, absolute)
++
++
++class SessionStore:
++    def __init__(self, database, *, clock=None):
++        self.database = _path(database)
++        self._clock = clock or time.time
++        if not callable(self._clock):
++            raise ValueError('A valid session clock is required.')
++        with _connection(self.database):
++            pass
++
++    def _now(self):
++        value = self._clock()
++        if type(value) not in (int, float) or not math.isfinite(value) or value < 0:
++            raise ValueError('A valid session clock is required.')
++        return int(value)
++
++    def issue(self, identity, *, previous_token=None):
++        """Server-internal only: caller must have verified a real OIDC response."""
++        now = self._now()
++        if type(identity) is not VerifiedIdentity:
++            raise ValueError('A verified provider identity is required.')
++        identity.__post_init__()
++        if not 0 <= now - identity.authenticated_at < _RECENT_SECONDS:
++            raise ValueError('Recent verified authentication is required.')
++        token = secrets.token_urlsafe(32)
++        token_hash = _token_hash(token)
++        with _connection(self.database, transaction=True) as connection:
++            connection.execute(
++                'INSERT INTO accounts(id,issuer,subject,generation,active,created_at) '
++                'VALUES(?,?,?,0,1,?) ON CONFLICT(issuer,subject) DO NOTHING',
++                (secrets.token_hex(32), identity.issuer, identity.subject, now))
++            account_id, generation, active = connection.execute(
++                'SELECT id,generation,active FROM accounts WHERE issuer=? AND subject=?',
++                (identity.issuer, identity.subject)).fetchone()
++            if active != 1:
++                raise ValueError('This account is unavailable.')
++            connection.execute(
++                'INSERT INTO account_sessions VALUES(?,?,?,?,?,?,?,?)',
++                (token_hash, account_id, generation, identity.authenticated_at,
++                 now, now, now + _IDLE_SECONDS, now + _ABSOLUTE_SECONDS))
++            previous_hash = _token_hash(previous_token)
++            if previous_hash:
++                connection.execute('DELETE FROM account_sessions WHERE token_hash=?', (previous_hash,))
++            connection.commit()
++        return IssuedSession(token, Principal(account_id, identity.authenticated_at, now,
++                                             now + _IDLE_SECONDS, now + _ABSOLUTE_SECONDS))
++
++    def resolve(self, token, *, touch=True):
++        """Revalidate authority on each operation; never trust a cached principal."""
++        token_hash = _token_hash(token)
++        if token_hash is None:
++            return None
++        now = self._now()
++        with _connection(self.database, transaction=True) as connection:
++            principal = _lookup(connection, token_hash, now, touch=touch)
++            connection.commit()
++        return principal
++
++    def authorize(self, token, *, owner_kind, owner_id):
++        """Check DB-derived ownership metadata, never a client-requested owner.
++
++        This does not retrieve trips; a future repository must enforce ownership
++        in every actual row query too. Anonymous digests are a distinct kind.
++        """
++        if (owner_kind != 'account' or not isinstance(owner_id, str)
++                or re.fullmatch(r'[0-9a-f]{64}', owner_id) is None):
++            return False
++        principal = self.resolve(token)
++        return principal is not None and secrets.compare_digest(principal.account_id, owner_id)
++
++    def revoke(self, token):
++        token_hash = _token_hash(token)
++        if token_hash is None:
++            return False
++        with _connection(self.database, transaction=True) as connection:
++            removed = connection.execute('DELETE FROM account_sessions WHERE token_hash=?',
++                                         (token_hash,)).rowcount
++            connection.commit()
++        return removed == 1
++
++    def revoke_all(self, token):
++        token_hash = _token_hash(token)
++        if token_hash is None:
++            return False
++        now = self._now()
++        with _connection(self.database, transaction=True) as connection:
++            principal = _lookup(connection, token_hash, now)
++            if principal is None or not 0 <= now - principal.authenticated_at < _RECENT_SECONDS:
++                return False
++            _invalidate(connection, principal.account_id)
++            connection.commit()
++        return True
++
++    def invalidate_identity(self, issuer, subject):
++        """Server-internal hook, NOT an event receiver or event verification.
++
++        A future caller MUST independently verify provider authenticity/replay
++        protections before using this; it is never available to HTTP callers.
++        """
++        VerifiedIdentity(issuer, subject, True, 0)  # Validate key shape only.
++        with _connection(self.database, transaction=True) as connection:
++            row = connection.execute('SELECT id FROM accounts WHERE issuer=? AND subject=?',
++                                     (issuer, subject)).fetchone()
++            if row is None:
++                return False
++            _invalidate(connection, row[0])
++            connection.commit()
++        return True
++
++    def purge_expired(self):
++        """Explicit maintenance primitive; no scheduler/retention promise yet."""
++        now = self._now()
++        with _connection(self.database, transaction=True) as connection:
++            count = connection.execute(
++                'DELETE FROM account_sessions WHERE idle_expires_at<=? OR absolute_expires_at<=?',
++                (now, now)).rowcount
++            connection.commit()
++        return count
++
++
++def _invalidate(connection, account_id):
++    connection.execute('UPDATE accounts SET generation=generation+1 WHERE id=?', (account_id,))
++    connection.execute('DELETE FROM account_sessions WHERE account_id=?', (account_id,))
+--- /dev/null
++++ b/tests/test_phase10_account_hardening.py
+@@ -0,0 +1,112 @@
++"""Additional failure/authority regressions; synthetic cloud data only."""
++import importlib
++import hashlib
++import sqlite3
++
++import pytest
++
++
++def api():
++    return importlib.import_module('account_sessions')
++
++
++@pytest.mark.parametrize('issuer', ['https://issuer.example:bad',
++    'https://issuer.example:99999', 'https://@issuer.example',
++    'https://issuer.example/?', 'https://issuer.example/#', 'https://issuer.example/\x7f'])
++def test_malformed_issuer_is_not_trusted(issuer):
++    with pytest.raises(ValueError):
++        api().VerifiedIdentity(issuer,'A',True,100000)
++
++
++@pytest.fixture
++def state(tmp_path):
++    module=api()
++    clock=[100000]
++    path=tmp_path/'accounts.sqlite3'
++    module.create_store(path)
++    store=module.SessionStore(path,clock=lambda:clock[0])
++    ident=module.VerifiedIdentity('https://issuer.example','A',True,clock[0])
++    return module,clock,store,ident,store.issue(ident)
++
++
++def test_failed_rotation_keeps_old_authority_and_account_count(state):
++    module,clock,store,_,issued=state
++    stale=module.VerifiedIdentity('https://issuer.example','B',True,clock[0]-300)
++    with pytest.raises(ValueError):
++        store.issue(stale,previous_token=issued.token)
++    assert store.resolve(issued.token) is not None
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM accounts').fetchone()==(1,)
++
++
++def test_rotation_transaction_failure_keeps_old_authority(state):
++    # A locked store must fail without clearing the previous session or
++    # creating a new account. This is bounded SQLite contention, not a load test.
++    module,_,store,ident,issued=state
++    with sqlite3.connect(store.database,isolation_level=None) as lock:
++        lock.execute('BEGIN IMMEDIATE')
++        with pytest.raises(module.AccountStoreUnavailable):
++            store.issue(ident,previous_token=issued.token)
++        lock.rollback()
++    assert store.resolve(issued.token) is not None
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM account_sessions').fetchone()==(1,)
++
++
++@pytest.mark.parametrize('sql', [
++    'UPDATE accounts SET active=0',
++    'UPDATE accounts SET generation=generation+1',
++    'UPDATE account_sessions SET absolute_expires_at=absolute_expires_at+1',
++    'UPDATE account_sessions SET idle_expires_at=idle_expires_at+1',
++    'UPDATE account_sessions SET authenticated_at=created_at+1',
++    'UPDATE account_sessions SET last_seen=created_at-1',
++])
++def test_corrupt_or_revoked_session_state_fails_closed(state,sql):
++    _,_,store,_,issued=state
++    with sqlite3.connect(store.database) as db:
++        db.execute(sql)
++    assert store.resolve(issued.token) is None
++    assert not store.authorize(issued.token,owner_kind='account',owner_id=issued.principal.account_id)
++
++
++def test_inactive_account_cannot_issue_new_session(state):
++    _,_,store,ident,_=state
++    with sqlite3.connect(store.database) as db:
++        db.execute('UPDATE accounts SET active=0')
++    with pytest.raises(ValueError):
++        store.issue(ident)
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM account_sessions').fetchone()==(1,)
++
++
++def test_corrupt_schema_is_not_repaired_silently(state):
++    module,_,store,ident,_=state
++    with sqlite3.connect(store.database) as db:
++        db.execute('ALTER TABLE accounts ADD COLUMN unexpected TEXT')
++    before=store.database.read_bytes()
++    with pytest.raises(module.AccountStoreUnavailable):
++        store.issue(ident)
++    assert store.database.read_bytes()==before
++
++
++def test_opaque_account_token_cannot_impersonate_guest_collection(tmp_path):
++    from hosted import create_hosted_app,VISITOR_COOKIE
++    directory=tmp_path/'guest'
++    directory.mkdir()
++    application=create_hosted_app({'TRIPPLANNER_SECRET_KEY':'ab'*32,
++        'TRIPPLANNER_PUBLIC_HOST':'planner.example','TRIPPLANNER_STORAGE_DIR':str(directory)})
++    raw='A'*43
++    database=directory/'hosted-trips.sqlite3'
++    with sqlite3.connect(database) as db:
++        db.execute('INSERT INTO saved_trips(owner,title,created_at,fingerprint,snapshot_json) VALUES(?,?,?,?,?)',
++            (hashlib.sha256(raw.encode()).hexdigest(),'private-guest-sentinel','2026-11-09','a'*64,' {} '))
++        before=db.execute('SELECT * FROM saved_trips').fetchall()
++    browser=application.test_client()
++    browser.set_cookie('__Host-tripplanner_account',raw,domain='planner.example')
++    browser.set_cookie(VISITOR_COOKIE,raw,domain='planner.example')
++    assert browser.get('/trips/1',base_url='https://planner.example').status_code==404
++    listing=browser.get('/trips',base_url='https://planner.example')
++    assert listing.status_code==200
++    assert 'private-guest-sentinel' not in listing.text
++    with sqlite3.connect(database) as db:
++        assert db.execute('SELECT * FROM saved_trips').fetchall()==before
+--- /dev/null
++++ b/tests/test_phase10_account_issue.py
+@@ -0,0 +1,85 @@
++"""Issuance integration: actual isolated SQLite, trusted synthetic identities."""
++import importlib
++import sqlite3
++from concurrent.futures import ThreadPoolExecutor
++
++import pytest
++
++
++def api():
++    return importlib.import_module('account_sessions')
++
++
++@pytest.fixture
++def store(tmp_path):
++    module = api()
++    path = tmp_path / 'accounts.sqlite3'
++    module.create_store(path)
++    return module.SessionStore(path, clock=lambda: 100000)
++
++
++def identity(subject='user-A', issuer='https://issuer.example', authenticated_at=100000):
++    return api().VerifiedIdentity(issuer, subject, True, authenticated_at)
++
++
++def test_issue_persists_only_digest_and_reuses_immutable_identity(store):
++    import re
++    one = store.issue(identity())
++    two = store.issue(identity())
++    assert re.fullmatch(r'[A-Za-z0-9_-]{43}', one.token)
++    assert one.token != two.token
++    assert one.principal.account_id == two.principal.account_id
++    assert one.token not in repr(one)
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM accounts').fetchone() == (1,)
++        assert db.execute('SELECT count(*) FROM account_sessions').fetchone() == (2,)
++        rows = repr(db.execute('SELECT * FROM account_sessions').fetchall())
++        assert one.token not in rows
++        assert two.token not in rows
++    assert one.token.encode() not in store.database.read_bytes()
++
++
++@pytest.mark.parametrize('subject,issuer', [
++    ('user-B', 'https://issuer.example'), ('user-A', 'https://another.example'),
++    ('USER-A', 'https://issuer.example'), ('user-A', 'https://issuer.example/Tenant')])
++def test_provider_subject_namespace_is_exact(store, subject, issuer):
++    one = store.issue(identity())
++    two = store.issue(identity(subject, issuer))
++    assert one.principal.account_id != two.principal.account_id
++
++
++@pytest.mark.parametrize('when', [100001, 99700, 0])
++def test_stale_or_future_authentication_cannot_create_account(store, when):
++    with pytest.raises(ValueError):
++        store.issue(identity(authenticated_at=when))
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM accounts').fetchone() == (0,)
++
++
++def test_plain_dict_cannot_be_used_as_verified_identity(store):
++    with pytest.raises(ValueError):
++        store.issue({'issuer': 'https://issuer.example', 'subject': 'user-A', 'email_verified': True})
++
++
++def test_concurrent_registration_has_one_account(tmp_path):
++    module = api()
++    path = tmp_path/'accounts.sqlite3'
++    module.create_store(path)
++    def issue(_):
++        return module.SessionStore(path, clock=lambda:100000).issue(identity())
++    with ThreadPoolExecutor(max_workers=2) as workers:
++        results = list(workers.map(issue, range(2)))
++    assert results[0].token != results[1].token
++    assert results[0].principal.account_id == results[1].principal.account_id
++    with sqlite3.connect(path) as db:
++        assert db.execute('SELECT count(*) FROM accounts').fetchone() == (1,)
++
++
++def test_no_secrets_in_unavailable_store_errors(store):
++    module = api()
++    store.database.unlink()
++    with pytest.raises(module.AccountStoreUnavailable) as error:
++        store.issue(identity())
++    assert str(store.database) not in str(error.value)
++    assert 'user-A' not in str(error.value)
++    assert not store.database.exists()
+--- /dev/null
++++ b/tests/test_phase10_account_lifetime.py
+@@ -0,0 +1,75 @@
++"""Session lifetimes: deterministic time, durable store, no clock sleeps."""
++import importlib
++
++import pytest
++
++
++@pytest.fixture
++def state(tmp_path):
++    module = importlib.import_module('account_sessions')
++    clock = [100000]
++    path = tmp_path/'accounts.sqlite3'
++    module.create_store(path)
++    store = module.SessionStore(path, clock=lambda:clock[0])
++    issued = store.issue(module.VerifiedIdentity('https://issuer.example', 'user-A', True, clock[0]))
++    return module, clock, store, issued
++
++
++def test_session_resolves_across_store_restart(state):
++    module, clock, store, issued = state
++    assert store.resolve(issued.token).account_id == issued.principal.account_id
++    second = module.SessionStore(store.database, clock=lambda:clock[0])
++    assert second.resolve(issued.token).account_id == issued.principal.account_id
++
++
++@pytest.mark.parametrize('age,allowed', [(0, True),(1799, True),(1800, False),(1801, False)])
++def test_idle_expiry_exact_boundary(state, age, allowed):
++    _, clock, store, issued = state
++    clock[0] += age
++    assert (store.resolve(issued.token) is not None) is allowed
++
++
++def test_touch_never_exceeds_absolute_lifetime(state):
++    _, clock, store, issued = state
++    start = clock[0]
++    for age in range(1700,43200,1700):
++        clock[0] = start + age
++        current = store.resolve(issued.token)
++        assert current is not None
++        assert current.absolute_expires_at == start + 43200
++        assert current.idle_expires_at <= current.absolute_expires_at
++    clock[0] = start + 43199
++    assert store.resolve(issued.token) is not None
++    clock[0] = start + 43200
++    assert store.resolve(issued.token) is None
++
++
++def test_read_without_touch_does_not_extend_lifetime(state):
++    _, clock, store, issued = state
++    clock[0] += 1700
++    assert store.resolve(issued.token, touch=False) is not None
++    clock[0] += 100
++    assert store.resolve(issued.token) is None
++
++
++def test_backwards_clock_denies_session(state):
++    _, clock, store, issued = state
++    clock[0] += 30
++    assert store.resolve(issued.token) is not None
++    clock[0] -= 1
++    assert store.resolve(issued.token) is None
++
++
++@pytest.mark.parametrize('token', [None, '', 'x', 'A'*42, 'A'*44, '<script>'*10, 'é'*43, 'A'*43])
++def test_invalid_or_unknown_tokens_never_resolve(state, token):
++    _, _, store, _ = state
++    assert store.resolve(token) is None
++
++
++def test_rotate_revokes_old_session_only_after_new_issue_succeeds(state):
++    module, clock, store, issued = state
++    replacement = store.issue(module.VerifiedIdentity('https://issuer.example', 'user-A', True, clock[0]),
++                              previous_token=issued.token)
++    assert replacement.token != issued.token
++    assert store.resolve(issued.token) is None
++    assert store.resolve(replacement.token) is not None
+--- /dev/null
++++ b/tests/test_phase10_account_revocation.py
+@@ -0,0 +1,114 @@
++"""Revocation and effective-owner checks with separate real store objects."""
++import importlib
++import sqlite3
++from concurrent.futures import ThreadPoolExecutor
++
++import pytest
++
++
++@pytest.fixture
++def state(tmp_path):
++    module = importlib.import_module('account_sessions')
++    clock = [100000]
++    path = tmp_path/'accounts.sqlite3'
++    module.create_store(path)
++    store = module.SessionStore(path, clock=lambda:clock[0])
++    def issue(subject='A'):
++        return store.issue(module.VerifiedIdentity('https://issuer.example',subject,True,clock[0]))
++    return module, clock, store, issue
++
++
++def test_revoke_one_leaves_other_device_and_other_account(state):
++    module, clock, store, issue = state
++    one,two,foreign = issue(),issue(),issue('B')
++    store.revoke(one.token)
++    store.revoke(one.token)
++    restarted = module.SessionStore(store.database,clock=lambda:clock[0])
++    assert restarted.resolve(one.token) is None
++    assert restarted.resolve(two.token) is not None
++    assert restarted.resolve(foreign.token) is not None
++
++
++@pytest.mark.parametrize('age,allowed', [(299,True),(300,False),(301,False)])
++def test_all_device_logout_requires_recent_authentication(state, age, allowed):
++    _, clock, store, issue = state
++    one,two = issue(),issue()
++    clock[0]+=age
++    assert store.revoke_all(one.token) is allowed
++    assert (store.resolve(two.token) is None) is allowed
++
++
++def test_all_device_revocation_survives_restart_and_allows_new_login(state):
++    module, clock, store, issue = state
++    one,two,foreign = issue(),issue(),issue('B')
++    assert store.revoke_all(one.token)
++    restarted = module.SessionStore(store.database,clock=lambda:clock[0])
++    assert restarted.resolve(one.token) is None
++    assert restarted.resolve(two.token) is None
++    assert restarted.resolve(foreign.token) is not None
++    assert restarted.resolve(issue().token) is not None
++
++
++def test_internal_recovery_hook_invalidates_exact_identity(state):
++    _, _, store, issue = state
++    one,two,foreign=issue(),issue(),issue('B')
++    assert store.invalidate_identity('https://issuer.example','A')
++    assert not store.invalidate_identity('https://unrelated.example','A')
++    assert store.resolve(one.token) is None
++    assert store.resolve(two.token) is None
++    assert store.resolve(foreign.token) is not None
++    assert store.resolve(issue().token) is not None
++
++
++def test_authorization_checks_current_account_and_ownership_kind(state):
++    _, _, store, issue = state
++    one,other=issue(),issue('B')
++    owner=one.principal.account_id
++    assert store.authorize(one.token,owner_kind='account',owner_id=owner)
++    assert not store.authorize(other.token,owner_kind='account',owner_id=owner)
++    assert not store.authorize(one.token,owner_kind='anonymous',owner_id=owner)
++    assert not store.authorize('forged',owner_kind='account',owner_id=owner)
++    store.revoke(one.token)
++    assert not store.authorize(one.token,owner_kind='account',owner_id=owner)
++
++
++def test_purge_expired_records_preserves_accounts_and_active_sessions(state):
++    _, clock, store, issue=state
++    expired=issue()
++    clock[0]+=1800
++    current=issue('B')
++    assert store.purge_expired()==1
++    assert store.resolve(expired.token) is None
++    assert store.resolve(current.token) is not None
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM accounts').fetchone() == (2,)
++        assert db.execute('SELECT count(*) FROM account_sessions').fetchone() == (1,)
++
++
++def test_issue_vs_recovery_has_a_serializable_result(state):
++    module, clock, store, issue=state
++    old=issue()
++    def new_session():
++        second=module.SessionStore(store.database,clock=lambda:clock[0])
++        return second.issue(module.VerifiedIdentity('https://issuer.example','A',True,clock[0]))
++    with ThreadPoolExecutor(max_workers=2) as workers:
++        new=workers.submit(new_session)
++        invalidated=workers.submit(store.invalidate_identity,'https://issuer.example','A')
++        issued=new.result()
++        assert invalidated.result()
++    assert store.resolve(old.token) is None
++    # A new login serialized after recovery may remain valid; one serialized
++    # before recovery must be removed. No session can survive on an old epoch.
++    with sqlite3.connect(store.database) as db:
++        assert db.execute('SELECT count(*) FROM account_sessions s JOIN accounts a ON a.id=s.account_id WHERE s.generation != a.generation').fetchone()==(0,)
++    principal=store.resolve(issued.token)
++    assert principal is None or principal.account_id==old.principal.account_id
++
++
++def test_storage_loss_fails_closed_instead_of_recreating(state):
++    module, _, store, issue=state
++    one=issue()
++    store.database.unlink()
++    with pytest.raises(module.AccountStoreUnavailable):
++        store.authorize(one.token,owner_kind='account',owner_id=one.principal.account_id)
++    assert not store.database.exists()
+--- /dev/null
++++ b/tests/test_phase10_account_store.py
+@@ -0,0 +1,107 @@
++"""Store/identity contracts, separate from authentication or production DBs."""
++import importlib
++from pathlib import Path
++import sqlite3
++
++import pytest
++
++
++def api():
++    return importlib.import_module('account_sessions')
++
++
++@pytest.mark.parametrize('changes', [
++    {'issuer': ''}, {'issuer': 'http://issuer.example'},
++    {'issuer': 'https://user:pass@issuer.example'}, {'issuer': 'https://issuer.example/#x'},
++    {'issuer': 'https://issuer.example/?secret=x'}, {'issuer': None},
++    {'subject': ''}, {'subject': 'x' * 256}, {'subject': 'bad\nsubject'},
++    {'subject': None}, {'email_verified': False}, {'email_verified': 'true'},
++    {'email_verified': 1}, {'authenticated_at': True},
++    {'authenticated_at': -1}, {'authenticated_at': float('nan')},
++])
++def test_identity_rejects_unverified_or_malformed_values(changes):
++    values = dict(issuer='https://issuer.example', subject='user-A',
++                  email_verified=True, authenticated_at=100000)
++    with pytest.raises(ValueError):
++        api().VerifiedIdentity(**(values | changes))
++
++
++def test_identity_is_immutable_and_keeps_exact_provider_key():
++    from dataclasses import FrozenInstanceError
++    value = api().VerifiedIdentity('https://issuer.example/Tenant', 'CaseSensitive', True, 100000)
++    assert value.issuer == 'https://issuer.example/Tenant'
++    assert value.subject == 'CaseSensitive'
++    with pytest.raises(FrozenInstanceError):
++        value.subject = 'replacement'
++
++
++def test_create_only_separate_store_with_private_permissions(tmp_path):
++    module = api()
++    path = tmp_path / 'accounts.sqlite3'
++    module.create_store(path)
++    assert path.is_file()
++    assert path.stat().st_mode & 0o077 == 0
++    with sqlite3.connect(path) as db:
++        assert db.execute('PRAGMA application_id').fetchone()[0] != 0
++        assert db.execute('PRAGMA user_version').fetchone()[0] > 0
++        assert db.execute('SELECT count(*) FROM accounts').fetchone() == (0,)
++        assert db.execute('SELECT count(*) FROM account_sessions').fetchone() == (0,)
++    before = path.read_bytes()
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.create_store(path)
++    assert path.read_bytes() == before
++
++
++def test_existing_guest_database_cannot_be_reset_or_opened(tmp_path):
++    import hosted_saved_trips
++    module = api()
++    path = tmp_path / 'hosted.sqlite3'
++    hosted_saved_trips.initialize_store(path)
++    before = path.read_bytes()
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.create_store(path)
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.SessionStore(path)
++    assert path.read_bytes() == before
++
++
++def test_missing_file_parent_and_relative_paths_never_create_implicitly(tmp_path):
++    module = api()
++    missing = tmp_path / 'missing' / 'accounts.sqlite3'
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.SessionStore(missing)
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.create_store(missing)
++    with pytest.raises(ValueError):
++        module.create_store(Path('relative-account-file.sqlite3'))
++    assert not missing.parent.exists()
++
++
++def test_symlink_and_incompatible_marker_fail_without_reset(tmp_path):
++    module = api()
++    path = tmp_path / 'real.sqlite3'
++    module.create_store(path)
++    link = tmp_path / 'link.sqlite3'
++    link.symlink_to(path)
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.SessionStore(link)
++    with sqlite3.connect(path) as db:
++        db.execute('PRAGMA user_version=999')
++    before = path.read_bytes()
++    with pytest.raises(module.AccountStoreUnavailable):
++        module.SessionStore(path)
++    assert path.read_bytes() == before
++
++
++def test_factories_do_not_activate_account_sessions(client, tmp_path, monkeypatch):
++    # Real existing factory, never a substitute Flask test app or login backdoor.
++    import app
++    target = tmp_path / 'must-not-exist.sqlite3'
++    monkeypatch.setenv('TRIPPLANNER_ACCOUNT_DATABASE', str(target))
++    application = app.create_app({'TESTING': True, 'DATABASE': str(tmp_path/'trips.sqlite3')})
++    browser = application.test_client()
++    browser.set_cookie('__Host-tripplanner_account', 'A' * 43)
++    assert browser.get('/help').status_code == 200
++    for path in ['/account', '/account/sign-in', '/account/register', '/account/recovery']:
++        assert browser.get(path).status_code == 404
++    assert not target.exists()

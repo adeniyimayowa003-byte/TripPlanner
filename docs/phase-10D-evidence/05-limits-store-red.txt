@@ -1,0 +1,18 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_create_only_and_no_guest_database_overwrite _______________
+tests/test_phase10_assistant_limits.py:22: in test_create_only_and_no_guest_database_overwrite
+    module.create_limits(path)
+assistant_limits.py:5: in create_limits
+    def create_limits(database):raise NotImplementedError('Quota store setup is not implemented.')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota store setup is not implemented.
+______________________ test_missing_store_never_recreated ______________________
+tests/test_phase10_assistant_limits.py:36: in test_missing_store_never_recreated
+    with pytest.raises(module.LimitsUnavailable):module.Limits(path)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE LimitsUnavailable
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_limits.py::test_create_only_and_no_guest_database_overwrite
+FAILED tests/test_phase10_assistant_limits.py::test_missing_store_never_recreated
+2 failed, 12 deselected in 0.07s

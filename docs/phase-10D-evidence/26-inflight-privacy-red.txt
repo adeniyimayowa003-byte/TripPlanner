@@ -1,0 +1,18 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_revoked_inflight_turn_does_not_echo_old_private_question_or_trip_options _
+tests/test_phase10_assistant_privacy_gate.py:33: in test_revoked_inflight_turn_does_not_echo_old_private_question_or_trip_options
+    assert 'private-turn-sentinel' not in response.text
+E   assert 'private-turn-sentinel' not in '<!doctype h...dy>\n</html>'
+E     
+E     'private-turn-sentinel' is contained here:
+E       on</h2><p>private-turn-sentinel allowance</p></article>
+E     ?           +++++++++++++++++++++
+E           <article class="assistant-turn assistant-answer"><h2>FAQ fallback</h2>
+E             <p role="status">AI authorization expired. Using FAQs.</p>
+E             <section><h3>What does my allowance cover?</h3><p>Your allowance is the total activities and food budget per person for the whole trip, in the destination currency. It is not a payment to TripPlanner or a booking. The planner divides it across your days; rounded daily displays do not authorize over...
+E     
+E     ...Full output truncated (36 lines hidden), use '-vv' to show
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_privacy_gate.py::test_revoked_inflight_turn_does_not_echo_old_private_question_or_trip_options
+1 failed, 3 passed in 0.35s

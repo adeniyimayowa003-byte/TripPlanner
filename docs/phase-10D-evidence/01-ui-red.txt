@@ -1,0 +1,165 @@
+FFFFFFFFFFFFFFFFF.FF                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_assistant_page_is_usable_honest_and_has_samples _____________
+tests/test_phase10_assistant_ui.py:17: in test_assistant_page_is_usable_honest_and_has_samples
+    assert response.status_code==200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+___________________ test_assistant_has_working_navigation[/] ___________________
+tests/test_phase10_assistant_ui.py:36: in test_assistant_has_working_navigation
+    assert parse_page(client.get(path)).find('a',href='/assistant')
+E   AssertionError: assert None
+E    +  where None = find('a', href='/assistant')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+E    +      where Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]) = <function parse_page.<locals>.parse at 0x7f9c7611e520>(<WrapperTestResponse 11231 bytes [200 OK]>)
+E    +        where <WrapperTestResponse 11231 bytes [200 OK]> = get('/')
+E    +          where get = <FlaskClient <Flask 'app'>>.get
+_________________ test_assistant_has_working_navigation[/plan] _________________
+tests/test_phase10_assistant_ui.py:36: in test_assistant_has_working_navigation
+    assert parse_page(client.get(path)).find('a',href='/assistant')
+E   assert None
+E    +  where None = find('a', href='/assistant')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta...sion": 0}}']), Element(tag='script', attrs={'src': '/static/js/plan.js', 'defer': None}, children=[]), '\n']), '\n'])]).find
+E    +      where Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta...sion": 0}}']), Element(tag='script', attrs={'src': '/static/js/plan.js', 'defer': None}, children=[]), '\n']), '\n'])]) = <function parse_page.<locals>.parse at 0x7f9c76181bc0>(<WrapperTestResponse 11216 bytes [200 OK]>)
+E    +        where <WrapperTestResponse 11216 bytes [200 OK]> = get('/plan')
+E    +          where get = <FlaskClient <Flask 'app'>>.get
+________________ test_assistant_has_working_navigation[/trips] _________________
+tests/test_phase10_assistant_ui.py:36: in test_assistant_has_working_navigation
+    assert parse_page(client.get(path)).find('a',href='/assistant')
+E   AssertionError: assert None
+E    +  where None = find('a', href='/assistant')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+E    +      where Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]) = <function parse_page.<locals>.parse at 0x7f9c762da660>(<WrapperTestResponse 4007 bytes [200 OK]>)
+E    +        where <WrapperTestResponse 4007 bytes [200 OK]> = get('/trips')
+E    +          where get = <FlaskClient <Flask 'app'>>.get
+_________________ test_assistant_has_working_navigation[/help] _________________
+tests/test_phase10_assistant_ui.py:36: in test_assistant_has_working_navigation
+    assert parse_page(client.get(path)).find('a',href='/assistant')
+E   AssertionError: assert None
+E    +  where None = find('a', href='/assistant')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+E    +      where Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]) = <function parse_page.<locals>.parse at 0x7f9c76118400>(<WrapperTestResponse 11510 bytes [200 OK]>)
+E    +        where <WrapperTestResponse 11510 bytes [200 OK]> = get('/help')
+E    +          where get = <FlaskClient <Flask 'app'>>.get
+_ test_natural_questions_get_approved_answers_without_javascript[What does my allowance cover?-allowance-per person] _
+tests/test_phase10_assistant_ui.py:48: in test_natural_questions_get_approved_answers_without_javascript
+    response=send(client,parse_page,question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_ test_natural_questions_get_approved_answers_without_javascript[Why are meals missing?-gaps-Restaurants] _
+tests/test_phase10_assistant_ui.py:48: in test_natural_questions_get_approved_answers_without_javascript
+    response=send(client,parse_page,question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_ test_natural_questions_get_approved_answers_without_javascript[I cleared my cookies and lost my trips-saving-365] _
+tests/test_phase10_assistant_ui.py:48: in test_natural_questions_get_approved_answers_without_javascript
+    response=send(client,parse_page,question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_ test_natural_questions_get_approved_answers_without_javascript[Why is the demo slow to wake?-hosting-Free hosting] _
+tests/test_phase10_assistant_ui.py:48: in test_natural_questions_get_approved_answers_without_javascript
+    response=send(client,parse_page,question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_ test_natural_questions_get_approved_answers_without_javascript[Do my Android saves sync online?-native-independent] _
+tests/test_phase10_assistant_ui.py:48: in test_natural_questions_get_approved_answers_without_javascript
+    response=send(client,parse_page,question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_ test_natural_questions_get_approved_answers_without_javascript[How do I change the theme?-themes-Light] _
+tests/test_phase10_assistant_ui.py:48: in test_natural_questions_get_approved_answers_without_javascript
+    response=send(client,parse_page,question)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_______________ test_catalog_answer_cites_actual_internal_source _______________
+tests/test_phase10_assistant_ui.py:57: in test_catalog_answer_cites_actual_internal_source
+    response=send(client,parse_page,'Tell me about the Eiffel Tower')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_____________________ test_unknown_facts_are_not_invented ______________________
+tests/test_phase10_assistant_ui.py:70: in test_unknown_facts_are_not_invented
+    response=send(client,parse_page,'What is the exact visa fee for Mars today?')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+_______________ test_csrf_invalid_and_overlong_inputs_never_send _______________
+tests/test_phase10_assistant_ui.py:76: in test_csrf_invalid_and_overlong_inputs_never_send
+    assert client.post('/assistant',data={'question':'hello'}).status_code==400
+E   AssertionError: assert 404 == 400
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+E    +    where <WrapperTestResponse streamed [404 NOT FOUND]> = post('/assistant', data={'question': 'hello'})
+E    +      where post = <FlaskClient <Flask 'app'>>.post
+______________ test_question_is_escaped_private_and_not_in_cookie ______________
+tests/test_phase10_assistant_ui.py:83: in test_question_is_escaped_private_and_not_in_cookie
+    response=send(client,parse_page,text)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+___ test_fallback_survives_broken_catalog_and_storage_without_changing_draft ___
+tests/test_phase10_assistant_ui.py:102: in test_fallback_survives_broken_catalog_and_storage_without_changing_draft
+    response=send(client,parse_page,'What does allowance mean?')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+______ test_guest_forged_account_and_trip_consent_still_get_only_fallback ______
+tests/test_phase10_assistant_ui.py:111: in test_guest_forged_account_and_trip_consent_still_get_only_fallback
+    response=send(client,parse_page,'Help with saving',use_model='on',consent='on',
+tests/test_phase10_assistant_ui.py:11: in send
+    assert token is not None
+E   assert None is not None
+____ test_native_staging_includes_fallback_resources_not_model_credentials _____
+tests/test_phase10_assistant_ui.py:130: in test_native_staging_includes_fallback_resources_not_model_credentials
+    assert 'assistant_web.py' in paths and 'assistant_answers.py' in paths
+E   AssertionError: assert ('assistant_web.py' in ['CODE_LICENSE.md', 'LICENSE', 'PHOTO_CREDITS.md', 'PRIVACY.md', 'THIRD_PARTY_NOTICES.md', 'app.py', ...])
+____________ test_fallback_source_selection_is_grounded_and_bounded ____________
+tests/test_phase10_assistant_ui.py:136: in test_fallback_source_selection_is_grounded_and_bounded
+    module=importlib.import_module('assistant_answers')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_answers'
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_ui.py::test_assistant_page_is_usable_honest_and_has_samples
+FAILED tests/test_phase10_assistant_ui.py::test_assistant_has_working_navigation[/]
+FAILED tests/test_phase10_assistant_ui.py::test_assistant_has_working_navigation[/plan]
+FAILED tests/test_phase10_assistant_ui.py::test_assistant_has_working_navigation[/trips]
+FAILED tests/test_phase10_assistant_ui.py::test_assistant_has_working_navigation[/help]
+FAILED tests/test_phase10_assistant_ui.py::test_natural_questions_get_approved_answers_without_javascript[What does my allowance cover?-allowance-per person]
+FAILED tests/test_phase10_assistant_ui.py::test_natural_questions_get_approved_answers_without_javascript[Why are meals missing?-gaps-Restaurants]
+FAILED tests/test_phase10_assistant_ui.py::test_natural_questions_get_approved_answers_without_javascript[I cleared my cookies and lost my trips-saving-365]
+FAILED tests/test_phase10_assistant_ui.py::test_natural_questions_get_approved_answers_without_javascript[Why is the demo slow to wake?-hosting-Free hosting]
+FAILED tests/test_phase10_assistant_ui.py::test_natural_questions_get_approved_answers_without_javascript[Do my Android saves sync online?-native-independent]
+FAILED tests/test_phase10_assistant_ui.py::test_natural_questions_get_approved_answers_without_javascript[How do I change the theme?-themes-Light]
+FAILED tests/test_phase10_assistant_ui.py::test_catalog_answer_cites_actual_internal_source
+FAILED tests/test_phase10_assistant_ui.py::test_unknown_facts_are_not_invented
+FAILED tests/test_phase10_assistant_ui.py::test_csrf_invalid_and_overlong_inputs_never_send
+FAILED tests/test_phase10_assistant_ui.py::test_question_is_escaped_private_and_not_in_cookie
+FAILED tests/test_phase10_assistant_ui.py::test_fallback_survives_broken_catalog_and_storage_without_changing_draft
+FAILED tests/test_phase10_assistant_ui.py::test_guest_forged_account_and_trip_consent_still_get_only_fallback
+FAILED tests/test_phase10_assistant_ui.py::test_native_staging_includes_fallback_resources_not_model_credentials
+FAILED tests/test_phase10_assistant_ui.py::test_fallback_source_selection_is_grounded_and_bounded
+19 failed, 1 passed in 0.50s

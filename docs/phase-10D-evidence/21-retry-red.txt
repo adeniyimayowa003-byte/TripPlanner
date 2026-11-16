@@ -1,0 +1,10 @@
+........F..                                                              [100%]
+=================================== FAILURES ===================================
+_______________ test_quota_response_shows_explicit_retry_timing ________________
+tests/test_phase10_assistant_hardening.py:103: in test_quota_response_shows_explicit_retry_timing
+    assert 'Try again in 60 seconds' in response.text
+E   assert 'Try again in 60 seconds' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tatic/js/images.js" defer></script>\n  <script src="/static/js/assistant_privacy.js" defer></script>\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tatic/js/images.js" defer></script>\n  <script src="/static/js/assistant_privacy.js" defer></script>\n</body>\n</html>' = <WrapperTestResponse 6497 bytes [200 OK]>.text
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_hardening.py::test_quota_response_shows_explicit_retry_timing
+1 failed, 10 passed in 0.66s

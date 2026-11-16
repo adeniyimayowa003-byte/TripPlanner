@@ -1,0 +1,40 @@
+FFFFFF...........                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_malformed_issuer_is_not_trusted[https://issuer.example:bad] _______
+tests/test_phase10_account_hardening.py:17: in test_malformed_issuer_is_not_trusted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+______ test_malformed_issuer_is_not_trusted[https://issuer.example:99999] ______
+tests/test_phase10_account_hardening.py:17: in test_malformed_issuer_is_not_trusted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_malformed_issuer_is_not_trusted[https://@issuer.example] _________
+tests/test_phase10_account_hardening.py:17: in test_malformed_issuer_is_not_trusted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_malformed_issuer_is_not_trusted[https://issuer.example/?] ________
+tests/test_phase10_account_hardening.py:17: in test_malformed_issuer_is_not_trusted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_malformed_issuer_is_not_trusted[https://issuer.example/#] ________
+tests/test_phase10_account_hardening.py:17: in test_malformed_issuer_is_not_trusted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+______ test_malformed_issuer_is_not_trusted[https://issuer.example/\x7f] _______
+tests/test_phase10_account_hardening.py:17: in test_malformed_issuer_is_not_trusted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/test_phase10_account_hardening.py::test_malformed_issuer_is_not_trusted[https://issuer.example:bad]
+FAILED tests/test_phase10_account_hardening.py::test_malformed_issuer_is_not_trusted[https://issuer.example:99999]
+FAILED tests/test_phase10_account_hardening.py::test_malformed_issuer_is_not_trusted[https://@issuer.example]
+FAILED tests/test_phase10_account_hardening.py::test_malformed_issuer_is_not_trusted[https://issuer.example/?]
+FAILED tests/test_phase10_account_hardening.py::test_malformed_issuer_is_not_trusted[https://issuer.example/#]
+FAILED tests/test_phase10_account_hardening.py::test_malformed_issuer_is_not_trusted[https://issuer.example/\x7f]
+6 failed, 11 passed in 2.22s

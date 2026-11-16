@@ -1,0 +1,257 @@
+FFEEEEEEEEEEEE                                                           [100%]
+==================================== ERRORS ====================================
+________ ERROR at setup of test_per_account_sliding_minute_and_restart _________
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+__________ ERROR at setup of test_account_daily_twenty_and_utc_reset ___________
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+_ ERROR at setup of test_global_daily_hundred_cannot_be_bypassed_with_new_accounts _
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+_ ERROR at setup of test_concurrency_and_release_are_shared_and_count_attempts _
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+__ ERROR at setup of test_abandoned_running_lease_fails_closed_after_restart ___
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+______ ERROR at setup of test_atomic_admission_with_separate_connections _______
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+__________ ERROR at setup of test_clock_rollback_cannot_reopen_quota ___________
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+_ ERROR at setup of test_invalid_account_identifier_never_consumes_quota[None] _
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+___ ERROR at setup of test_invalid_account_identifier_never_consumes_quota[] ___
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+__ ERROR at setup of test_invalid_account_identifier_never_consumes_quota[a] ___
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+_ ERROR at setup of test_invalid_account_identifier_never_consumes_quota[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] _
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+_ ERROR at setup of test_invalid_account_identifier_never_consumes_quota[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] _
+tests/test_phase10_assistant_limits.py:14: in state
+    module=api(); clock=[100000]
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+=================================== FAILURES ===================================
+_______________ test_create_only_and_no_guest_database_overwrite _______________
+tests/test_phase10_assistant_limits.py:21: in test_create_only_and_no_guest_database_overwrite
+    module=api(); path=tmp_path/'limits.sqlite3'
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+______________________ test_missing_store_never_recreated ______________________
+tests/test_phase10_assistant_limits.py:35: in test_missing_store_never_recreated
+    module=api(); path=tmp_path/'missing.sqlite3'
+           ^^^^^
+tests/test_phase10_assistant_limits.py:9: in api
+    def api():return importlib.import_module('assistant_limits')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'assistant_limits'
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_limits.py::test_create_only_and_no_guest_database_overwrite
+FAILED tests/test_phase10_assistant_limits.py::test_missing_store_never_recreated
+ERROR tests/test_phase10_assistant_limits.py::test_per_account_sliding_minute_and_restart
+ERROR tests/test_phase10_assistant_limits.py::test_account_daily_twenty_and_utc_reset
+ERROR tests/test_phase10_assistant_limits.py::test_global_daily_hundred_cannot_be_bypassed_with_new_accounts
+ERROR tests/test_phase10_assistant_limits.py::test_concurrency_and_release_are_shared_and_count_attempts
+ERROR tests/test_phase10_assistant_limits.py::test_abandoned_running_lease_fails_closed_after_restart
+ERROR tests/test_phase10_assistant_limits.py::test_atomic_admission_with_separate_connections
+ERROR tests/test_phase10_assistant_limits.py::test_clock_rollback_cannot_reopen_quota
+ERROR tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[None]
+ERROR tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[]
+ERROR tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[a]
+ERROR tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+ERROR tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+2 failed, 12 errors in 0.18s

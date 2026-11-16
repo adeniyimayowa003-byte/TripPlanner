@@ -1,0 +1,140 @@
+FFFFFFFFFFFFFFFFF                                                        [100%]
+=================================== FAILURES ===================================
+__________________ test_session_resolves_across_store_restart __________________
+tests/test_phase10_account_lifetime.py:20: in test_session_resolves_across_store_restart
+    assert store.resolve(issued.token).account_id == issued.principal.account_id
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+___________________ test_idle_expiry_exact_boundary[0-True] ____________________
+tests/test_phase10_account_lifetime.py:29: in test_idle_expiry_exact_boundary
+    assert (store.resolve(issued.token) is not None) is allowed
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+__________________ test_idle_expiry_exact_boundary[1799-True] __________________
+tests/test_phase10_account_lifetime.py:29: in test_idle_expiry_exact_boundary
+    assert (store.resolve(issued.token) is not None) is allowed
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_________________ test_idle_expiry_exact_boundary[1800-False] __________________
+tests/test_phase10_account_lifetime.py:29: in test_idle_expiry_exact_boundary
+    assert (store.resolve(issued.token) is not None) is allowed
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_________________ test_idle_expiry_exact_boundary[1801-False] __________________
+tests/test_phase10_account_lifetime.py:29: in test_idle_expiry_exact_boundary
+    assert (store.resolve(issued.token) is not None) is allowed
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+__________________ test_touch_never_exceeds_absolute_lifetime __________________
+tests/test_phase10_account_lifetime.py:37: in test_touch_never_exceeds_absolute_lifetime
+    current = store.resolve(issued.token)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_______________ test_read_without_touch_does_not_extend_lifetime _______________
+tests/test_phase10_account_lifetime.py:50: in test_read_without_touch_does_not_extend_lifetime
+    assert store.resolve(issued.token, touch=False) is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_____________________ test_backwards_clock_denies_session ______________________
+tests/test_phase10_account_lifetime.py:58: in test_backwards_clock_denies_session
+    assert store.resolve(issued.token) is not None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+______________ test_invalid_or_unknown_tokens_never_resolve[None] ______________
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+________________ test_invalid_or_unknown_tokens_never_resolve[] ________________
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_______________ test_invalid_or_unknown_tokens_never_resolve[x] ________________
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_ test_invalid_or_unknown_tokens_never_resolve[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA] _
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_ test_invalid_or_unknown_tokens_never_resolve[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA] _
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_ test_invalid_or_unknown_tokens_never_resolve[<script><script><script><script><script><script><script><script><script><script>] _
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_ test_invalid_or_unknown_tokens_never_resolve[\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9] _
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+_ test_invalid_or_unknown_tokens_never_resolve[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA] _
+tests/test_phase10_account_lifetime.py:66: in test_invalid_or_unknown_tokens_never_resolve
+    assert store.resolve(token) is None
+           ^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+________ test_rotate_revokes_old_session_only_after_new_issue_succeeds _________
+tests/test_phase10_account_lifetime.py:74: in test_rotate_revokes_old_session_only_after_new_issue_succeeds
+    assert store.resolve(issued.token) is None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:186: in resolve
+    raise NotImplementedError('Session resolution is not implemented.')
+E   NotImplementedError: Session resolution is not implemented.
+=========================== short test summary info ============================
+FAILED tests/test_phase10_account_lifetime.py::test_session_resolves_across_store_restart
+FAILED tests/test_phase10_account_lifetime.py::test_idle_expiry_exact_boundary[0-True]
+FAILED tests/test_phase10_account_lifetime.py::test_idle_expiry_exact_boundary[1799-True]
+FAILED tests/test_phase10_account_lifetime.py::test_idle_expiry_exact_boundary[1800-False]
+FAILED tests/test_phase10_account_lifetime.py::test_idle_expiry_exact_boundary[1801-False]
+FAILED tests/test_phase10_account_lifetime.py::test_touch_never_exceeds_absolute_lifetime
+FAILED tests/test_phase10_account_lifetime.py::test_read_without_touch_does_not_extend_lifetime
+FAILED tests/test_phase10_account_lifetime.py::test_backwards_clock_denies_session
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[None]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[x]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[<script><script><script><script><script><script><script><script><script><script>]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9\xe9]
+FAILED tests/test_phase10_account_lifetime.py::test_invalid_or_unknown_tokens_never_resolve[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]
+FAILED tests/test_phase10_account_lifetime.py::test_rotate_revokes_old_session_only_after_new_issue_succeeds
+17 failed in 0.20s

@@ -1,0 +1,109 @@
+{
+  "input_archive_sha256": "e1d6a1949a418ed26cc4dac54ddf5eed46a81c4673c9e77b23335d27f2b30b62",
+  "git_commit_verified": false,
+  "scope": "10A Help only; 10B/10C/10D not implemented",
+  "baseline": {
+    "passed": 1679,
+    "skipped": 9
+  },
+  "red": {
+    "failed": 16,
+    "passed": 1
+  },
+  "help_green": {
+    "passed": 17
+  },
+  "final": {
+    "passed": 1696,
+    "skipped": 9,
+    "failed": 0
+  },
+  "changed_files": [
+    {
+      "path": "app.py",
+      "status": "modified",
+      "sha256": "5b2c0103893362a7b4f312347d775e4da989f3fa2be69019af5f8882ef03100a"
+    },
+    {
+      "path": "build_windows.py",
+      "status": "modified",
+      "sha256": "57789af7eb36f85d409274a8f6a64299cff969afaecad33b814f6fbc404584ec"
+    },
+    {
+      "path": "docs/phase-10-cloud-handoff.md",
+      "status": "added",
+      "sha256": "2f54a52c6d81c19ca9592799d5e2d35d70ed11baa7b975a86680b67a2f166ee1"
+    },
+    {
+      "path": "docs/phase-10-evidence/baseline.txt",
+      "status": "added",
+      "sha256": "893cee794900e47978d2aaa8c9a020b55752e013d54a8dff4e87698553be21a5"
+    },
+    {
+      "path": "docs/phase-10-evidence/environment.json",
+      "status": "added",
+      "sha256": "97e3220c1fc87e4e8d5e861e193140ad619dbf86338a15f654e5d24ad6e123fa"
+    },
+    {
+      "path": "docs/phase-10-evidence/final-regression.txt",
+      "status": "added",
+      "sha256": "cb8a2450dd3878afdc6eba459498358490c22d60eda12126522ddcbff8770a4f"
+    },
+    {
+      "path": "docs/phase-10-evidence/help-green.txt",
+      "status": "added",
+      "sha256": "8003c87e9603cd12193f20fc05b35f783e78a20b07052fb753dc5d586c0b87ac"
+    },
+    {
+      "path": "docs/phase-10-evidence/help-red-pinned.txt",
+      "status": "added",
+      "sha256": "2219db3212d8672564215b2d32bc0c53c7f3a5890b0a3f9ffed8b526977a8876"
+    },
+    {
+      "path": "docs/phase-10-evidence/help-red.txt",
+      "status": "added",
+      "sha256": "0677fa9a6509c8c09dc0b7a9d2d09426268482cbb44a5bab681334a2d5ef1616"
+    },
+    {
+      "path": "docs/phase-10-evidence/input-manifest.json",
+      "status": "added",
+      "sha256": "8d35f286089be330ec60cdb136672b77e31eb47dc5efdad9843cb6c56a38ff4a"
+    },
+    {
+      "path": "help_content.py",
+      "status": "added",
+      "sha256": "00faeb3b6a1f8dc25ff69e2e637bfe10deedbd49b725c87822b76c4b4795bd87"
+    },
+    {
+      "path": "plans/phase-10-implementation-test-plan.md",
+      "status": "added",
+      "sha256": "f053773d6eca9632b313cb9d101a7bd0ba551787a8b18161c1905baa51d0fd62"
+    },
+    {
+      "path": "specs/phase-10-accounts-help-ai.md",
+      "status": "added",
+      "sha256": "e729b20a004df907c27e1425daa431550c83fdcf94741a46c41b7e102cf47c40"
+    },
+    {
+      "path": "static/css/style.css",
+      "status": "modified",
+      "sha256": "be87e02138499d88324efa85c3bd704b3ea7c4fee2a7f59aeb7600c25cd0c676"
+    },
+    {
+      "path": "templates/base.html",
+      "status": "modified",
+      "sha256": "9dd9437ee53d9f17047189f14d539e17085816c17c61f5ed3e3fcce575017610"
+    },
+    {
+      "path": "templates/help.html",
+      "status": "added",
+      "sha256": "dce3c765481a65e3dff40ad7e7fee8650bd5f24bdc69e3ed6221942605cc62fd"
+    },
+    {
+      "path": "tests/test_phase10_help.py",
+      "status": "added",
+      "sha256": "5f6906cfd6bf571b6663e02f6bb5c841a8e40d0926e04bd3520f23d7219a4841"
+    }
+  ],
+  "deleted_files": []
+}

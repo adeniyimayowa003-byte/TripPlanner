@@ -1,3 +1,24 @@
+.assistant-page { padding-block: 2rem; overflow-wrap: anywhere; max-width: 900px; }
+.assistant-page h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
+.assistant-page p { line-height: 1.65; }
+.assistant-mode { background: var(--notice-bg); color: var(--notice-text); padding: .8rem; border-radius: .5rem; }
+.assistant-turn { background: var(--surface-bg); border: 1px solid var(--line); padding: 1rem; border-radius: .7rem; margin-block: 1rem; }
+.assistant-turn h2 { font-size: 1.1rem; }.assistant-turn h3 { font-size: 1rem; }
+.assistant-form { display: grid; gap: .8rem; }.assistant-form fieldset { display: grid; gap: .7rem; min-width: 0; border: 1px solid var(--control-border); padding: 1rem; }
+.assistant-form textarea, .assistant-form select { width: 100%; min-width: 0; background: var(--control-bg); color: var(--control-text); border: 1px solid var(--control-border); padding: .8rem; border-radius: .4rem; font: inherit; }
+.assistant-form label { line-height: 1.6; }.assistant-form input[type=checkbox] { width: 1.1rem; height: 1.1rem; vertical-align: middle; }
+.assistant-form button, .assistant-samples button { background: var(--action-bg); color: var(--action-text); border: 1px solid var(--control-border); padding: .8rem; border-radius: .4rem; font: inherit; cursor: pointer; }
+.assistant-samples { display: flex; flex-wrap: wrap; gap: .8rem; }.assistant-samples button { max-width: 100%; text-align: start; }
+.help-page { padding-block: 2rem; overflow-wrap: anywhere; }
+.help-page h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
+.help-page h2 { font-size: 1.35rem; }
+.help-search { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
+.help-search label { flex-basis: 100%; }
+.help-search input { min-width: 0; max-width: 100%; flex: 1 1 15rem; padding: .7rem; background: var(--control-bg); color: var(--control-text); border: 1px solid var(--control-border); border-radius: .4rem; font: inherit; }
+.help-search button { padding: .7rem 1rem; background: var(--action-bg); color: var(--action-text); border: 0; border-radius: .4rem; font: inherit; cursor: pointer; }
+.help-answer { margin-block: 1.5rem; padding: 1.25rem; background: var(--surface-bg); border: 1px solid var(--line); border-radius: .5rem; scroll-margin-top: 1rem; }
+.help-answer p { max-width: 75ch; line-height: 1.65; }
+.help-source { color: var(--text-muted); font-size: .9rem; }
 .place-location { margin: 12px 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--text-muted); overflow-wrap: anywhere; }
 .place-location p { margin: 0 0 7px; font-size: 12px; }
 .place-location small { display: block; margin-top: 5px; font-size: 10px; }

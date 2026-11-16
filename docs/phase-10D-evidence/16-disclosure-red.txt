@@ -1,0 +1,10 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________ test_help_discloses_actual_assistant_candidate ________________
+tests/test_phase10_assistant_disclosure.py:7: in test_help_discloses_actual_assistant_candidate
+    assert 'FAQ/catalog fallback' in response.text
+E   assert 'FAQ/catalog fallback' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' = <WrapperTestResponse 11551 bytes [200 OK]>.text
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_disclosure.py::test_help_discloses_actual_assistant_candidate
+1 failed in 0.21s

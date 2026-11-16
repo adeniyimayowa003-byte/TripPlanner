@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block title %}{{ source.label }} — catalog source{% endblock %}
+{% block content %}<article class="page-width help-page" data-assistant-private><h1>{{ source.label }}</h1><p>{{ source.text }}</p><p>Source version: {{ source.version }}. Illustrative data, not live verification.</p>{% if place %}<p><a href="{{ place.source_url }}" target="_blank" rel="noopener noreferrer">Open the catalog's venue source</a></p>{% endif %}<p><a href="{{ url_for('assistant.conversation') }}">Back to assistant</a></p></article>{% endblock %}
+{% block scripts %}<script src="{{ url_for('static',filename='js/assistant_privacy.js') }}" defer></script>{% endblock %}
