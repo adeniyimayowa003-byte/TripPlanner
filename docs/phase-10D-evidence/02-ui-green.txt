@@ -1,0 +1,72 @@
+F..........F........                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_assistant_page_is_usable_honest_and_has_samples _____________
+tests/test_phase10_assistant_ui.py:30: in test_assistant_page_is_usable_honest_and_has_samples
+    assert page.find('select',name='trip_id').attrs.get('disabled') is not None
+E   AssertionError: assert None is not None
+E    +  where None = <built-in method get of dict object at 0x7fdc48d24a40>('disabled')
+E    +    where <built-in method get of dict object at 0x7fdc48d24a40> = {'id': 'assistant-trip', 'name': 'trip_id', 'disabled': None}.get
+E    +      where {'id': 'assistant-trip', 'name': 'trip_id', 'disabled': None} = Element(tag='select', attrs={'id': 'assistant-trip', 'name': 'trip_id', 'disabled': None}, children=[Element(tag='option', attrs={'value': ''}, children=['No trip context'])]).attrs
+E    +        where Element(tag='select', attrs={'id': 'assistant-trip', 'name': 'trip_id', 'disabled': None}, children=[Element(tag='option', attrs={'value': ''}, children=['No trip context'])]) = find('select', name='trip_id')
+E    +          where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+_______________ test_catalog_answer_cites_actual_internal_source _______________
+tests/test_phase10_assistant_ui.py:57: in test_catalog_answer_cites_actual_internal_source
+    response=send(client,parse_page,'Tell me about the Eiffel Tower')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_ui.py:12: in send
+    return browser.post('/assistant',data={'question':question,'csrf_token':token.attrs['value'],**extra})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/werkzeug/test.py:1171: in post
+    return self.open(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/testing.py:235: in open
+    response = super().open(
+/home/agent/.local/lib/python3.12/site-packages/werkzeug/test.py:1120: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/werkzeug/test.py:992: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/werkzeug/test.py:1268: in run_wsgi_app
+    app_rv = app(environ, start_response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+/home/agent/.local/lib/python3.12/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+assistant_web.py:44: in conversation
+    answer=fallback_answer(question,notice)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+assistant_answers.py:79: in fallback_answer
+    sources=sources_for(question)
+            ^^^^^^^^^^^^^^^^^^^^^
+assistant_answers.py:72: in sources_for
+    sources.extend(catalog_source(place) for _,place in candidates[:3-len(sources)])
+assistant_answers.py:72: in <genexpr>
+    sources.extend(catalog_source(place) for _,place in candidates[:3-len(sources)])
+                   ^^^^^^^^^^^^^^^^^^^^^
+assistant_answers.py:48: in catalog_source
+    f"Illustrative estimate: {place['currency']} {format_money(place['estimated_cost'],currency=place['currency'])}. "
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+money.py:44: in format_money
+    rounded = amount.quantize(spec.quantum, rounding=ROUND_HALF_UP)
+              ^^^^^^^^^^^^^^^
+E   AttributeError: 'str' object has no attribute 'quantize'
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_ui.py::test_assistant_page_is_usable_honest_and_has_samples
+FAILED tests/test_phase10_assistant_ui.py::test_catalog_answer_cites_actual_internal_source
+2 failed, 18 passed in 0.77s

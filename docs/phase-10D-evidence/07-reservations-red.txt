@@ -1,0 +1,129 @@
+FFFFFFFFFFFF                                                             [100%]
+=================================== FAILURES ===================================
+_________________ test_per_account_sliding_minute_and_restart __________________
+tests/test_phase10_assistant_limits.py:42: in test_per_account_sliding_minute_and_restart
+    for _ in range(5):store.finish(store.reserve('a'*64))
+                                   ^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+___________________ test_account_daily_twenty_and_utc_reset ____________________
+tests/test_phase10_assistant_limits.py:54: in test_account_daily_twenty_and_utc_reset
+    store.finish(store.reserve('a'*64));clock[0]+=61
+                 ^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+________ test_global_daily_hundred_cannot_be_bypassed_with_new_accounts ________
+tests/test_phase10_assistant_limits.py:62: in test_global_daily_hundred_cannot_be_bypassed_with_new_accounts
+    for number in range(100):store.finish(store.reserve(f'{number:064x}'))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+__________ test_concurrency_and_release_are_shared_and_count_attempts __________
+tests/test_phase10_assistant_limits.py:70: in test_concurrency_and_release_are_shared_and_count_attempts
+    one=store.reserve('a'*64)
+        ^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+___________ test_abandoned_running_lease_fails_closed_after_restart ____________
+tests/test_phase10_assistant_limits.py:84: in test_abandoned_running_lease_fails_closed_after_restart
+    one=store.reserve('a'*64);two=store.reserve('b'*64)
+        ^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+_______________ test_atomic_admission_with_separate_connections ________________
+tests/test_phase10_assistant_limits.py:97: in test_atomic_admission_with_separate_connections
+    with ThreadPoolExecutor(max_workers=3) as workers:results=list(workers.map(attempt,range(3)))
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:619: in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:317: in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_phase10_assistant_limits.py:95: in attempt
+    try:return module.Limits(store.database,clock=lambda:clock[0]).reserve(f'{number:064x}')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+___________________ test_clock_rollback_cannot_reopen_quota ____________________
+tests/test_phase10_assistant_limits.py:103: in test_clock_rollback_cannot_reopen_quota
+    store.finish(store.reserve('a'*64));clock[0]-=1
+                 ^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+__________ test_invalid_account_identifier_never_consumes_quota[None] __________
+tests/test_phase10_assistant_limits.py:110: in test_invalid_account_identifier_never_consumes_quota
+    with pytest.raises(ValueError):store.reserve(account)
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+____________ test_invalid_account_identifier_never_consumes_quota[] ____________
+tests/test_phase10_assistant_limits.py:110: in test_invalid_account_identifier_never_consumes_quota
+    with pytest.raises(ValueError):store.reserve(account)
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+___________ test_invalid_account_identifier_never_consumes_quota[a] ____________
+tests/test_phase10_assistant_limits.py:110: in test_invalid_account_identifier_never_consumes_quota
+    with pytest.raises(ValueError):store.reserve(account)
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+_ test_invalid_account_identifier_never_consumes_quota[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] _
+tests/test_phase10_assistant_limits.py:110: in test_invalid_account_identifier_never_consumes_quota
+    with pytest.raises(ValueError):store.reserve(account)
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+_ test_invalid_account_identifier_never_consumes_quota[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] _
+tests/test_phase10_assistant_limits.py:110: in test_invalid_account_identifier_never_consumes_quota
+    with pytest.raises(ValueError):store.reserve(account)
+                                   ^^^^^^^^^^^^^^^^^^^^^^
+assistant_limits.py:59: in reserve
+    def reserve(self,account_id):raise NotImplementedError('Quota reservation is not implemented.')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   NotImplementedError: Quota reservation is not implemented.
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_limits.py::test_per_account_sliding_minute_and_restart
+FAILED tests/test_phase10_assistant_limits.py::test_account_daily_twenty_and_utc_reset
+FAILED tests/test_phase10_assistant_limits.py::test_global_daily_hundred_cannot_be_bypassed_with_new_accounts
+FAILED tests/test_phase10_assistant_limits.py::test_concurrency_and_release_are_shared_and_count_attempts
+FAILED tests/test_phase10_assistant_limits.py::test_abandoned_running_lease_fails_closed_after_restart
+FAILED tests/test_phase10_assistant_limits.py::test_atomic_admission_with_separate_connections
+FAILED tests/test_phase10_assistant_limits.py::test_clock_rollback_cannot_reopen_quota
+FAILED tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[None]
+FAILED tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[]
+FAILED tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[a]
+FAILED tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+FAILED tests/test_phase10_assistant_limits.py::test_invalid_account_identifier_never_consumes_quota[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+12 failed, 2 deselected in 0.35s

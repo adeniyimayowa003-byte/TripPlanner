@@ -1,0 +1,346 @@
+--- a/app.py
++++ b/app.py
+@@ -5,7 +5,9 @@
+ import re
+ import secrets
+ 
+-from flask import Flask, flash, g, redirect, render_template, request, session, url_for
++from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
++
++from help_content import FAQ_VERSION, search_faq
+ 
+ from catalog import (
+     get_supported_destinations,
+@@ -55,6 +57,7 @@
+         DATABASE=os.environ.get("TRIPPLANNER_DATABASE")
+         or str(Path(app.instance_path) / "tripplanner.sqlite3"),
+         DATABASE_TIMEOUT=5.0,
++        PHASE10_HELP_ENABLED=True,
+     )
+     if test_config is not None:
+         app.config.update(test_config)
+@@ -102,7 +105,8 @@
+         # In particular, rendering a saved 404 must not validate/pop a draft.
+         saved_page = request.path == "/trips" or request.path.startswith("/trips/")
+         return {
+-            "current_draft": None if saved_page or request.endpoint in {"image_credits", "about"} else current_draft(),
++            "current_draft": None if saved_page or request.endpoint in {"image_credits", "about", "help_page"} else current_draft(),
++            "help_enabled": bool(app.config.get("PHASE10_HELP_ENABLED")),
+             "csrf_token": get_csrf_token,
+             "maps_url": build_maps_url,
+             "photo_for_place": photo_for_place,
+@@ -127,6 +131,13 @@
+                 except ValueError:
+                     g.current_draft = None
+                     return render_template("error.html", message="This form's currency could not be verified. Open the planner and try again."), 400
++
++    @app.get("/help")
++    def help_page():
++        if not app.config.get("PHASE10_HELP_ENABLED"):
++            abort(404)
++        query = request.args.get("q", "")[:200]
++        return render_template("help.html", query=query, faqs=search_faq(query), faq_version=FAQ_VERSION)
+ 
+     @app.get("/")
+     def home():
+--- a/build_windows.py
++++ b/build_windows.py
+@@ -16,10 +16,10 @@
+ from version import APP_VERSION
+ 
+ ROOT = Path(__file__).resolve().parent
+-MODULES = ("app", "app_runtime", "catalog", "csrf", "currencies", "currency_context", "drafts",
++MODULES = ("app", "app_runtime", "help_content", "catalog", "csrf", "currencies", "currency_context", "drafts",
+            "itinerary", "maps", "money", "photos", "preferences", "recommendations", "saved_trips",
+            "snapshots", "version", "windows_app")
+-TEMPLATES = ("_itinerary_days", "_photos", "_place_location", "about", "base", "credits", "error", "index",
++TEMPLATES = ("_itinerary_days", "_photos", "_place_location", "about", "base", "credits", "error", "index", "help",
+              "itinerary", "recommendations", "saved_error", "saved_trip", "saved_trips", "trip_preferences")
+ DOCUMENTS = ("LICENSE", "PHOTO_CREDITS.md", "CODE_LICENSE.md", "PRIVACY.md", "THIRD_PARTY_NOTICES.md", "packaging/windows/README.txt",
+              "third_party/webview2/LICENSE.txt", "third_party/webview2/NOTICE.txt")
+--- /dev/null
++++ b/help_content.py
+@@ -0,0 +1,93 @@
++"""Approved, versioned self-service guidance; no provider or storage access."""
++from dataclasses import dataclass
++
++FAQ_VERSION = 1
++
++
++@dataclass(frozen=True)
++class FAQ:
++    id: str
++    question: str
++    answer: str
++    source: str
++
++
++_FAQ = (
++    FAQ("cities", "Which cities can I plan?",
++        "Paris, Lagos, London, New York City, Tokyo and Cape Town are the six curated cities. "
++        "The catalog contains 48 sourced venues. This is not worldwide live travel search.",
++        "README.md; data/destinations.json; data/places.json"),
++    FAQ("allowance", "What does my allowance cover?",
++        "Your allowance is the total activities and food budget per person for the whole trip, "
++        "in the destination currency. It is not a payment to TripPlanner or a booking. "
++        "The planner divides it across your days; rounded daily displays do not authorize overspending. "
++        "Flights, accommodation, transport and missing meals are excluded. Unallocated money is not "
++        "guaranteed savings or proof that your real holiday fits the budget. Currency changes require "
++        "review; no exchange-rate conversion is performed.",
++        "specs/phase-05-itinerary.md §5; specs/phase-08-expanded-release.md; money.py; itinerary.py"),
++    FAQ("gaps", "Why are itinerary slots or meals missing?",
++        "The greedy scheduler selects matching catalog ideas without repeating places, using your "
++        "interests, allowance, pace and family-friendly preference. Limited coverage or combined daily "
++        "costs can leave gaps. Restaurants are evening suggestions, at most one per day; an activity "
++        "is not a meal. Empty slots are not free activities. Meals are not fully covered. Try changing "
++        "your preferences or make independent arrangements. The schedule is not an optimal route.",
++        "specs/phase-05-itinerary.md; itinerary.py"),
++    FAQ("estimates", "Are prices, opening hours and time slots verified live?",
++        "Costs and time slots are illustrative estimates. Check venue sources for current prices, "
++        "opening hours, availability and suitability before traveling. TripPlanner does not verify "
++        "live prices, routing, accessibility or dietary requirements and cannot make bookings.",
++        "README.md; specs/phase-08-expanded-release.md"),
++    FAQ("saving", "How do saving and browser cookies work?",
++        "On the hosted website a protected signed cookie separates anonymous collections. It renews "
++        "for 365 days on valid visits. Clearing cookies, private browsing, changing browser/profile/device "
++        "or expiry can lose access. People sharing a browser profile share guest access. There is "
++        "no account recovery or cross-device sync in this release. Cookie expiry does not delete stored "
++        "rows. Avoid sensitive information in trip names. Local preview collections are shared by "
++        "browsers using that same preview database.",
++        "PRIVACY.md; hosted.py"),
++    FAQ("snapshots", "Why did a saved estimate not update?",
++        "A saved trip is an immutable historical v1/v2 snapshot: original preferences, results and "
++        "estimates are kept. Editing your draft or the catalog does not rewrite it. Generate a new "
++        "trip for a new calculation. An unavailable historical snapshot is not silently reset.",
++        "specs/phase-06-saved-trips.md; snapshots.py"),
++    FAQ("maps", "How do Google Maps links work?",
++        "Maps buttons open an external Google Maps page for a public venue. Internet and service "
++        "access may be needed. No API key, embedded map or booking is supplied. External services "
++        "have their own privacy policies; the planner remains usable without opening those links.",
++        "PRIVACY.md; maps.py"),
++    FAQ("hosting", "Why does the online demo take time to open?",
++        "Free hosting can sleep while idle and wake slowly. Wait and retry rather than repeatedly "
++        "submitting saves. Free-service quotas may interrupt availability. There is no fixed wake-up "
++        "time or continuous-uptime guarantee. Hosted saves use a separate persistent online database.",
++        "specs/phase-09-free-demo.md; PRIVACY.md"),
++    FAQ("native", "Why are my Windows, Android and online saved trips different?",
++        "Each native device/profile and the hosted website have independent collections. The current "
++        "downloadable apps do not upload or synchronize their local trips automatically. On-device "
++        "planning and local saves work offline; the hosted website needs internet. An online sign-in "
++        "would not by itself import an offline collection. Existing downloads are unchanged.",
++        "PRIVACY.md; android_runtime.py; app_runtime.py"),
++    FAQ("unavailable", "Where are accounts and the AI assistant?",
++        "Accounts and cross-device account access are proposed future increments and are unavailable "
++        "here. There is no integrated AI travel/help assistant in this release. The existing planner "
++        "uses explainable scoring rules and a greedy scheduler, not an LLM. Guest planning and this "
++        "Help page need no identity or model provider. A ChatGPT subscription does not supply website "
++        "API access. No paid upgrade is required to use this planner.",
++        "README.md; approved Phase 10 specification"),
++    FAQ("themes", "How do Light, Dark and device themes work?",
++        "Choose Appearance to use Light, Dark or your device setting. The preference belongs to this "
++        "browser/origin, not a cloud account. Without JavaScript the page follows the device setting. "
++        "Changing appearance does not change your trip or its saved snapshot.",
++        "specs/phase-07-appearance.md; static/js/appearance.js"),
++    FAQ("support", "Can I contact customer support or get emergency assistance?",
++        "This is self-service guidance for a student project. There is no staffed support service, "
++        "support inbox, ticket queue or response-time promise. TripPlanner is not an emergency service "
++        "and does not monitor emergencies. This Help page explains the project's actual limits.",
++        "approved Phase 10 specification"),
++)
++
++
++def search_faq(query):
++    """Return immutable matching records; bounded plain-text search, no regex."""
++    terms = str(query)[:200].strip().casefold().split()
++    return tuple(item for item in _FAQ
++                 if all(term in (item.question + " " + item.answer).casefold() for term in terms))
+--- a/static/css/style.css
++++ b/static/css/style.css
+@@ -1,3 +1,13 @@
++.help-page { padding-block: 2rem; overflow-wrap: anywhere; }
++.help-page h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
++.help-page h2 { font-size: 1.35rem; }
++.help-search { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; }
++.help-search label { flex-basis: 100%; }
++.help-search input { min-width: 0; max-width: 100%; flex: 1 1 15rem; padding: .7rem; background: var(--control-bg); color: var(--control-text); border: 1px solid var(--control-border); border-radius: .4rem; font: inherit; }
++.help-search button { padding: .7rem 1rem; background: var(--action-bg); color: var(--action-text); border: 0; border-radius: .4rem; font: inherit; cursor: pointer; }
++.help-answer { margin-block: 1.5rem; padding: 1.25rem; background: var(--surface-bg); border: 1px solid var(--line); border-radius: .5rem; scroll-margin-top: 1rem; }
++.help-answer p { max-width: 75ch; line-height: 1.65; }
++.help-source { color: var(--text-muted); font-size: .9rem; }
+ .place-location { margin: 12px 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--text-muted); overflow-wrap: anywhere; }
+ .place-location p { margin: 0 0 7px; font-size: 12px; }
+ .place-location small { display: block; margin-top: 5px; font-size: 10px; }
+--- a/templates/base.html
++++ b/templates/base.html
+@@ -17,6 +17,7 @@
+   <header class="site-header page-width">
+     <a class="brand" href="{{ url_for('home') }}" aria-label="TripPlanner home"><span class="brand-mark" aria-hidden="true">T<span>↗</span></span><span>tripplanner<span class="brand-period">.</span></span></a>
+     <nav aria-label="Main navigation">
++      {% if help_enabled %}<a href="{{ url_for('help_page') }}"{% if request.endpoint == 'help_page' %} aria-current="page"{% endif %}>Help &amp; FAQs</a>{% endif %}
+       {% if request.endpoint == 'home' %}
+       <a class="nav-explain" href="#how-it-works">How it works</a>
+       <a href="{{ url_for('saved_trips') }}">Saved trips</a>
+--- /dev/null
++++ b/templates/help.html
+@@ -0,0 +1,26 @@
++{% extends 'base.html' %}
++{% block title %}Help & FAQs — TripPlanner{% endblock %}
++{% block content %}
++<div class="page-width help-page">
++  <h1>Help &amp; FAQs</h1>
++  <p>Self-service guidance for the current TripPlanner release. No sign-in or AI service is needed.</p>
++  <form action="{{ url_for('help_page') }}" method="get" class="help-search">
++    <label for="help-query">Search questions and answers</label>
++    <input id="help-query" name="q" type="search" maxlength="200" value="{{ query }}" placeholder="Try allowance, meals or saving">
++    <button type="submit">Search Help</button>
++    <a href="{{ url_for('help_page') }}">Show all questions</a>
++  </form>
++  <p role="status">{{ faqs|length }} matching question{% if faqs|length != 1 %}s{% endif %}.{% if not faqs %} No matching questions. Try a shorter search or show all questions.{% endif %}</p>
++  {% if faqs %}<nav aria-label="Help topics"><ul>
++    {% for faq in faqs %}<li><a href="#{{ faq.id }}">{{ faq.question }}</a></li>{% endfor %}
++  </ul></nav>{% endif %}
++  {% for faq in faqs %}
++  <section id="{{ faq.id }}" class="help-answer" aria-labelledby="{{ faq.id }}-heading">
++    <h2 id="{{ faq.id }}-heading">{{ faq.question }}</h2>
++    <p>{{ faq.answer }}</p>
++    <p class="help-source">Project source: {{ faq.source }} · FAQ version {{ faq_version }}</p>
++  </section>
++  {% endfor %}
++  <p><a href="{{ url_for('plan') }}">Plan a trip</a> · <a href="{{ url_for('about') }}">About &amp; privacy</a></p>
++</div>
++{% endblock %}
+--- /dev/null
++++ b/tests/test_phase10_help.py
+@@ -0,0 +1,132 @@
++"""Phase 10A contracts: real Flask clients, no external services or user data."""
++import importlib
++from pathlib import Path
++import sqlite3
++
++import pytest
++
++
++@pytest.mark.parametrize("path", ["/", "/plan", "/trips", "/about"])
++def test_help_navigation(client, parse_page, path):
++    page = parse_page(client.get(path))
++    assert page.find("a", href="/help") is not None
++
++
++def test_help_is_complete_without_javascript(client, parse_page):
++    response = client.get("/help")
++    assert response.status_code == 200
++    page = parse_page(response)
++    assert len(page.find_all("h1")) == 1
++    for topic in ("cities", "allowance", "gaps", "estimates", "saving", "snapshots",
++                  "maps", "hosting", "native", "unavailable", "themes", "support"):
++        assert page.find("section", id=topic) is not None
++        assert page.find("a", href="#" + topic) is not None
++    assert page.find("label", **{"for": "help-query"}) is not None
++    assert page.find("form", method="get", action="/help") is not None
++    assert page.find("a", href="/help").text
++
++
++@pytest.mark.parametrize("query,expected", [("cookie", "saving"), ("ALLOWANCE", "allowance"),
++                                          ("  maps  ", "maps"), ("Tokyo", "cities")])
++def test_server_search(client, parse_page, query, expected):
++    response = client.get("/help", query_string={"q": query})
++    assert response.status_code == 200
++    assert parse_page(response).find("section", id=expected) is not None
++
++
++def test_empty_search_and_escaped_input(client, parse_page):
++    response = client.get("/help", query_string={"q": '<script>alert("x")</script>'})
++    assert response.status_code == 200
++    assert '<script>alert("x")</script>' not in response.text
++    page = parse_page(response)
++    assert "No matching questions" in page.text
++    assert page.find("p", role="status") is not None
++    assert page.find("input", name="q").attrs["value"] == '<script>alert("x")</script>'
++
++
++def test_query_is_bounded(client, parse_page):
++    response = client.get("/help", query_string={"q": "x" * 1000})
++    assert response.status_code == 200
++    assert len(parse_page(response).find("input", name="q").attrs["value"]) <= 200
++
++
++def test_help_does_not_load_catalog_or_storage_or_change_draft(app, client, monkeypatch):
++    import app as web
++    def forbidden(*args, **kwargs):
++        pytest.fail("Help must work independently of catalog and saved storage.")
++    for name in ("load_catalog", "load_destinations", "list_trips", "save_trip", "get_trip"):
++        monkeypatch.setattr(web, name, forbidden)
++    with client.session_transaction() as session:
++        session["trip_draft"] = {"private": "stale-draft-sentinel"}
++    assert client.get("/help").status_code == 200
++    with client.session_transaction() as session:
++        assert session["trip_draft"] == {"private": "stale-draft-sentinel"}
++    assert not Path(app.config["DATABASE"]).exists()
++
++
++def test_help_switch_disables_route_and_link(app, client, parse_page):
++    app.config["PHASE10_HELP_ENABLED"] = False
++    assert client.get("/help").status_code == 404
++    assert parse_page(client.get("/")).find("a", href="/help") is None
++
++
++def test_allowance_and_current_feature_truth(client, parse_page):
++    response = client.get("/help")
++    assert response.status_code == 200
++    text = parse_page(response).text.casefold()
++    for phrase in ("per person", "total", "flights", "accommodation", "transport",
++                   "missing meals", "not a payment", "365", "no account recovery",
++                   "no integrated ai", "self-service", "not an emergency service"):
++        assert phrase in text
++
++
++def test_faq_unit_content_is_versioned_and_search_does_not_mutate():
++    faq = importlib.import_module("help_content")
++    before = faq.search_faq("")
++    assert faq.FAQ_VERSION == 1
++    assert len(before) == 12
++    assert len({item.id for item in before}) == 12
++    assert all(item.source and item.answer and item.question for item in before)
++    assert [item.id for item in faq.search_faq("cookie")] == ["saving"]
++    assert faq.search_faq("no-match-zzzz") == ()
++    assert faq.search_faq("") == before
++
++
++def test_native_source_staging_includes_help_without_building():
++    import build_windows
++    import build_android
++    root = Path(__file__).resolve().parents[1]
++    for builder in (build_windows, build_android):
++        paths = builder.application_files(root)
++        assert "help_content.py" in paths
++        assert "templates/help.html" in paths
++
++
++def test_hosted_help_preserves_snapshot_and_foreign_denial(tmp_path):
++    from hosted import create_hosted_app
++    directory = tmp_path / "durable"
++    directory.mkdir()
++    app = create_hosted_app({"TRIPPLANNER_SECRET_KEY": "ab" * 32,
++                             "TRIPPLANNER_PUBLIC_HOST": "planner.example",
++                             "TRIPPLANNER_STORAGE_DIR": str(directory)})
++    owner = app.test_client()
++    foreign = app.test_client()
++    origin = "https://planner.example"
++    assert owner.get("/help", base_url=origin).status_code == 200
++    # Insert synthetic unavailable historical text directly: Help must never
++    # deserialize, normalize or reset even a damaged legacy snapshot.
++    import hashlib
++    from hosted import _serializer, VISITOR_COOKIE
++    token = _serializer(app).loads(owner.get_cookie(VISITOR_COOKIE, domain="planner.example").value)
++    digest = hashlib.sha256(token.encode("ascii")).hexdigest()
++    database = directory / "hosted-trips.sqlite3"
++    with sqlite3.connect(database) as db:
++        db.execute("INSERT INTO saved_trips(owner,title,created_at,fingerprint,snapshot_json) VALUES(?,?,?,?,?)",
++                   (digest, "private synthetic", "2026-11-01", "a" * 64, ' { "legacy": true } '))
++        before = db.execute("SELECT * FROM saved_trips").fetchall()
++    response = owner.get("/help", base_url=origin)
++    assert response.status_code == 200
++    assert response.headers["Cache-Control"] == "private, no-store"
++    assert foreign.get("/trips/1", base_url=origin).status_code == 404
++    with sqlite3.connect(database) as db:
++        assert db.execute("SELECT * FROM saved_trips").fetchall() == before

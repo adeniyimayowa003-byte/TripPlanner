@@ -1,5 +1,7 @@
 # TripPlanner
 
+**Cloud source candidate — 16 November 2026:** This bundle adds a usable in-app FAQ/catalog assistant and a tested, gated server model adapter while preserving the earlier account-session foundation. Live AI and actual sign-in remain disabled. Read [the current assistant handoff](PHASE-10-ASSISTANT-HANDOFF.md) for actual tests, limitations and provider decisions. The deployed site and existing downloads below are unchanged; their historical verification is not validation of a new deployment.
+
 A local-first travel planner built for an AI Programming class. Choose a city, allowance, interests, and pace; get explained recommendations, a daily itinerary, and saved trip snapshots.
 
 **Version:** 0.8.0-demo.2 · **Original code:** [MIT](LICENSE) · **Coverage:** six curated cities · **AI:** explainable rules and scheduling

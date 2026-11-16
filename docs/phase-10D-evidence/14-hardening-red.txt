@@ -1,0 +1,36 @@
+.FFF.F..                                                                 [100%]
+=================================== FAILURES ===================================
+________ test_privacy_script_exists_in_rendered_page_and_native_staging ________
+tests/test_phase10_assistant_hardening.py:32: in test_privacy_script_exists_in_rendered_page_and_native_staging
+    assert page.find('script',src='/static/js/assistant_privacy.js')
+E   AssertionError: assert None
+E    +  where None = find('script', src='/static/js/assistant_privacy.js')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+__ test_actual_privacy_script_clears_dom_without_network_or_storage[pagehide] __
+tests/test_phase10_assistant_hardening.py:43: in test_actual_privacy_script_clears_dom_without_network_or_storage
+    assert script.is_file()
+E   AssertionError: assert False
+E    +  where False = is_file()
+E    +    where is_file = PosixPath('/workspace/scratch/bab8f95031a0/phase10assistant/TripPlanner/static/js/assistant_privacy.js').is_file
+__ test_actual_privacy_script_clears_dom_without_network_or_storage[pageshow] __
+tests/test_phase10_assistant_hardening.py:43: in test_actual_privacy_script_clears_dom_without_network_or_storage
+    assert script.is_file()
+E   AssertionError: assert False
+E    +  where False = is_file()
+E    +    where is_file = PosixPath('/workspace/scratch/bab8f95031a0/phase10assistant/TripPlanner/static/js/assistant_privacy.js').is_file
+_ test_documented_compatible_endpoint_paths_are_explicitly_allowlisted[/openai/v1/chat/completions] _
+tests/test_phase10_assistant_hardening.py:64: in test_documented_compatible_endpoint_paths_are_explicitly_allowlisted
+    config=EndpointConfig('https://model.example'+path,'model.example','m','FAKE')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<string>:7: in __init__
+    ???
+assistant_provider.py:38: in __post_init__
+    if not valid:raise ValueError('Configure an approved server-only HTTPS model endpoint.')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ValueError: Configure an approved server-only HTTPS model endpoint.
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_hardening.py::test_privacy_script_exists_in_rendered_page_and_native_staging
+FAILED tests/test_phase10_assistant_hardening.py::test_actual_privacy_script_clears_dom_without_network_or_storage[pagehide]
+FAILED tests/test_phase10_assistant_hardening.py::test_actual_privacy_script_clears_dom_without_network_or_storage[pageshow]
+FAILED tests/test_phase10_assistant_hardening.py::test_documented_compatible_endpoint_paths_are_explicitly_allowlisted[/openai/v1/chat/completions]
+4 failed, 4 passed in 0.44s

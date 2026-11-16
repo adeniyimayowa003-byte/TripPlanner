@@ -1,0 +1,127 @@
+{
+  "based_on": "TripPlanner-phase-10A-tested-source.zip",
+  "input_sha256": "ad94159095eeccdf5028a41016fe2f2dd03a7da690a40737954545cd68d73bae",
+  "scope": "dormant identity/session foundation; development SQLite adapter only",
+  "new_test_cases": 77,
+  "final_result": {
+    "passed": 1773,
+    "skipped": 9,
+    "failed": 0,
+    "seconds": 33.81
+  },
+  "existing_files_modified": [],
+  "deleted_files": [],
+  "added_files": [
+    {
+      "path": "PHASE-10B-HANDOFF.md",
+      "status": "added",
+      "sha256": "77ac33c0b00ba960c1610ec6ebb044536b2c27f17f9a5ab7f2907144855c103d"
+    },
+    {
+      "path": "account_sessions.py",
+      "status": "added",
+      "sha256": "579ee3af2a95084917caf9eeac1842124a037d8be0f883c7ef86f972eabc67aa"
+    },
+    {
+      "path": "docs/phase-10B-evidence/01-module-absence.txt",
+      "status": "added",
+      "sha256": "f96759d3d21094a9f0f567ee8f24900c7472b41fe3f64878e6ff9b40986ff8af"
+    },
+    {
+      "path": "docs/phase-10B-evidence/02-store-red.txt",
+      "status": "added",
+      "sha256": "2049c4a410e58db9957df67508199c3b19ce4c755773f6d0337b668e3e864889"
+    },
+    {
+      "path": "docs/phase-10B-evidence/03-store-green.txt",
+      "status": "added",
+      "sha256": "7108cfc4a66cbd3f2dc2907c6c0c1bca04257dc216d17007bc61504c52486720"
+    },
+    {
+      "path": "docs/phase-10B-evidence/04-issue-red.txt",
+      "status": "added",
+      "sha256": "ffa11ac95ca8715c932ebf11ca48017ee694b5cccf1b4edc8ab4ce3793096591"
+    },
+    {
+      "path": "docs/phase-10B-evidence/05-issue-green.txt",
+      "status": "added",
+      "sha256": "2d2d1757929ff1a400d12f1dcb3d79edb8c05561a00dce88d72cdf6c2f9ed855"
+    },
+    {
+      "path": "docs/phase-10B-evidence/06-lifetime-red.txt",
+      "status": "added",
+      "sha256": "a50f54113434434a41af4f4a3864ea2c15583b1f61be26a43c793fc29bf15922"
+    },
+    {
+      "path": "docs/phase-10B-evidence/07-lifetime-green.txt",
+      "status": "added",
+      "sha256": "7fb6472ebbd4c2076c14b39e2a58e20626276b5a548320384d0312495a083214"
+    },
+    {
+      "path": "docs/phase-10B-evidence/08-revocation-red.txt",
+      "status": "added",
+      "sha256": "60e3e29b8768f8e75f35ed7e95488619e8aa4a71be24bc08974812c60f5c165c"
+    },
+    {
+      "path": "docs/phase-10B-evidence/09-foundation-green.txt",
+      "status": "added",
+      "sha256": "7849bc2d5c507158c7d4a65468de175e3afb8373ecd36576a707584a38c552b2"
+    },
+    {
+      "path": "docs/phase-10B-evidence/10-hardening-red.txt",
+      "status": "added",
+      "sha256": "6d387a096084acf358e8a7f7ea0442e858acce56e553a7a571d412ee56d3feba"
+    },
+    {
+      "path": "docs/phase-10B-evidence/11-foundation-green.txt",
+      "status": "added",
+      "sha256": "fc82636f53815fb0bbfdc8e43cf64a9dd890f8c1352feaa702102e1135e6fa80"
+    },
+    {
+      "path": "docs/phase-10B-evidence/12-final-regression.txt",
+      "status": "added",
+      "sha256": "59fef4c543401501cd0670070315dc8ee9afb5da56fc4dd55f47e4e34d53ab2e"
+    },
+    {
+      "path": "docs/phase-10B-evidence/environment.json",
+      "status": "added",
+      "sha256": "97e3220c1fc87e4e8d5e861e193140ad619dbf86338a15f654e5d24ad6e123fa"
+    },
+    {
+      "path": "plans/phase-10B-session-foundation.md",
+      "status": "added",
+      "sha256": "7b4089fd47df90c641a5c7b8e91974a5f274e8540384a28a40cc68109b21a047"
+    },
+    {
+      "path": "tests/test_phase10_account_hardening.py",
+      "status": "added",
+      "sha256": "e00733822243ea13f9e934596e3f22d1a727419c71131c28fd0a418b7ec33ea5"
+    },
+    {
+      "path": "tests/test_phase10_account_issue.py",
+      "status": "added",
+      "sha256": "ca079128c9ed5739b13ab7e3144ea75c0570f4a3892536361e5322cee00f12a0"
+    },
+    {
+      "path": "tests/test_phase10_account_lifetime.py",
+      "status": "added",
+      "sha256": "49b459fd33a75b6af716a0c70c759b4da6281248c05fb16b8b0e7239fb4345ea"
+    },
+    {
+      "path": "tests/test_phase10_account_revocation.py",
+      "status": "added",
+      "sha256": "17966c7513ced384c04c99f672e3986d317ef4e321069cd7deb78e2f3d3f7a19"
+    },
+    {
+      "path": "tests/test_phase10_account_store.py",
+      "status": "added",
+      "sha256": "b7da0c8904c1232302547709e0c96983a893b9695c4f1fd0a4e13b9803cbbad5"
+    }
+  ],
+  "known_limits": [
+    "OIDC/provider/recovery UI not implemented",
+    "PostgreSQL unavailable; nine tests skipped",
+    "not wired to app factories",
+    "no deployment or production changes"
+  ]
+}

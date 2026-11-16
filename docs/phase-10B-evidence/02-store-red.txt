@@ -1,0 +1,127 @@
+FFFFFFFFFFFFFFFF.FFFF.                                                   [100%]
+=================================== FAILURES ===================================
+________ test_identity_rejects_unverified_or_malformed_values[changes0] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes1] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes2] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes3] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes4] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes5] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes6] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes7] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes8] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+________ test_identity_rejects_unverified_or_malformed_values[changes9] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_identity_rejects_unverified_or_malformed_values[changes10] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_identity_rejects_unverified_or_malformed_values[changes11] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_identity_rejects_unverified_or_malformed_values[changes12] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_identity_rejects_unverified_or_malformed_values[changes13] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_identity_rejects_unverified_or_malformed_values[changes14] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_identity_rejects_unverified_or_malformed_values[changes15] ________
+tests/test_phase10_account_store.py:25: in test_identity_rejects_unverified_or_malformed_values
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_create_only_separate_store_with_private_permissions ___________
+tests/test_phase10_account_store.py:41: in test_create_only_separate_store_with_private_permissions
+    module.create_store(path)
+account_sessions.py:18: in create_store
+    raise NotImplementedError('Account store creation is not implemented.')
+E   NotImplementedError: Account store creation is not implemented.
+____________ test_existing_guest_database_cannot_be_reset_or_opened ____________
+tests/test_phase10_account_store.py:62: in test_existing_guest_database_cannot_be_reset_or_opened
+    module.create_store(path)
+account_sessions.py:18: in create_store
+    raise NotImplementedError('Account store creation is not implemented.')
+E   NotImplementedError: Account store creation is not implemented.
+_____ test_missing_file_parent_and_relative_paths_never_create_implicitly ______
+tests/test_phase10_account_store.py:71: in test_missing_file_parent_and_relative_paths_never_create_implicitly
+    with pytest.raises(module.AccountStoreUnavailable):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE AccountStoreUnavailable
+___________ test_symlink_and_incompatible_marker_fail_without_reset ____________
+tests/test_phase10_account_store.py:83: in test_symlink_and_incompatible_marker_fail_without_reset
+    module.create_store(path)
+account_sessions.py:18: in create_store
+    raise NotImplementedError('Account store creation is not implemented.')
+E   NotImplementedError: Account store creation is not implemented.
+=========================== short test summary info ============================
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes0]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes1]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes2]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes3]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes4]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes5]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes6]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes7]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes8]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes9]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes10]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes11]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes12]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes13]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes14]
+FAILED tests/test_phase10_account_store.py::test_identity_rejects_unverified_or_malformed_values[changes15]
+FAILED tests/test_phase10_account_store.py::test_create_only_separate_store_with_private_permissions
+FAILED tests/test_phase10_account_store.py::test_existing_guest_database_cannot_be_reset_or_opened
+FAILED tests/test_phase10_account_store.py::test_missing_file_parent_and_relative_paths_never_create_implicitly
+FAILED tests/test_phase10_account_store.py::test_symlink_and_incompatible_marker_fail_without_reset
+20 failed, 2 passed in 0.16s

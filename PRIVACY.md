@@ -1,5 +1,17 @@
 # TripPlanner privacy and offline behavior
 
+## Assistant source candidate — 16 November 2026
+
+The updated source candidate includes an assistant page with deterministic FAQ/catalog answers. This does not change the current deployed release or downloadable apps. A question is submitted to the app server as a POST, displayed as escaped text and not saved as an application transcript or placed in the signed draft cookie. Avoid sensitive information in questions. Hosted use sends the question to the host over HTTPS; a hosted website still needs internet. Normal host connection/operational metadata policies remain separate from application logging.
+
+No live language-model provider or verified account sign-in is configured in this candidate. Its optional model path is disabled unless trusted server dependencies establish verified authority, approved free-only/privacy settings and a concrete provider/region/retention/terms disclosure. Question-transfer consent and separate single-trip consent are unchecked and required on every request. Anonymous saves and offline collections are not model context and are never claimed, synchronized or uploaded by this page. No model API credential is exposed to a browser or bundled into native source staging.
+
+The implemented model adapter was tested with simulated provider transport only, not a live model. Future activation requires the remaining real authentication/account ownership and durable PostgreSQL work, actual provider terms/tokenization/privacy/billing checks and secure server configuration. UI readiness flags or an API key alone are insufficient. Provider questions would include only approved sources and explicitly selected authorized context, with no email, account token, private row ID or unrelated collection.
+
+Questions and replies remain transient in the request/worker and displayed page, not browser local/session storage. Late results lose authority on logout/session expiry/ownership loss; old private turns and trip options are withheld when authority is revoked during a request. No-store/no-referrer headers and DOM-clearing on navigation provide defense in depth; actual browser Back-cache behavior has not been verified. Development quota storage contains only pseudonymous account identifiers, timestamps and reservation state, no conversation content. It is not wired to production or used as an ephemeral hosted fallback.
+
+The existing release privacy details below remain applicable to its guest/local/native storage boundaries. No new analytics, advertisements, payment, model training consent or automatic uploads are introduced.
+
 TripPlanner is a class-project planner with independent local/native applications and a [public classroom demo](https://tripplanner-mayowa.onrender.com/). See the [free hosting guide](docs/free-demo-hosting.md) for configuration and limits. It has no accounts, advertising, analytics, GPS collection, booking, payment, or automatic upload from the downloadable apps. It uses your chosen city, allowance, interests, pace, and optional family-friendly preference to rank bundled ideas.
 
 ## Hosted website mode

@@ -1,0 +1,90 @@
+FFFFFFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+____________ test_revoke_one_leaves_other_device_and_other_account _____________
+tests/test_phase10_account_revocation.py:24: in test_revoke_one_leaves_other_device_and_other_account
+    store.revoke(one.token)
+account_sessions.py:225: in revoke
+    raise NotImplementedError('Session revocation is not implemented.')
+E   NotImplementedError: Session revocation is not implemented.
+_______ test_all_device_logout_requires_recent_authentication[299-True] ________
+tests/test_phase10_account_revocation.py:37: in test_all_device_logout_requires_recent_authentication
+    assert store.revoke_all(one.token) is allowed
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:228: in revoke_all
+    raise NotImplementedError('All-session revocation is not implemented.')
+E   NotImplementedError: All-session revocation is not implemented.
+_______ test_all_device_logout_requires_recent_authentication[300-False] _______
+tests/test_phase10_account_revocation.py:37: in test_all_device_logout_requires_recent_authentication
+    assert store.revoke_all(one.token) is allowed
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:228: in revoke_all
+    raise NotImplementedError('All-session revocation is not implemented.')
+E   NotImplementedError: All-session revocation is not implemented.
+_______ test_all_device_logout_requires_recent_authentication[301-False] _______
+tests/test_phase10_account_revocation.py:37: in test_all_device_logout_requires_recent_authentication
+    assert store.revoke_all(one.token) is allowed
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:228: in revoke_all
+    raise NotImplementedError('All-session revocation is not implemented.')
+E   NotImplementedError: All-session revocation is not implemented.
+_______ test_all_device_revocation_survives_restart_and_allows_new_login _______
+tests/test_phase10_account_revocation.py:44: in test_all_device_revocation_survives_restart_and_allows_new_login
+    assert store.revoke_all(one.token)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:228: in revoke_all
+    raise NotImplementedError('All-session revocation is not implemented.')
+E   NotImplementedError: All-session revocation is not implemented.
+____________ test_internal_recovery_hook_invalidates_exact_identity ____________
+tests/test_phase10_account_revocation.py:55: in test_internal_recovery_hook_invalidates_exact_identity
+    assert store.invalidate_identity('https://issuer.example','A')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:231: in invalidate_identity
+    raise NotImplementedError('Identity invalidation is not implemented.')
+E   NotImplementedError: Identity invalidation is not implemented.
+_________ test_authorization_checks_current_account_and_ownership_kind _________
+tests/test_phase10_account_revocation.py:67: in test_authorization_checks_current_account_and_ownership_kind
+    assert store.authorize(one.token,owner_kind='account',owner_id=owner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:222: in authorize
+    raise NotImplementedError('Account ownership checks are not implemented.')
+E   NotImplementedError: Account ownership checks are not implemented.
+______ test_purge_expired_records_preserves_accounts_and_active_sessions _______
+tests/test_phase10_account_revocation.py:80: in test_purge_expired_records_preserves_accounts_and_active_sessions
+    assert store.purge_expired()==1
+           ^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:234: in purge_expired
+    raise NotImplementedError('Session cleanup is not implemented.')
+E   NotImplementedError: Session cleanup is not implemented.
+_______________ test_issue_vs_recovery_has_a_serializable_result _______________
+tests/test_phase10_account_revocation.py:98: in test_issue_vs_recovery_has_a_serializable_result
+    assert invalidated.result()
+           ^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+account_sessions.py:231: in invalidate_identity
+    raise NotImplementedError('Identity invalidation is not implemented.')
+E   NotImplementedError: Identity invalidation is not implemented.
+_____________ test_storage_loss_fails_closed_instead_of_recreating _____________
+tests/test_phase10_account_revocation.py:113: in test_storage_loss_fails_closed_instead_of_recreating
+    store.authorize(one.token,owner_kind='account',owner_id=one.principal.account_id)
+account_sessions.py:222: in authorize
+    raise NotImplementedError('Account ownership checks are not implemented.')
+E   NotImplementedError: Account ownership checks are not implemented.
+=========================== short test summary info ============================
+FAILED tests/test_phase10_account_revocation.py::test_revoke_one_leaves_other_device_and_other_account
+FAILED tests/test_phase10_account_revocation.py::test_all_device_logout_requires_recent_authentication[299-True]
+FAILED tests/test_phase10_account_revocation.py::test_all_device_logout_requires_recent_authentication[300-False]
+FAILED tests/test_phase10_account_revocation.py::test_all_device_logout_requires_recent_authentication[301-False]
+FAILED tests/test_phase10_account_revocation.py::test_all_device_revocation_survives_restart_and_allows_new_login
+FAILED tests/test_phase10_account_revocation.py::test_internal_recovery_hook_invalidates_exact_identity
+FAILED tests/test_phase10_account_revocation.py::test_authorization_checks_current_account_and_ownership_kind
+FAILED tests/test_phase10_account_revocation.py::test_purge_expired_records_preserves_accounts_and_active_sessions
+FAILED tests/test_phase10_account_revocation.py::test_issue_vs_recovery_has_a_serializable_result
+FAILED tests/test_phase10_account_revocation.py::test_storage_loss_fails_closed_instead_of_recreating
+10 failed in 0.19s

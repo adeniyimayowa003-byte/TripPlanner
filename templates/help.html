@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Help & FAQs — TripPlanner{% endblock %}
+{% block content %}
+<div class="page-width help-page">
+  <h1>Help &amp; FAQs</h1>
+  <p>Self-service guidance for the current TripPlanner release. No sign-in or AI service is needed.</p>
+  <form action="{{ url_for('help_page') }}" method="get" class="help-search">
+    <label for="help-query">Search questions and answers</label>
+    <input id="help-query" name="q" type="search" maxlength="200" value="{{ query }}" placeholder="Try allowance, meals or saving">
+    <button type="submit">Search Help</button>
+    <a href="{{ url_for('help_page') }}">Show all questions</a>
+  </form>
+  <p role="status">{{ faqs|length }} matching question{% if faqs|length != 1 %}s{% endif %}.{% if not faqs %} No matching questions. Try a shorter search or show all questions.{% endif %}</p>
+  {% if faqs %}<nav aria-label="Help topics"><ul>
+    {% for faq in faqs %}<li><a href="#{{ faq.id }}">{{ faq.question }}</a></li>{% endfor %}
+  </ul></nav>{% endif %}
+  {% for faq in faqs %}
+  <section id="{{ faq.id }}" class="help-answer" aria-labelledby="{{ faq.id }}-heading">
+    <h2 id="{{ faq.id }}-heading">{{ faq.question }}</h2>
+    <p>{{ faq.answer }}</p>
+    <p class="help-source">Project source: {{ faq.source }} · FAQ version {{ faq_version }}</p>
+  </section>
+  {% endfor %}
+  <p><a href="{{ url_for('plan') }}">Plan a trip</a> · <a href="{{ url_for('about') }}">About &amp; privacy</a></p>
+</div>
+{% endblock %}

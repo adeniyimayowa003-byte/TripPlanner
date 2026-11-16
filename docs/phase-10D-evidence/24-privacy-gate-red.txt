@@ -1,0 +1,24 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_missing_provider_disclosure_blocks_model _________________
+tests/test_phase10_assistant_privacy_gate.py:8: in test_missing_provider_disclosure_blocks_model
+    assert 'FAQ fallback' in send(browser,parse_page).text
+E   assert 'FAQ fallback' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tatic/js/images.js" defer></script>\n  <script src="/static/js/assistant_privacy.js" defer></script>\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tatic/js/images.js" defer></script>\n  <script src="/static/js/assistant_privacy.js" defer></script>\n</body>\n</html>' = <WrapperTestResponse 6541 bytes [200 OK]>.text
+E    +    where <WrapperTestResponse 6541 bytes [200 OK]> = send(<FlaskClient <Flask 'app'>>, <function parse_page.<locals>.parse at 0x7f5792dc2b60>)
+_________________ test_invalid_disclosure_cannot_enable_model __________________
+tests/test_phase10_assistant_privacy_gate.py:15: in test_invalid_disclosure_cannot_enable_model
+    assert 'FAQ fallback' in send(browser,parse_page).text
+E   assert 'FAQ fallback' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tatic/js/images.js" defer></script>\n  <script src="/static/js/assistant_privacy.js" defer></script>\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tatic/js/images.js" defer></script>\n  <script src="/static/js/assistant_privacy.js" defer></script>\n</body>\n</html>' = <WrapperTestResponse 6541 bytes [200 OK]>.text
+E    +    where <WrapperTestResponse 6541 bytes [200 OK]> = send(<FlaskClient <Flask 'app'>>, <function parse_page.<locals>.parse at 0x7f5792db6020>)
+____ test_processor_region_retention_and_terms_are_visible_before_question _____
+tests/test_phase10_assistant_privacy_gate.py:22: in test_processor_region_retention_and_terms_are_visible_before_question
+    assert 'Synthetic Test Provider' in page.text
+E   AssertionError: assert 'Synthetic Test Provider' in 'AI travel/help assistant — TripPlanner Skip to content T ↗ tripplanner . Assistant Help & FAQs Home Saved trips Appea...ower T ↗ tripplanner . Made for the way you like to wander. Photo credits & licenses ↗ v0.8.0-demo.2 · About & privacy'
+E    +  where 'AI travel/help assistant — TripPlanner Skip to content T ↗ tripplanner . Assistant Help & FAQs Home Saved trips Appea...ower T ↗ tripplanner . Made for the way you like to wander. Photo credits & licenses ↗ v0.8.0-demo.2 · About & privacy' = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta..., Element(tag='script', attrs={'src': '/static/js/assistant_privacy.js', 'defer': None}, children=[]), '\n']), '\n'])]).text
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_privacy_gate.py::test_missing_provider_disclosure_blocks_model
+FAILED tests/test_phase10_assistant_privacy_gate.py::test_invalid_disclosure_cannot_enable_model
+FAILED tests/test_phase10_assistant_privacy_gate.py::test_processor_region_retention_and_terms_are_visible_before_question
+3 failed in 0.32s

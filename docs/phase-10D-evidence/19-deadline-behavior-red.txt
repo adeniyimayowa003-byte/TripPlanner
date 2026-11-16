@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_already_expired_request_budget_prevents_provider_call __________
+tests/test_phase10_assistant_deadline.py:10: in test_already_expired_request_budget_prevents_provider_call
+    assert answer.mode=='faq' and provider.calls==[]
+E   AssertionError: assert ('model' == 'faq'
+E     
+E     - faq
+E     + model)
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_deadline.py::test_already_expired_request_budget_prevents_provider_call
+1 failed in 0.25s

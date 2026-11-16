@@ -1,0 +1,62 @@
+F...........FF...F.........FFFF                                          [100%]
+=================================== FAILURES ===================================
+_____________ test_model_pipeline_is_integrated_in_real_flask_page _____________
+tests/test_phase10_assistant_runtime.py:79: in test_model_pipeline_is_integrated_in_real_flask_page
+    assert 'AI-selected sources' in response.text
+E   assert 'AI-selected sources' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' = <WrapperTestResponse 6415 bytes [200 OK]>.text
+___________ test_no_trip_is_sent_without_separate_selection_consent ____________
+tests/test_phase10_assistant_runtime.py:113: in test_no_trip_is_sent_without_separate_selection_consent
+    assert provider.calls[0].get('trip') is None
+           ^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range
+___________ test_explicit_selected_trip_is_projected_and_authorized ____________
+tests/test_phase10_assistant_runtime.py:122: in test_explicit_selected_trip_is_projected_and_authorized
+    assert response.status_code==200 and len(provider.calls)==1
+E   assert (200 == 200 and 0 == 1)
+E    +  where 200 = <WrapperTestResponse streamed [200 OK]>.status_code
+E    +  and   0 = len([])
+E    +    where [] = <test_phase10_assistant_runtime.FakeProvider object at 0x7fc7376f7e30>.calls
+___________ test_revocation_while_provider_runs_discards_late_result ___________
+tests/test_phase10_assistant_runtime.py:141: in test_revocation_while_provider_runs_discards_late_result
+    assert len(provider.calls)==1
+E   assert 0 == 1
+E    +  where 0 = len([])
+E    +    where [] = <test_phase10_assistant_runtime.FakeProvider object at 0x7fc73780fa40>.calls
+_________ test_input_budget_rejects_before_call_and_quota_stays_usable _________
+tests/test_phase10_assistant_runtime.py:182: in test_input_budget_rejects_before_call_and_quota_stays_usable
+    assert 'AI-selected sources' in send(browser,parse_page).text
+E   assert 'AI-selected sources' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' = <WrapperTestResponse 6415 bytes [200 OK]>.text
+E    +    where <WrapperTestResponse 6415 bytes [200 OK]> = send(<FlaskClient <Flask 'app'>>, <function parse_page.<locals>.parse at 0x7fc73774fc40>)
+______________________ test_request_timeout_and_no_retry _______________________
+tests/test_phase10_assistant_runtime.py:192: in test_request_timeout_and_no_retry
+    assert 'FAQ fallback' in response.text and len(provider.calls)==1
+E   assert ('FAQ fallback' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' and 0 == 1)
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' = <WrapperTestResponse 6415 bytes [200 OK]>.text
+E    +  and   0 = len([])
+E    +    where [] = <test_phase10_assistant_runtime.FakeProvider object at 0x7fc7375bbe00>.calls
+_____________________ test_quota_fallback_and_input_limits _____________________
+tests/test_phase10_assistant_runtime.py:200: in test_quota_fallback_and_input_limits
+    assert 'FAQ fallback' in response.text and len(provider.calls)==5
+E   assert ('FAQ fallback' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' and 0 == 5)
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...bout &amp; privacy</a></span>\n  </footer>\n  <script src="/static/js/images.js" defer></script>\n  \n</body>\n</html>' = <WrapperTestResponse 6415 bytes [200 OK]>.text
+E    +  and   0 = len([])
+E    +    where [] = <test_phase10_assistant_runtime.FakeProvider object at 0x7fc7377deff0>.calls
+____________ test_selected_trip_citation_page_checks_current_owner _____________
+tests/test_phase10_assistant_runtime.py:206: in test_selected_trip_citation_page_checks_current_owner
+    assert browser.get('/assistant/context/selected-private-id',base_url='https://localhost').status_code==200
+E   AssertionError: assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+E    +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/assistant/context/selected-private-id', base_url='https://localhost')
+E    +      where get = <FlaskClient <Flask 'app'>>.get
+=========================== short test summary info ============================
+FAILED tests/test_phase10_assistant_runtime.py::test_model_pipeline_is_integrated_in_real_flask_page
+FAILED tests/test_phase10_assistant_runtime.py::test_no_trip_is_sent_without_separate_selection_consent
+FAILED tests/test_phase10_assistant_runtime.py::test_explicit_selected_trip_is_projected_and_authorized
+FAILED tests/test_phase10_assistant_runtime.py::test_revocation_while_provider_runs_discards_late_result
+FAILED tests/test_phase10_assistant_runtime.py::test_input_budget_rejects_before_call_and_quota_stays_usable
+FAILED tests/test_phase10_assistant_runtime.py::test_request_timeout_and_no_retry
+FAILED tests/test_phase10_assistant_runtime.py::test_quota_fallback_and_input_limits
+FAILED tests/test_phase10_assistant_runtime.py::test_selected_trip_citation_page_checks_current_owner
+8 failed, 23 passed in 1.39s

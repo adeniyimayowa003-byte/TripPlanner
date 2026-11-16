@@ -1,0 +1,332 @@
+{
+  "date": "2026-11-16",
+  "input_library_file_id": "libfile_3c5f13bb22a081919caa289a4e02ecab",
+  "input_sha256": "5e3080b357de0d8bd9a266410847a5e59d2fed711cb2df9a06be138033917755",
+  "classification": "usable FAQ conversation UI plus tested but unconfigured/gated server LLM adapter",
+  "live_model_calls": 0,
+  "actual_signin_enabled": false,
+  "production_changes": false,
+  "baseline": {
+    "passed": 1773,
+    "skipped": 9
+  },
+  "assistant_suite": {
+    "passed": 101,
+    "failed": 0
+  },
+  "final_regression": {
+    "passed": 1874,
+    "skipped": 9,
+    "failed": 0,
+    "seconds": 48.96
+  },
+  "source_audit_findings": 0,
+  "changes": [
+    {
+      "path": "PHASE-10-ASSISTANT-HANDOFF.md",
+      "status": "added",
+      "sha256": "4e82a34d917a467b96fa5d0e415745d1379dc6fecdef0aaa15f35075b6766566"
+    },
+    {
+      "path": "PRIVACY.md",
+      "status": "modified",
+      "sha256": "02312c80c54a6a84747e6e0446fa36c36fd224996c334c9d12ef1090a99c07d2"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "sha256": "985d56dfd101a12353ab06392d7c0b4f34b9ffcbe88b0ca009746e50e522292c"
+    },
+    {
+      "path": "app.py",
+      "status": "modified",
+      "sha256": "c22af10f9aeaab1727681b66d9bd9237fcae8e7288503cb6511eb28dfddb14f9"
+    },
+    {
+      "path": "assistant_answers.py",
+      "status": "added",
+      "sha256": "37d7277bec163a19755e9fa015cec86a48ca2dbd14eff54c9d53d8bd301be954"
+    },
+    {
+      "path": "assistant_limits.py",
+      "status": "added",
+      "sha256": "e10f865a013551d2d7877e3ab38a7469a839626a2a86b6f79a183da3b025fc3b"
+    },
+    {
+      "path": "assistant_provider.py",
+      "status": "added",
+      "sha256": "868fa3ade0dc5f9180ef0316e43c05a757d56f9fa8aac21271e5fccdc2846bdd"
+    },
+    {
+      "path": "assistant_runtime.py",
+      "status": "added",
+      "sha256": "354a8dadd4b549431914dbd2fcfc302ac4205657a9696e5eb92e40a7637d7d6b"
+    },
+    {
+      "path": "assistant_web.py",
+      "status": "added",
+      "sha256": "1f1813a9b62e0632b910600ef032282a143b1e28152c5939f90b7a6a1d232be9"
+    },
+    {
+      "path": "build_android.py",
+      "status": "modified",
+      "sha256": "69872328e3630a3df059f477c75b70fec756167f251fadb90ffb6de03b3fe079"
+    },
+    {
+      "path": "build_windows.py",
+      "status": "modified",
+      "sha256": "4573c6007d7e381774613102c31d401c9f059e6ac28be1be1edd0a59da01efaa"
+    },
+    {
+      "path": "docs/phase-10D-evidence/01-ui-red.txt",
+      "status": "added",
+      "sha256": "f7097e1d0b048e2e69865debacfc9468300e334541770a481d31fa4f8fef033c"
+    },
+    {
+      "path": "docs/phase-10D-evidence/02-ui-green.txt",
+      "status": "added",
+      "sha256": "43be26f4814ffb4d6d6f4ac00fe4bd50a6c94aae2654a6e317fa2f6a7c44393d"
+    },
+    {
+      "path": "docs/phase-10D-evidence/03-ui-green.txt",
+      "status": "added",
+      "sha256": "724f634265b75ee6850ad4de1e57eb84f33334021b83e46974756e9e2b9d3b9f"
+    },
+    {
+      "path": "docs/phase-10D-evidence/04-limits-absence.txt",
+      "status": "added",
+      "sha256": "c6df2c01994510ce663d1fa071eb3d224e5cffdddfd11a34443095620f2b48fc"
+    },
+    {
+      "path": "docs/phase-10D-evidence/05-limits-store-red.txt",
+      "status": "added",
+      "sha256": "96263c2bf71bd50f71875a069b9445805bc72b6df3275828a878cab1d0112654"
+    },
+    {
+      "path": "docs/phase-10D-evidence/06-limits-store-green.txt",
+      "status": "added",
+      "sha256": "dd5e52d0309474fef4bf8ec78f55ceaac27d26d870d8e80003285aad75323292"
+    },
+    {
+      "path": "docs/phase-10D-evidence/07-reservations-red.txt",
+      "status": "added",
+      "sha256": "9586ab2dd92c5922184b01639d91eb4caf5e27034ebea579c6f4bb9c532beef6"
+    },
+    {
+      "path": "docs/phase-10D-evidence/08-limits-green.txt",
+      "status": "added",
+      "sha256": "b35589acd987ba6ee2282bbc4591d8c3043a09bd0cadac0d5bf1ad43c0728ab3"
+    },
+    {
+      "path": "docs/phase-10D-evidence/09-runtime-red.txt",
+      "status": "added",
+      "sha256": "b87236c377a623d4c8c758bfcdc8c5a5adb05eb0bc99af0c6cc9a2e343809e0e"
+    },
+    {
+      "path": "docs/phase-10D-evidence/10-runtime-green.txt",
+      "status": "added",
+      "sha256": "938b83487e679e3bc3720bbab2431821d63698b92725872be653b41bdf5d0cdb"
+    },
+    {
+      "path": "docs/phase-10D-evidence/11-provider-red.txt",
+      "status": "added",
+      "sha256": "b1290aac225a420cfea6c2d1a54118f329558ad5a85cb24058e7e1f48dfb425a"
+    },
+    {
+      "path": "docs/phase-10D-evidence/12-provider-green.txt",
+      "status": "added",
+      "sha256": "75dd5011aaf0cfb47371b28ef247febe5563634e5776266aa1e79884fe1b0a0a"
+    },
+    {
+      "path": "docs/phase-10D-evidence/13-regression.txt",
+      "status": "added",
+      "sha256": "b9fff6dd33803795dedceb81da5edc5963e3bbfeb30f43e83b6bb9daafc10b5a"
+    },
+    {
+      "path": "docs/phase-10D-evidence/14-hardening-red.txt",
+      "status": "added",
+      "sha256": "b4e475cd27172a7bc66b60eda69a9124f649e1b2c794913af500d0229ec2463a"
+    },
+    {
+      "path": "docs/phase-10D-evidence/15-hardening-green.txt",
+      "status": "added",
+      "sha256": "535717a218b386f5b1ac4695ca50a439cc2cb7f0aeba877619bcfe2e0706d02c"
+    },
+    {
+      "path": "docs/phase-10D-evidence/16-disclosure-red.txt",
+      "status": "added",
+      "sha256": "1a5190529e477604a3b08154781c588665c7f415aae504378f977db860779507"
+    },
+    {
+      "path": "docs/phase-10D-evidence/17-disclosure-green.txt",
+      "status": "added",
+      "sha256": "7eb1170525a0fed0e7fc4d3d58456d3ea41f52bc959226f3d1c599ed8b486464"
+    },
+    {
+      "path": "docs/phase-10D-evidence/18-deadline-red.txt",
+      "status": "added",
+      "sha256": "1fdd9d024fdab536caee09bc83692aa59943653d2d7d6a95dbfec99ce12d25d4"
+    },
+    {
+      "path": "docs/phase-10D-evidence/19-deadline-behavior-red.txt",
+      "status": "added",
+      "sha256": "40dcafeda8f4f6d0483f4b5b3dcb06c50410e8d327f1a0c65505ed9f66539b72"
+    },
+    {
+      "path": "docs/phase-10D-evidence/20-deadline-green.txt",
+      "status": "added",
+      "sha256": "f140e43a5b9ab7defcff408562528d6edf6f15e74810833b63e756cbff131078"
+    },
+    {
+      "path": "docs/phase-10D-evidence/21-retry-red.txt",
+      "status": "added",
+      "sha256": "798be1627199b9d00b145807906fbc78cd922683d1554ad804f835e8574fed73"
+    },
+    {
+      "path": "docs/phase-10D-evidence/22-assistant-green.txt",
+      "status": "added",
+      "sha256": "a84e508ba60b7a1714834ef60de39b030d1125370bd389b8f14d9faf836fd360"
+    },
+    {
+      "path": "docs/phase-10D-evidence/23-final-regression.txt",
+      "status": "added",
+      "sha256": "4d37a22815676f9d658043b9e0a3ebbb642ba01c2ef221215d7ec677a7bc1a37"
+    },
+    {
+      "path": "docs/phase-10D-evidence/24-privacy-gate-red.txt",
+      "status": "added",
+      "sha256": "8020fd08c200d0faf30339317bd3680e121869722af6028883f535bda017046d"
+    },
+    {
+      "path": "docs/phase-10D-evidence/25-final-assistant-green.txt",
+      "status": "added",
+      "sha256": "4191a32d3c830c6df8cbd368799149ed0e83be8437faf1697385058fdc0f0136"
+    },
+    {
+      "path": "docs/phase-10D-evidence/26-inflight-privacy-red.txt",
+      "status": "added",
+      "sha256": "07b5edce74e4c41eea2ae053e8a11444d8569505be0bfd38dfcfad89a3f633d6"
+    },
+    {
+      "path": "docs/phase-10D-evidence/27-complete-assistant-green.txt",
+      "status": "added",
+      "sha256": "a507aa6f0580e5b438f6f75a96aa30c6531eaaad83cf0a01287ec4a6c3c6d97f"
+    },
+    {
+      "path": "docs/phase-10D-evidence/28-final-regression.txt",
+      "status": "added",
+      "sha256": "b100141a71ec2d4287f6fdcfa597c60fc1c1f80c2f3037dd462f2f9856842972"
+    },
+    {
+      "path": "docs/phase-10D-evidence/29-source-audit.txt",
+      "status": "added",
+      "sha256": "4f07dd8e6ed391c21a086ba4097bbec249e5d91c588b6493c0a6e8a3633f1999"
+    },
+    {
+      "path": "docs/phase-10D-evidence/baseline.txt",
+      "status": "added",
+      "sha256": "03991b2cb489eaf6b3a69fc6f646670bff85754f7421edc91aa728ace23ff584"
+    },
+    {
+      "path": "docs/phase-10D-evidence/environment.json",
+      "status": "added",
+      "sha256": "54027e8ad0e21f2436444eb4bb1c127ef3fce3a38502337eae5401995e1a5d22"
+    },
+    {
+      "path": "docs/phase-10D-provider-decisions.md",
+      "status": "added",
+      "sha256": "c7970a3d474cae15616ad6a7bbaf8269660d18d2f23ed268fe5ae12d9f02bd29"
+    },
+    {
+      "path": "help_content.py",
+      "status": "modified",
+      "sha256": "a61105de42e0f5d2533b843d8e75fe6a81082c06f53681966be848f9059b9208"
+    },
+    {
+      "path": "plans/phase-10D-assistant-increment.md",
+      "status": "added",
+      "sha256": "67b548bb4527177224521d8a23d50e13d37e7b87ebc5a863c7c3b2487e505e03"
+    },
+    {
+      "path": "static/css/style.css",
+      "status": "modified",
+      "sha256": "c78222eeefa19a998ec04ab96d849dcaace80ac2a1f777580778ce1195fa8748"
+    },
+    {
+      "path": "static/js/assistant_privacy.js",
+      "status": "added",
+      "sha256": "19f7807fffa8b5743453f889b0c95c555d0f6431f3445a3ef0a6c4c80c4e3426"
+    },
+    {
+      "path": "templates/assistant.html",
+      "status": "added",
+      "sha256": "5f62c87bbc56fdb48435292189308121110df9aa6e1472f15a0ee7d3bb2a8199"
+    },
+    {
+      "path": "templates/assistant_source.html",
+      "status": "added",
+      "sha256": "a5a0c9bb3ad085f1f37cc62481d4abc2f20310730216491a63eed7ce77608aef"
+    },
+    {
+      "path": "templates/base.html",
+      "status": "modified",
+      "sha256": "2a7cd75178c478ccd46b51f03811139af41dee493e4829b50b8cab775d3be772"
+    },
+    {
+      "path": "tests/test_phase10_assistant_deadline.py",
+      "status": "added",
+      "sha256": "a65c4b62909cf7dc6f28da1cf7c0a74c865767e9e3a2e75cdde773c53b150e54"
+    },
+    {
+      "path": "tests/test_phase10_assistant_disclosure.py",
+      "status": "added",
+      "sha256": "5add190975fe0e8699852fcaa65e8ae1ee4247d7e13f8fd142297a1110439cb1"
+    },
+    {
+      "path": "tests/test_phase10_assistant_hardening.py",
+      "status": "added",
+      "sha256": "b0abe49712073a17a8d6e357f432423dd3af2375f96a85f24d1acb3c7124c5a2"
+    },
+    {
+      "path": "tests/test_phase10_assistant_limits.py",
+      "status": "added",
+      "sha256": "e6f7e4ca5051d1b430fd73c3e5a63c443a9f62ba387f2b11bd16dcc69de0b8cb"
+    },
+    {
+      "path": "tests/test_phase10_assistant_privacy_gate.py",
+      "status": "added",
+      "sha256": "e74bd0248800f8c3e765760923621419516d409dc3df3ae026112d10c8008199"
+    },
+    {
+      "path": "tests/test_phase10_assistant_provider.py",
+      "status": "added",
+      "sha256": "b7a8efcef6e18f14e2b6443ca30078d30040681d67d0b3530712679a14b9b348"
+    },
+    {
+      "path": "tests/test_phase10_assistant_runtime.py",
+      "status": "added",
+      "sha256": "1af90aec36982039dca2a0a1f7dea1618c7e4e318de97365863f140207981ecd"
+    },
+    {
+      "path": "tests/test_phase10_assistant_ui.py",
+      "status": "added",
+      "sha256": "553074aa6846b92117c05ed11b1134686edab695d6937f7d4923721a46dd8e43"
+    },
+    {
+      "path": "tests/test_phase10_help.py",
+      "status": "modified",
+      "sha256": "96e8f5a0938adf5e4a838f0d6943b65a1dc77594a4d9ff841f485be4005f9576"
+    }
+  ],
+  "deleted_files": [],
+  "remaining": [
+    "real OIDC/recovery/account flows",
+    "PostgreSQL accounts/quotas and actual isolated integration tests",
+    "atomic guest claims/deletion/restore",
+    "real owned-trip gateway",
+    "approved free provider/terms/tokenizer and secure credentials",
+    "live model call",
+    "browser/accessibility/Back-cache checks",
+    "native delivery verification"
+  ]
+}

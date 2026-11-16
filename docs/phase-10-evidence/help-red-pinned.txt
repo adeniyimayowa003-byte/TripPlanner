@@ -1,0 +1,116 @@
+FFFFFFFFFFFF.FFFF                                                        [100%]
+=================================== FAILURES ===================================
+___________________________ test_help_navigation[/] ____________________________
+tests/test_phase10_help.py:12: in test_help_navigation
+    assert page.find("a", href="/help") is not None
+E   AssertionError: assert None is not None
+E    +  where None = find('a', href='/help')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+_________________________ test_help_navigation[/plan] __________________________
+tests/test_phase10_help.py:12: in test_help_navigation
+    assert page.find("a", href="/help") is not None
+E   assert None is not None
+E    +  where None = find('a', href='/help')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta...sion": 0}}']), Element(tag='script', attrs={'src': '/static/js/plan.js', 'defer': None}, children=[]), '\n']), '\n'])]).find
+_________________________ test_help_navigation[/trips] _________________________
+tests/test_phase10_help.py:12: in test_help_navigation
+    assert page.find("a", href="/help") is not None
+E   AssertionError: assert None is not None
+E    +  where None = find('a', href='/help')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+_________________________ test_help_navigation[/about] _________________________
+tests/test_phase10_help.py:12: in test_help_navigation
+    assert page.find("a", href="/help") is not None
+E   AssertionError: assert None is not None
+E    +  where None = find('a', href='/help')
+E    +    where find = Element(tag='document', attrs={}, children=['\n', Element(tag='html', attrs={'lang': 'en'}, children=['\n', Element(ta... '\n  ', Element(tag='script', attrs={'src': '/static/js/images.js', 'defer': None}, children=[]), '\n  \n']), '\n'])]).find
+___________________ test_help_is_complete_without_javascript ___________________
+tests/test_phase10_help.py:17: in test_help_is_complete_without_javascript
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+______________________ test_server_search[cookie-saving] _______________________
+tests/test_phase10_help.py:33: in test_server_search
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+___________________ test_server_search[ALLOWANCE-allowance] ____________________
+tests/test_phase10_help.py:33: in test_server_search
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+______________________ test_server_search[  maps  -maps] _______________________
+tests/test_phase10_help.py:33: in test_server_search
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+_______________________ test_server_search[Tokyo-cities] _______________________
+tests/test_phase10_help.py:33: in test_server_search
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+_____________________ test_empty_search_and_escaped_input ______________________
+tests/test_phase10_help.py:39: in test_empty_search_and_escaped_input
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+____________________________ test_query_is_bounded _____________________________
+tests/test_phase10_help.py:49: in test_query_is_bounded
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+__________ test_help_does_not_load_catalog_or_storage_or_change_draft __________
+tests/test_phase10_help.py:61: in test_help_does_not_load_catalog_or_storage_or_change_draft
+    assert client.get("/help").status_code == 200
+E   AssertionError: assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+E    +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/help')
+E    +      where get = <FlaskClient <Flask 'app'>>.get
+___________________ test_allowance_and_current_feature_truth ___________________
+tests/test_phase10_help.py:75: in test_allowance_and_current_feature_truth
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+________ test_faq_unit_content_is_versioned_and_search_does_not_mutate _________
+tests/test_phase10_help.py:84: in test_faq_unit_content_is_versioned_and_search_does_not_mutate
+    faq = importlib.import_module("help_content")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1324: in _find_and_load_unlocked
+    ???
+E   ModuleNotFoundError: No module named 'help_content'
+__________ test_native_source_staging_includes_help_without_building ___________
+tests/test_phase10_help.py:101: in test_native_source_staging_includes_help_without_building
+    assert "help_content.py" in paths
+E   AssertionError: assert 'help_content.py' in ['CODE_LICENSE.md', 'LICENSE', 'PHOTO_CREDITS.md', 'PRIVACY.md', 'THIRD_PARTY_NOTICES.md', 'app.py', ...]
+____________ test_hosted_help_preserves_snapshot_and_foreign_denial ____________
+tests/test_phase10_help.py:115: in test_hosted_help_preserves_snapshot_and_foreign_denial
+    assert owner.get("/help", base_url=origin).status_code == 200
+E   AssertionError: assert 404 == 200
+E    +  where 404 = <WrapperTestResponse streamed [404 NOT FOUND]>.status_code
+E    +    where <WrapperTestResponse streamed [404 NOT FOUND]> = get('/help', base_url='https://planner.example')
+E    +      where get = <FlaskClient <Flask 'app'>>.get
+=========================== short test summary info ============================
+FAILED tests/test_phase10_help.py::test_help_navigation[/] - AssertionError: ...
+FAILED tests/test_phase10_help.py::test_help_navigation[/plan] - assert None ...
+FAILED tests/test_phase10_help.py::test_help_navigation[/trips] - AssertionEr...
+FAILED tests/test_phase10_help.py::test_help_navigation[/about] - AssertionEr...
+FAILED tests/test_phase10_help.py::test_help_is_complete_without_javascript
+FAILED tests/test_phase10_help.py::test_server_search[cookie-saving] - assert...
+FAILED tests/test_phase10_help.py::test_server_search[ALLOWANCE-allowance] - ...
+FAILED tests/test_phase10_help.py::test_server_search[  maps  -maps] - assert...
+FAILED tests/test_phase10_help.py::test_server_search[Tokyo-cities] - assert ...
+FAILED tests/test_phase10_help.py::test_empty_search_and_escaped_input - asse...
+FAILED tests/test_phase10_help.py::test_query_is_bounded - assert 404 == 200
+FAILED tests/test_phase10_help.py::test_help_does_not_load_catalog_or_storage_or_change_draft
+FAILED tests/test_phase10_help.py::test_allowance_and_current_feature_truth
+FAILED tests/test_phase10_help.py::test_faq_unit_content_is_versioned_and_search_does_not_mutate
+FAILED tests/test_phase10_help.py::test_native_source_staging_includes_help_without_building
+FAILED tests/test_phase10_help.py::test_hosted_help_preserves_snapshot_and_foreign_denial
+16 failed, 1 passed in 0.28s

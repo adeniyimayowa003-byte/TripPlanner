@@ -16,10 +16,10 @@ from photos import load_image_manifest
 from version import APP_VERSION
 
 ROOT = Path(__file__).resolve().parent
-MODULES = ("app", "app_runtime", "catalog", "csrf", "currencies", "currency_context", "drafts",
+MODULES = ("app", "app_runtime", "assistant_web", "assistant_answers", "help_content", "catalog", "csrf", "currencies", "currency_context", "drafts",
            "itinerary", "maps", "money", "photos", "preferences", "recommendations", "saved_trips",
            "snapshots", "version", "windows_app")
-TEMPLATES = ("_itinerary_days", "_photos", "_place_location", "about", "base", "credits", "error", "index",
+TEMPLATES = ("_itinerary_days", "_photos", "_place_location", "about", "base", "credits", "error", "index", "help", "assistant", "assistant_source",
              "itinerary", "recommendations", "saved_error", "saved_trip", "saved_trips", "trip_preferences")
 DOCUMENTS = ("LICENSE", "PHOTO_CREDITS.md", "CODE_LICENSE.md", "PRIVACY.md", "THIRD_PARTY_NOTICES.md", "packaging/windows/README.txt",
              "third_party/webview2/LICENSE.txt", "third_party/webview2/NOTICE.txt")
@@ -33,7 +33,7 @@ def application_files(root):
     manifest = load_image_manifest(root / "data/images.json")
     paths = [*(f"{name}.py" for name in MODULES), *(f"templates/{name}.html" for name in TEMPLATES),
              "data/places.json", "data/destinations.json", "data/images.json", "static/css/style.css",
-             "static/js/appearance.js", "static/js/images.js", "static/js/plan.js", "static/images/tripplanner.svg",
+             "static/js/appearance.js", "static/js/images.js", "static/js/plan.js", "static/js/assistant_privacy.js", "static/images/tripplanner.svg",
              *DOCUMENTS, *("static/" + asset["filename"] for asset in manifest["images"].values())]
     result = sorted(set(paths))
     for relative in result:
